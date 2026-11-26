@@ -1,0 +1,126 @@
+.banner-content {
+  &.left {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    right: auto;;
+    transform: translate(0%, -50%);
+    -webkit-transform: translate(0%, -50%);
+    -moz-transform: translate(0%, -50%);
+    -ms-transform: translate(0%, -50%);
+    -o-transform: translate(0%, -50%);
+    z-index: 1;
+  }
+  &.center {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate(0%, -50%);
+    -webkit-transform: translate(0%, -50%);
+    -moz-transform: translate(0%, -50%);
+    -ms-transform: translate(0%, -50%);
+    -o-transform: translate(0%, -50%);
+    z-index: 1;
+  }
+  &.right {
+    position: absolute;
+    top: 50%;
+    left: auto;
+    right: 5%;
+    transform: translate(0%, -50%);
+    -webkit-transform: translate(0%, -50%);
+    -moz-transform: translate(0%, -50%);
+    -ms-transform: translate(0%, -50%);
+    -o-transform: translate(0%, -50%);
+    z-index: 1;
+  }
+  .banner-title {
+    margin-top:0;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .banner-inner {
+    margin-bottom: 10px;
+    span{
+      color: #fff;
+    }
+  }
+}
+& when (@media-target = 'mobile'), (@media-target = 'all') {
+  @media only screen and (max-width: @screen__m) {
+    .banner-content
+    &.left {
+      padding: 0 10px;
+    }
+    &.center {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translate(0%, -50%);
+      -webkit-transform: translate(0%, -50%);
+      -moz-transform: translate(0%, -50%);
+      -ms-transform: translate(0%, -50%);
+      -o-transform: translate(0%, -50%);
+      z-index: 1;
+    }
+    &.right {
+      padding: 0 10px;
+    }
+
+  }
+}
+
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+  @media only screen and (min-width: @screen__l) {
+    .banner-content {
+    &.left {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      right: auto;;
+      transform: translate(0%, -50%);
+      -webkit-transform: translate(0%, -50%);
+      -moz-transform: translate(0%, -50%);
+      -ms-transform: translate(0%, -50%);
+      -o-transform: translate(0%, -50%);
+      z-index: 1;
+    }
+    &.center {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translate(0%, -50%);
+      -webkit-transform: translate(0%, -50%);
+      -moz-transform: translate(0%, -50%);
+      -ms-transform: translate(0%, -50%);
+      -o-transform: translate(0%, -50%);
+      z-index: 1;
+    }
+    &.right {
+      position: absolute;
+      top: 50%;
+      left: auto;
+      right: 5%;
+      transform: translate(0%, -50%);
+      -webkit-transform: translate(0%, -50%);
+      -moz-transform: translate(0%, -50%);
+      -ms-transform: translate(0%, -50%);
+      -o-transform: translate(0%, -50%);
+      z-index: 1;
+    }
+      .banner-title {
+        margin-top:0;
+        color: #fff;
+      }
+      .banner-inner {
+        margin-bottom: 10px;
+        span{
+          color: #fff;
+        }
+      }
+    }
+  }
+}

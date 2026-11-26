@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * Remote Facilities Management - Subcategory Grid
+ *
+ * Renders active subcategories of category ID 168 in a Hyva-compatible
+ * flip-card grid. Uses Digital\Homeboxes\Helper\Data for data access.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Digital\Homeboxes\Helper\Data           $helper
+ */
+
+/** @var \Digital\Homeboxes\Helper\Data $helper */
+$helper     = $block->getData('helper')
+    ?? $this->helper(\Digital\Homeboxes\Helper\Data::class);
+
+$categoryId   = 187; // Target parent category ID
+$buttonText = $helper->getButtonText() ?: __('View Range');
+
+try {
+    $products = $helper->getProductsByCategoryId($categoryId);
+} catch (\Exception $e) {
+    $products = [];
+}
+
+if (!$products || !count($products)) {
+    return;
+}
+$maxLength = 137;
+$ellipsis = "  [Read More]";
+?>
+<div class="container">
+    <div class="section-content text-center">
+        <h2 class="text-secondary">Hire Equipment</h2>
+    </div>
+    <div class="product-list grid gap grid-cols-1  xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-3 sl:grid-cols-3">
+        <?php foreach ($products as $product):
+            $productName  = $block->escapeHtml($product->getName());
+            $productUrl   = $product->getProductUrl();
+            $productPrice = $product->getFinalPrice();
+            $imageUrl     = $helper->getProductImageUrl($product);
+            $getShortDescription     = $product->getShortDescription();
+            $sku          = $block->escapeHtml($product->getSku());
+            if (!empty($getShortDescription)) {
+                if (strlen($getShortDescription) > $maxLength) {
+                    $truncatedString = substr($getShortDescription, 0, $maxLength) . $ellipsis;
+                } else {
+                    $truncatedString = $getShortDescription;
+                }
+            } else {
+                 $truncatedString ='';
+            }
+
+        ?>
+
+            <figure class="product">
+                <a class="product-img" title="<?= $productName; ?>"
+                    href="<?= $productUrl; ?>">
+                    <img title="<?= $productName; ?>" src="<?= $imageUrl; ?>" alt="<?= $productName; ?>">
+                </a>
+                <figcaption class="product-content">
+                    <h5 class="product-title">
+                        <a title="<?= $productName; ?>" href="<?= $productUrl; ?>"><?= $productName; ?></a>
+                    </h5>
+                    <p class="product-text"><a title="<?= $productName; ?>" href="<?= $productUrl; ?>"><?= $truncatedString; ?></a></p>
+                    <div class="flex-center product-actions">
+                        <a class="btn btn-primary product-atc-btn" title="VIEW DETAILS"
+                            href="<?= $productUrl; ?>">VIEW DETAILS</a>
+                    </div>
+                </figcaption>
+            </figure>
+
+        <?php endforeach; ?>
+
+    </div>
+</div>

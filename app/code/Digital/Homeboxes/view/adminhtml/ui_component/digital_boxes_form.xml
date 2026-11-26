@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">digital_boxes_form.digital_boxes_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Boxes Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Digital\Homeboxes\Block\Adminhtml\Homeboxes\Edit\Button\Back"/>
+            <button name="save_and_continue" class="Digital\Homeboxes\Block\Adminhtml\Homeboxes\Edit\Button\SaveAndContinueButton"/>
+            <button name="reset" class="Digital\Homeboxes\Block\Adminhtml\Homeboxes\Edit\Button\Reset"/>
+            <button name="save" class="Digital\Homeboxes\Block\Adminhtml\Homeboxes\Edit\Button\Save"/>
+            <button name="delete" class="Digital\Homeboxes\Block\Adminhtml\Homeboxes\Edit\Button\Delete"/>
+        </buttons>
+        <namespace>digital_boxes_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>digital_boxes_form.digital_boxes_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="digital_boxes_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <validateUrl path="homeboxes/boxes/validate"/>
+            <submitUrl path="homeboxes/boxes/save"/>
+        </settings>
+        <dataProvider class="Digital\Homeboxes\Model\Boxes\DataProvider" name="digital_boxes_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>boxes_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general" sortOrder="5">
+        <settings>
+            <collapsible>false</collapsible>
+            <label/>
+        </settings>
+        <field name="id" formElement="hidden">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+            </settings>
+        </field>
+        <field name="status" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="string">0</map>
+                            <map name="true" xsi:type="string">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="name" sortOrder="20" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>string</dataType>
+                <label translate="true">Name</label>
+            </settings>
+        </field>
+        <field name="title" sortOrder="30" formElement="input">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Title</label>
+            </settings>
+        </field>
+        <field name="boxes_url" sortOrder="40" formElement="input">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Url</label>
+                <notice>For external linking please add link with "http", for internal linking simple add after Base URL link for example "example.html".</notice>
+            </settings>
+        </field>
+
+
+        <field name="showinhomepage" sortOrder="44" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>boolean</dataType>
+                <label translate="true">Show on Home Page</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="string">0</map>
+                            <map name="true" xsi:type="string">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+
+        <!-- <field name="showinminingpage" sortOrder="45" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>boolean</dataType>
+                <label translate="true">Show on Mining Page</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="string">0</map>
+                            <map name="true" xsi:type="string">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field> -->
+
+
+        <field name="description" sortOrder="50" formElement="textarea">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Description</label>
+                <validation>
+                    <rule name="max_text_length" xsi:type="number">260</rule>
+                </validation>
+                <notice>Please add upto maximum 260 characters</notice>
+            </settings>
+        </field>
+        <field name="enable_button" sortOrder="60" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Button</label>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="string">0</map>
+                            <map name="true" xsi:type="string">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="button_text" sortOrder="70" formElement="input">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Button Text</label>
+                <imports>
+                    <link name="visible">ns = ${ $.ns }, index = enable_button:checked</link>
+                    <link name="disabled">!ns = ${ $.ns }, index = enable_button:checked</link>
+                </imports>
+                <notice>This will be displayed as a Text on button, Please add upto maximum 15 characters</notice>
+                <validation>
+                    <rule name="max_text_length" xsi:type="number">15</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="image_desktop" sortOrder="90" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="template" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="sortOrder" xsi:type="number">107</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Desktop Image</label>
+                <visible>true</visible>
+                <notice>Allowed image types: jpg, jpeg, png | Recommended Dimensions: W580px * H580px</notice>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>true</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="homeboxes/image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>homeboxes/boxes</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+                        <maxFileSize>2097152</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="image_tablet" sortOrder="100" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="template" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="sortOrder" xsi:type="number">108</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Tablet Image</label>
+                <visible>true</visible>
+                <required>false</required>
+                <notice>Allowed image types: jpg, jpeg, png | Recommended Dimensions: W354px * H354px</notice>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="homeboxes/image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>homeboxes/boxes</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>2097152</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="image_mobile" sortOrder="110" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">digital_boxes</item>
+                    <item name="template" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="sortOrder" xsi:type="number">109</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Mobile Image</label>
+                <visible>true</visible>
+                <required>false</required>
+                <notice>Allowed image types: jpg, jpeg, png | Recommended Dimensions: W374px * H374px</notice>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="homeboxes/image/upload"/>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>homeboxes/boxes</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>2097152</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="storeviews" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="number">110</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>int</dataType>
+                <tooltip>
+                    <link>https://docs.magento.com/m2/ce/user_guide/configuration/scope.html</link>
+                    <description>What is this?</description>
+                </tooltip>
+                <label translate="true">Store View</label>
+                <dataScope>store_id</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+        <field name="sort_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Sort Order</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">digital_box</item>
+                    <item name="sortOrder" xsi:type="number">111</item>
+                    <item name="dataScope" xsi:type="string">sort_order</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

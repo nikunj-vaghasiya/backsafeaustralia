@@ -1,0 +1,104 @@
+<section class="welcome-section bg-light-gray section-space">
+    <div class="container">
+        <div class="welcome-wrapper gap-x-[var(--gap)] xxl:gap-x-[160px] gap-y-[var(--content-space)] grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-2 sl:grid-cols-2">
+            <div class="welcome-content-col">
+                <!-- <h5 class="h5"><strong class="text-primary">Services</strong></h2> -->
+                <h2 class="h2">What we offer</h2>
+                <div class="cms-content">
+                    <p>Here at Backsafe Australia, we're committed to being a one-stop materials handling and storage solutions service provider to the entire Australian community by supporting the entire life-cycle of warehouse and storage facilities. And it's a commitment we take very seriously.</p>
+                    <p>Boasting more than two decades of experience in the industry, we understand the unique challenges customers face in mining, engineering, manufacturing and other top-notch commercial centres. We step into your shoes and promise to deliver the best materials-handling equipment and space management solutions!</p>
+                    <p>Our experienced team of professionals take pride in delivering products and services tailored specifically to your operations. We believe in offering the safest solutions to support the design and development of storage and space solutions. Besides the top materials handling equipment we offer, Backsafe Australia also leads the way in warehouse fit-outs, lean manufacturing and warehouse implementation and more. Delivering a complete service offering, we cover everything from design to installation to free assessment, technical advice, and maintenance services.</p>
+                    <p>Tell us about your workspace storage and efficiency challenges, and let us deliver the perfect solution.</p>
+                    <p>Backsafe Australia is your one-stop materials handling and storage solutions provider, offering comprehensive services to elevate your warehouse operations. From complete warehouse fitouts to custom or modified products - designed and manufactured specifically to suit your unique needs - we’re dedicated to creating efficient, tailored solutions.</p>
+                </div>
+            </div>
+            <div class="accordion-col">
+                  <div class="accordion service-details-accordion" x-data="{ accordion: 0 }">
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 1 ? null : 1" x-bind:class="accordion === 1 ? 'active' : ''">Equipment Servicing & Spare Parts</button>
+                        <div class="accordion-content" x-show="accordion === 1" x-bind:class="accordion === 1 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>With our exclusive brands STURGO® and WERKS®, we understand that our success as a business relies on our ability to provide the spare parts and service support for our brands. You can rest assured that when buying products from Backsafe Australia, not only do we supply quality equipment but we can also back this up with in-house equipment servicing, repairs, modifications and spare parts. Enquire about our equipment servicing plans today!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 2 ? null : 2" x-bind:class="accordion === 2 ? 'active' : ''">Custom Or Modified Products - Design & Manufacture</button>
+                        <div class="accordion-content" x-show="accordion === 2" x-bind:class="accordion === 2 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>The sky is the limit! We love challenges and opportunities to provide bespoke, innovative solutions for our clients. We regularly assist with developing site-specific or task-specific equipment that increase productivity and make tasks more enjoyable. We have a dedicated premises for the repairs, servicing and fabrication side of our business, which helps us to provide quality outcomes in the best possible turnaround time.</p>
+                                <p>See some of our previous work here.</p>
+                                <p>Contact us with your idea, your challenge, your vision...we can't wait to help you out!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 3 ? null : 3" x-bind:class="accordion === 3 ? 'active' : ''">Warehouse Fitouts</button>
+                        <div class="accordion-content" x-show="accordion === 3" x-bind:class="accordion === 3 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>Backsafe Australia is the trusted team for warehouse fit-outs, helping you design your new warehouse layout to make the best use of your office space. We specialise in designing tailored solutions that maximize space, from pallet racking to shelving systems, ensuring your warehouse space is optimised and your productivity is maximised. Serving a wide range of industries, we're committed to providing professional, customised fit-out services that meet the unique demands of your business.</p>
+                            </div>
+                            <h6 class="h6">Our Proven Design Process for Functional Warehouse Fit Outs</h6>
+                            <div class="cms-content">
+                                <p>BackSafe Australia is a leader in warehouse fit outs, providing tailored solutions that ensure your warehouse is optimised for efficiency and productivity. A well-designed warehouse fitout is essential for a complete warehouse setup that maximises space and enhances day-to-day operations. With BackSafe’s expertise, you can transform your warehouse into a streamlined, functional environment perfectly suited to your unique needs. Our solutions are crafted to optimise space and facilitate smoother workflows, making it easier for you to hit your business goals.</p>
+                                <p>We provide free quotes and will complete the entire process from design and supply through to installation and audit.</p>
+                            </div>
+                            <h6 class="h6">Optimise Your Warehouse Fitout with Quality Warehouse Equipment</h6>
+                            <div class="cms-content">
+                                <p>Through our extensive experience in the market, we have the capabilities to provide the high-quality equipment you need for a complete warehouse. From pallet racking, cantilever racking and longspan shelving, to workstations, workbenches and a range of specialised storage options, we've got the perfect equipment for your fitout project. </p>
+                                <p>See some of our previous fitout projects:</p>
+                                <ul>
+                                    <li><span class="">Rio Tinto - Silvergrass Project</span></li>
+                                    <li><span class="">Oil & Gas Merger - Racking Fitout</span></li>
+                                    <li><span class="">Searle Fasteners</span></li>
+                                </ul>
+                                <p>Contact us with your idea, your challenge, your vision... we can't wait to help you out!  </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 4 ? null : 4" x-bind:class="accordion === 4 ? 'active' : ''">Lean Manufacturing & Warehouse Implementations</button>
+                        <div class="accordion-content" x-show="accordion === 4" x-bind:class="accordion === 4 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>We are dedicated advocates for the implementation of LEAN principles and processes. Why? Because we believe in keeping your team 'back safe' throughout each day! LEAN workplaces are tidy, organised, light and bright; they improve work productivity, efficiency and the motivation of workers while reducing hazards and injuries. The overall effect on your business performance can be improved by simply taking the time to SORT, SET IN ORDER, SHINE, STANDARDISE and SUSTAIN.</p>
+                                <p>We have the knowledge and experience to assist you and your team throughout your LEAN journey - check out some of our previous work here.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 5 ? null : 5" x-bind:class="accordion === 5 ? 'active' : ''">Mezzanine Floor Design & Installation</button>
+                        <div class="accordion-content" x-show="accordion === 5" x-bind:class="accordion === 5 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>Do you need more space in your factory, workshop or warehouse? Did you know you could easily double your usable floor space and increase the functionality of your space with a mezzanine floor? With hundreds of design options and the industry experience behind us, Backsafe can design, supply and install all components of your new mezzanine system. Mezzanine floors are freestanding, relocatable, custom designed to suit your building and they adhere to all OH&S legislation. Best of all, most mezzanines can be installed within 1-2 days, meaning there is minimal disruption or downtime! Our structures are steel fabricated with a timber floor (either termite-treated or ply) with a fully welded steel staircase.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 6 ? null : 6" x-bind:class="accordion === 6 ? 'active' : ''">Racking Audits & Risk Assessments</button>
+                        <div class="accordion-content" x-show="accordion === 6" x-bind:class="accordion === 6 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>As a safety-focused business, we want to keep you and your team safe at work! As part of our service offering we can help improve the safety of your warehouse, factory or workshop by conducting thorough racking inspections/audits and risk assessments of materials-handling related job tasks then recommend solutions that are both safe and economical. We work in conjunction with certified ergonomists and OHS specialists to ensure the quality of our work.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-btn h5" @click="accordion = accordion === 7 ? null : 7" x-bind:class="accordion === 7 ? 'active' : ''">Equipment Finance & Rental Plans</button>
+                        <div class="accordion-content" x-show="accordion === 7" x-bind:class="accordion === 7 ? 'active' : ''">
+                            <div class="cms-content">
+                                <p>Equipment finance makes good business sense when looking to acquire new assets for your business, without the need to dip into important cash reserves. At Backsafe Australia we specialise in tailoring the best finance leasing plan or fully maintained rental plan depending on your situation. Popular rental items include electric bin tippers, spring loaded pallet positioners, flexi conveyors, electric straddle stackers and pallet jacks. Whatever your needs may be, speak to our consultants to work out the most suitable option for your business.</p>
+                                 <ul>
+                                    <li>Maximise your cash flow</li>
+                                    <li>Tax deductible</li>
+                                    <li>Free up your capital</li>
+                                    <li>Flexible end of term options</li>
+                                    <li>Easy accounting</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+
+        <item name="js_config" xsi:type="array">
+
+            <item name="provider" xsi:type="string">digital_projects_form.digital_projects_form_data_source</item>
+
+        </item>
+
+        <item name="label" xsi:type="string" translate="true">Projects Information</item>
+
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+
+    </argument>
+
+    <settings>
+
+        <buttons>
+
+            <button name="back" class="Digital\Projects\Block\Adminhtml\Projects\Edit\Button\Back"/>
+
+            <button name="save_and_continue" class="Digital\Projects\Block\Adminhtml\Projects\Edit\Button\SaveAndContinueButton"/>
+
+            <button name="reset" class="Digital\Projects\Block\Adminhtml\Projects\Edit\Button\Reset"/>
+
+            <button name="save" class="Digital\Projects\Block\Adminhtml\Projects\Edit\Button\Save"/>
+
+            <button name="delete" class="Digital\Projects\Block\Adminhtml\Projects\Edit\Button\Delete"/>
+
+        </buttons>
+
+        <namespace>digital_projects_form</namespace>
+
+        <dataScope>data</dataScope>
+
+        <deps>
+
+            <dep>digital_projects_form.digital_projects_form_data_source</dep>
+
+        </deps>
+
+    </settings>
+
+    <dataSource name="digital_projects_form_data_source">
+
+        <argument name="data" xsi:type="array">
+
+            <item name="js_config" xsi:type="array">
+
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+
+            </item>
+
+        </argument>
+
+        <settings>
+
+            <validateUrl path="projects/projects/validate"/>
+
+            <submitUrl path="projects/projects/save"/>
+
+        </settings>
+
+        <dataProvider class="Digital\Projects\Model\Projects\DataProvider" name="digital_projects_form_data_source">
+
+            <settings>
+
+                <requestFieldName>id</requestFieldName>
+
+                <primaryFieldName>projects_id</primaryFieldName>
+
+            </settings>
+
+        </dataProvider>
+
+    </dataSource>
+
+
+
+    <fieldset name="general" sortOrder="5">
+
+        <settings>
+
+            <collapsible>false</collapsible>
+
+            <label/>
+
+        </settings>
+
+        <field name="id" formElement="hidden">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="source" xsi:type="string">digital_projects</item>
+
+                </item>
+
+            </argument>
+
+            <settings>
+
+                <dataType>text</dataType>
+
+            </settings>
+
+        </field>
+
+        <field name="status" sortOrder="10" formElement="checkbox">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="source" xsi:type="string">digital_projects</item>
+
+                    <item name="default" xsi:type="number">1</item>
+
+                </item>
+
+            </argument>
+
+            <settings>
+
+                <validation>
+
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+
+                </validation>
+
+                <dataType>boolean</dataType>
+
+                <label translate="true">Enable</label>
+
+            </settings>
+
+            <formElements>
+
+                <checkbox>
+
+                    <settings>
+
+                        <valueMap>
+
+                            <map name="false" xsi:type="string">0</map>
+
+                            <map name="true" xsi:type="string">1</map>
+
+                        </valueMap>
+
+                        <prefer>toggle</prefer>
+
+                    </settings>
+
+                </checkbox>
+
+            </formElements>
+
+        </field>
+
+        
+
+        <field name="title" sortOrder="20" formElement="input">
+
+            <settings>
+
+                <validation>
+
+                <rule name="required-entry" xsi:type="boolean">true</rule>
+
+            </validation>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Projects Name</label>
+
+            </settings>
+
+        </field>
+
+        <field name="sub_title" sortOrder="30" formElement="input">
+
+            <settings>
+
+                <validation>
+
+                <rule name="required-entry" xsi:type="boolean">false</rule>
+
+            </validation>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Sub Title</label>
+
+            </settings>
+
+        </field>
+
+        <field name="projects_url" sortOrder="40" formElement="input">
+
+            <settings>
+
+                <validation>
+
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+
+                </validation>
+
+                <dataType>string</dataType>
+
+                <label translate="true"> Projects Url</label>
+
+                <notice>Provide a URL key. E.g 'dc-trolleys-for-bunnings' and URL becomes like /projects/dc-trolleys-for-bunnings on the frontend.</notice>
+
+            </settings>
+
+        </field>
+
+        <field name="duration" sortOrder="50" formElement="input">
+
+            <settings>
+
+                <validation>
+
+                <rule name="required-entry" xsi:type="boolean">false</rule>
+
+            </validation>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Duration</label>
+
+            </settings>
+
+        </field>
+
+        <field name="engineers" sortOrder="60" formElement="input">
+
+            <settings>
+
+                <validation>
+
+                <rule name="required-entry" xsi:type="boolean">false</rule>
+
+            </validation>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Engineers</label>
+
+            </settings>
+
+        </field>
+
+        <field name="image_listing" sortOrder="70" formElement="imageUploader">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="source" xsi:type="string">digital_projects</item>
+
+                    <item name="template" xsi:type="string">ui/form/element/uploader/uploader</item>
+
+                </item>
+
+            </argument>
+
+            <settings>
+
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Listing Image</label>
+
+                <visible>true</visible>
+
+                <notice>Allowed image types: jpg, jpeg, png | Recommended Dimensions: W855px * H600px</notice>
+
+                <validation>
+
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+
+                </validation>
+
+            </settings>
+
+            <formElements>
+
+                <imageUploader>
+
+                    <settings>
+
+                        <required>true</required>
+
+                        <uploaderConfig>
+
+                            <param xsi:type="url" name="url" path="projects/image/upload"/>
+
+                        </uploaderConfig>
+
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+
+                        <initialMediaGalleryOpenSubpath>projects/projects</initialMediaGalleryOpenSubpath>
+
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+
+                        <maxFileSize>2097152</maxFileSize>
+
+                    </settings>
+
+                </imageUploader>
+
+            </formElements>
+
+        </field>
+
+        <field name="image_desktop" sortOrder="80" formElement="imageUploader">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="source" xsi:type="string">digital_projects</item>
+
+                    <item name="template" xsi:type="string">ui/form/element/uploader/uploader</item>
+
+                </item>
+
+            </argument>
+
+            <settings>
+
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Detail Image</label>
+
+                <visible>true</visible>
+
+                <notice>Allowed image types: jpg, jpeg, png | Recommended Dimensions: W855px * H600px</notice>
+
+                <validation>
+
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+
+                </validation>
+
+            </settings>
+
+            <formElements>
+
+                <imageUploader>
+
+                    <settings>
+
+                        <required>true</required>
+
+                        <uploaderConfig>
+
+                            <param xsi:type="url" name="url" path="projects/image/upload"/>
+
+                        </uploaderConfig>
+
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+
+                        <initialMediaGalleryOpenSubpath>projects/projects</initialMediaGalleryOpenSubpath>
+
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+
+                        <maxFileSize>2097152</maxFileSize>
+
+                    </settings>
+
+                </imageUploader>
+
+            </formElements>
+
+        </field>
+
+        <field name="categories" sortOrder="90" formElement="input">
+
+            <settings>
+
+                <validation>
+
+                <rule name="required-entry" xsi:type="boolean">false</rule>
+
+            </validation>
+
+                <dataType>string</dataType>
+
+                <label translate="true">Categories</label>
+
+            </settings>
+
+        </field>
+
+        <field name="short_description">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">150</item>
+
+                    <item name="label" translate="true" xsi:type="string">Short Description</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">short_description</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="show_on_homepage" sortOrder="110" formElement="checkbox">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="source" xsi:type="string">digital_projects</item>
+
+                    <item name="default" xsi:type="number">0</item>
+
+                </item>
+
+            </argument>
+
+            <settings>
+
+                <validation>
+
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+
+                </validation>
+
+                <dataType>boolean</dataType>
+
+                <label translate="true">Show On Homepage</label>
+
+            </settings>
+
+            <formElements>
+
+                <checkbox>
+
+                    <settings>
+
+                        <valueMap>
+
+                            <map name="false" xsi:type="string">0</map>
+
+                            <map name="true" xsi:type="string">1</map>
+
+                        </valueMap>
+
+                        <prefer>toggle</prefer>
+
+                    </settings>
+
+                </checkbox>
+
+            </formElements>
+
+        </field>
+
+        <field name="sort_order" sortOrder="120">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="dataType" xsi:type="string">text</item>
+
+                    <item name="label" translate="true" xsi:type="string">Sort Order</item>
+
+                    <item name="formElement" xsi:type="string">input</item>
+
+                    <item name="source" xsi:type="string">digital_projects</item>
+
+                    <item name="sortOrder" xsi:type="number">130</item>
+
+                    <item name="dataScope" xsi:type="string">sort_order</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="products">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">130</item>
+
+                    <item name="label" translate="true" xsi:type="string">Products</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">products</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="time_period">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">140</item>
+
+                    <item name="label" translate="true" xsi:type="string">Time Period</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">time_period</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="challenge">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">150</item>
+
+                    <item name="label" translate="true" xsi:type="string">Challenge</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">challenge</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="challenge_gallery">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">155</item>
+
+                    <item name="label" translate="true" xsi:type="string">Challenge Gallery</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">challenge_gallery</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="solution">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">160</item>
+
+                    <item name="label" translate="true" xsi:type="string">Solution</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">solution</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="gallery">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">170</item>
+
+                    <item name="label" translate="true" xsi:type="string">Gallery</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">gallery</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+        <field name="out_come">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">180</item>
+
+                    <item name="label" translate="true" xsi:type="string">Out Come</item>
+
+                    <item name="formElement" xsi:type="string">wysiwyg</item>
+
+                    <item name="template" xsi:type="string">ui/form/field</item>
+
+                    <item name="source" xsi:type="string">Faq</item>
+
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+
+                    <item name="dataScope" xsi:type="string">out_come</item>
+
+                    <item name="validation" xsi:type="array">
+
+                        <item name="required-entry" xsi:type="boolean">false</item>
+
+                    </item>
+
+                </item>
+
+            </argument>
+
+        </field>
+
+
+        <field name="meta_title" sortOrder="190" formElement="input">
+            <settings>
+                <validation>
+                <rule name="required-entry" xsi:type="boolean">false</rule>
+            </validation>
+                <dataType>string</dataType>
+                <label translate="true">Meta Title</label>
+            </settings>
+        </field>
+
+
+        <field name="meta_description" sortOrder="195" formElement="textarea">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>string</dataType>
+                <label translate="true">Meta Description</label>
+            </settings>
+            <formElements>
+                <textarea>
+                    <settings>
+                        <rows>3</rows>
+                        <cols>50</cols>
+                    </settings>
+                </textarea>
+            </formElements>
+        </field>
+
+        <field name="meta_keywords" sortOrder="200" formElement="textarea">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>string</dataType>
+                <label translate="true">Meta Keywords</label>
+            </settings>
+            <formElements>
+                <textarea>
+                    <settings>
+                        <rows>3</rows>
+                        <cols>50</cols>
+                    </settings>
+                </textarea>
+            </formElements>
+        </field>
+
+
+
+
+    </fieldset>
+
+
+
+    <!-- <fieldset name="assign_products">
+
+         <argument name="data" xsi:type="array">
+
+            <item name="config" xsi:type="array">
+
+                <item name="collapsible" xsi:type="boolean">false</item>
+
+                <item name="label" xsi:type="string" translate="true">Assign Products</item>
+
+                <item name="sortOrder" xsi:type="number">160</item>
+
+            </item>
+
+        </argument>
+
+
+
+        <container name="assign_products_container">
+
+            <argument name="data" xsi:type="array">
+
+                <item name="config" xsi:type="array">
+
+                    <item name="sortOrder" xsi:type="number">161</item>
+
+                </item>
+
+            </argument>
+
+            <htmlContent name="html_content">
+
+                <argument name="block" xsi:type="object">Digital\Projects\Block\Adminhtml\Projects\AssignProducts</argument>
+
+            </htmlContent>
+
+        </container>
+
+    </fieldset> -->
+
+</form>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Variable\Model\Config\Structure\AvailableVariables">
+        <arguments>
+            <argument name="configPaths" xsi:type="array">
+                <item name="digitalconfig" xsi:type="array">
+                    <item name="digitalconfig/icons/svg_nationwide" xsi:type="string">1</item>
+                    <item name="digitalconfig/top_links/nationwide_text" xsi:type="string">1</item>
+                    <item name="digitalconfig/top_links/tollfree_number" xsi:type="string">1</item>
+                    <item name="digitalconfig/top_links/opening_days" xsi:type="string">1</item>
+                    <item name="digitalconfig/top_links/opening_hours" xsi:type="string">1</item>
+                    <item name="digitalconfig/footer_links/facebook_link" xsi:type="string">1</item>
+                    <item name="digitalconfig/icons/svg_facebook" xsi:type="string">1</item>
+                    <item name="digitalconfig/footer_links/instagram_link" xsi:type="string">1</item>
+                    <item name="digitalconfig/icons/svg_instagram" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

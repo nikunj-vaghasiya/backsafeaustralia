@@ -1,0 +1,99 @@
+
+<!--@subject Thank you for your enquiry @-->
+<!--@vars {
+"var name":"Name",
+"var email":"Email",
+"var phone":"Phone",
+"var enquiry":"Enquiry",
+"var comments":"Comments",
+"var created_at":"Submitted On"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" class="main-cont-table">
+    <tr>
+        <td>
+            <table border="0" width="100%" cellpadding="20" cellspacing="0">
+                <tr>
+                    <td>
+                        <div class="top-info-sec">
+                            <h5 style="font-size: 20px; margin: 0 0 25px; color: #3c3c3c; font-weight: bold; font-family: 'Arial';" class="greeting">Hey {{var name}}</h5>
+                            <div class="order-box">
+                                <table border="0" width="100%" style="margin: 20px 0;">
+                                    <tr>
+                                        <td style="vertical-align: middle; padding-left: 20px;">
+                                            <p style="font-size: 16px; font-family: 'Arial'; color: #3c3c3c; margin-bottom:0;">
+                                                {{trans 'Thank you for your enquiry. Our team has received your details and will get back to you shortly.'}}
+                                            </p>
+                                            <p style="font-size: 16px; font-family: 'Arial'; color: #3c3c3c; margin-bottom:0;">
+                                                If you have any urgent questions, please contact us at <a href='mailto:{{config path="trans_email/ident_general/email"}}'>{{config path="trans_email/ident_general/email"}}</a> or call <a href='tel:{{config path="general/store_information/phone"}}'>{{config path="general/store_information/phone"}}</a>.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <table border="0" width="100%" cellpadding="20" cellspacing="0" bgcolor="#fff" style="background:#fff; border-bottom: dashed 2px #eee; border-top: dashed 2px #eee; margin-bottom: 15px; font-family: 'Arial';">
+                <tr style="background:#fff;">
+                    <td style="background:#fff;">
+                        <div class="order-summry">
+                            <div class="top-head" style="background: #fff; margin-bottom: 0;">
+                                <table class="inq-table" border="1" cellpadding="10" cellspacing="0" style="width:100%; text-align: left; font-family: 'Arial'; color: #3c3c3c; border-collapse: collapse;">
+                                    {{if created_at}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial';"><b>Submitted On</b></td>
+                                        <td style="font-family: 'Arial';">{{var created_at}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{if name}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial';"><b>Name</b></td>
+                                        <td style="font-family: 'Arial';">{{var name}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{if product_name}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial';"><b>Product</b></td>
+                                        <td style="font-family: 'Arial';"><a href="{{var product_url}}">{{var product_name}}</a></td>
+                                    </tr>
+                                    {{/if}}
+                                    {{if email}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial';"><b>Email</b></td>
+                                        <td style="font-family: 'Arial';"><a href="mailto:{{var email}}">{{var email}}</a></td>
+                                    </tr>
+                                    {{/if}}
+                                    {{if phone}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial';"><b>Phone</b></td>
+                                        <td style="font-family: 'Arial';">{{var phone}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{if enquiry}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial'; vertical-align: top;"><b>Enquiry</b></td>
+                                        <td style="font-family: 'Arial';">{{var enquiry}}</td>
+                                    </tr>
+                                    {{/if}}
+                                    {{if comments}}
+                                    <tr>
+                                        <td style="width:160px; font-family: 'Arial'; vertical-align: top;"><b>Comments</b></td>
+                                        <td style="font-family: 'Arial';">{{var comments}}</td>
+                                    </tr>
+                                    {{/if}}
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

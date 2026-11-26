@@ -1,0 +1,11 @@
+.bf-banner-sliders-block.swiper-container {
+  width: 100%;
+  height: auto;
+}
+.banner-slider.swiper-slide {
+  text-align: center;
+  height:auto;
+}
+.banner-slider .banner-image a > picture > img {
+  width: 100%;
+}

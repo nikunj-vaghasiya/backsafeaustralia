@@ -1,0 +1,51 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+$sliderShowArrows = $block->getShowArrows() !== null ? $block->getShowArrows() : "end";
+if ($sliderShowArrows == "false") {
+    $sliderShowArrows = false;
+}
+$sliderShowPager = $block->getShowPager() !== null ? (bool) $block->getShowPager() : true;
+$loadFirstEager = (bool) $block->getLoadFirstEager();
+
+$bannerCollection = $block->getBannerCollection();
+$bannerHelper   = $block->getBannerHelper();
+$baseHelper = $block->getBaseHelper();
+
+$pagerClasses = "flex gap-4 justify-center items-center mt-7 absolute w-full bottom-8";
+$markerClasses = "w-4 h-4 rounded-full shadow-md cursor-pointer ring-4 ring-transparent bg-white hover:bg-orange transition aria-[current=true]:ring-white aria-[current=true]:bg-orange";
+
+$items = $bannerCollection;
+
+?>
+<section class="new_hero_wrapper">
+    <?php $i = 0; foreach ($items as $index => $item):
+        $isFirst = ($i == 0 || $i == 1);
+        $imageDesktopUrl = $block->escapeUrl($item->getImageDesktopUrl());
+    ?>
+        <div class="new_hero_box">
+            <img width="1000" height="700" src="<?= $imageDesktopUrl; ?>" alt="<?= $item->getName(); ?>" 
+            <?= $isFirst ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"' ?>>>
+            <div class="new_hero_content">
+                <h2><?= $item->getName(); ?></h2>
+                <p><?= $item->getDescription(); ?></p>
+                <div class="new_hero_btn">
+                    <a class="btn btn-primary" title="<?= $item->getTitle(); ?>" href="<?php echo $block->getBaseUrl() . $item->getBannerUrl(); ?>"><?= $item->getTitle(); ?></a>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</section>

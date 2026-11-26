@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digital_Ourteam::parent" title="Our Team" module="Digital_Ourteam" resource="Digital_Ourteam::parent" parent="Digital_Base::parent" sortOrder="70"/>
+        <add id="Digital_Ourteam::manager" title="Manage Team" module="Digital_Ourteam" action="ourteam/team/index" resource="Digital_Ourteam::manager" parent="Digital_Ourteam::parent"/>
+        <add id="Digital_Ourteam::settings" title="Configuration" module="Digital_Ourteam" sortOrder="2" parent="Digital_Ourteam::parent" action="adminhtml/system_config/edit/section/ourteam_section" resource="Digital_Ourteam::settings"/>
+    </menu>
+</config>

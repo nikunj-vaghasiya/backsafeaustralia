@@ -1,0 +1,79 @@
+<?php $dateOption = $this->getDateSelectOption(); ?>
+<?php $logFiles = $this->getLogFiles(); ?>
+<?php $type = $this->getRequest()->getParam('type',false); ?>
+<?php $process = $this->getRequest()->getParam('process',false); ?>
+<?php $storeId = $this->getRequest()->getParam('store_id',null); ?>
+<div class="products">
+	<table class="products-table">
+		<tbody>
+			<tr>
+				<td>
+					<label for="log_date"><strong><?php echo __('Date: '); ?></strong></label>
+					<select name="log_date" title="<?php echo __('Date for Logs'); ?>" onChange="javascript:openDirectoryLogs(jQuery(this));">
+						<option value=""><?php echo __('Select Date'); ?></option>
+						<?php if(count($dateOption)): ?>
+							<?php foreach($dateOption as $date => $formatedDate): ?>
+								<option <?php echo ($this->getRequestedDate() == $date) ? "selected='selected'" : ''; ?> value="<?php echo $this->getLogUrl($type,$storeId,$date); ?>"><?php echo $formatedDate; ?></option>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</select>
+				</td>
+				<td><a href="<?php echo $this->getBackUrl($storeId); ?>" title="<?php echo __('Back'); ?>" class="sync-black-btn"><?php echo __('Back'); ?></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="products-table">
+		<thead>
+			<tr>
+				<th class="col number"><?php echo __('No.');?></th>
+				<th class="col name"><?php echo __('Log File Name');?></th>
+				<th class="col description"><?php echo __('Description');?></th>
+				<th class="col action"><?php echo __('Action');?></th>
+			</tr>
+		</thead>
+		<?php if(count($logFiles) > 0): ?>
+			<tbody>
+				<?php $i = 1; foreach($logFiles as $logFilePath): ?>
+					<?php $fileName = explode("/", $logFilePath, 4);?>
+					<?php $fileName = $fileName[3];?>
+					<?php $description = $this->getLogDescriptionByFileName($fileName); ?>
+					<?php $fileName = basename($logFilePath);?>
+					<tr>
+						<td class="number"><?php echo __($i); ?></td>
+						<td class="name"><?php echo __($fileName); ?></td>
+						<td class="description"><?php echo $description; ?></td>
+						<td class="action">
+							<a href="<?php echo $this->getDownloadUrl($type,$storeId,$this->getRequestedDate(),pathinfo($logFilePath,PATHINFO_FILENAME)); ?>" title="<?php echo __('Download'); ?>" download="<?php echo $fileName; ?>"><?php echo __('Download'); ?></a>
+						</td>
+					</tr>
+				<?php $i++; endforeach; ?>
+			</tbody>
+		<?php else: ?>
+			<tbody>
+				<tr>
+					<td colspan="4" align="center"><?php echo __('No log files found.') ?></td>
+				</tr>
+			</tbody>
+		<?php endif; ?>
+	</table>
+</div>
+<style> .products-table th{background:#eee;} .products-table th, .products-table td{border:1px solid #CCC; padding:10px; text-align:center} .products-table td input{width: 100%; max-width: 370px; display: block; padding: 5px;} .productattchments-attchedfile table, .upload-file table{width:100%; margin-bottom:20px;} 
+.products-table td.description , .products-table td.name{ min-width:600px;max-width:600px; text-align:left}
+.products-table td.name{ min-width:300px;max-width:300px; }
+.products-table td.description{text-align:left}
+.products h2{ padding:20px; margin-bottom:0;}
+.products-table{margin-bottom:20px;}
+.sync-black-btn { display: inline-block;padding: 8px 20px;background: #1f1f1f;color: #fff;text-decoration: none; }
+.sync-black-btn:hover{ display: inline-block;padding: 8px 20px;background: #414346;color: #fff;text-decoration: none;}
+</style>
+
+<script type="text/javascript">
+function openDirectoryLogs(element){
+	var selectEle = jQuery(element);
+	if(selectEle.val()){
+		window.location.href = selectEle.val();
+	}
+
+	return false;
+}
+</script>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="hero" remove="true"/>
+        <referenceBlock name="content-1" remove="true"/>
+        <referenceBlock name="slider-1" remove="true"/>
+        <referenceBlock name="slider-2" remove="true"/>
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" name="global-slider-script" template="Magento_Theme::js/global-slider-script.phtml" />
+        </referenceContainer>
+        <referenceContainer name="content">            
+            <!-- <block class="Magento\Framework\View\Element\Template" name="home.banner.section" template="Magento_Cms::home-banner.phtml" before="-" /> -->
+            <block class="Magento\Framework\View\Element\Template" name="home.brand.section" template="Magento_Cms::home-brand.phtml" before="-" />
+            <block name="homepage.featured.products.list" template="Magento_Catalog::product/slider/product-slider.phtml">
+                <arguments>
+                    <argument name="title" xsi:type="string" translate="true">Featured Products</argument>
+                    <argument name="page_size" xsi:type="string">8</argument>
+                    <argument name="sort_attribute" xsi:type="string">entity_id</argument>
+                    <argument name="sort_direction" xsi:type="string">DESC</argument>
+                    <argument name="additional_filters" xsi:type="array">
+                        <item name="featured-filter" xsi:type="array">
+                            <item name="field" xsi:type="string">featured_product</item>
+                            <item name="value" xsi:type="array">
+                                <item name="Yes" xsi:type="string">1</item>
+                            </item>
+                            <item name="conditionType" xsi:type="string">in</item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="homepage_australia_leading_workplace_safety_solutions_provider">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">homepage_australia_leading_workplace_safety_solutions_provider</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="hompage_whychoose_us_section">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">hompage_whychoose_us_section</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="homepage_reviews">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">homepage_reviews</argument>
+                </arguments>
+            </block>
+            <!--<block class="Digital\Testimonials\Block\Testimonials" name="review.section" template="Digital_Testimonials::testimonials.phtml" after="-" ifconfig="digital_testimonials/general/enable" />-->
+        </referenceContainer>
+    </body>
+</page>

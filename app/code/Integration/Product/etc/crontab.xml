@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="api_integration">
+        <job name="integration_dump_products" instance="Integration\Product\Cron\Run\Dump" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+        <job name="integration_batch_products" instance="Integration\Product\Cron\Run\Batch" method="execute">
+            <schedule>30 1 * * *</schedule>
+        </job>
+        <job name="integration_import_products" instance="Integration\Product\Cron\Run\Import" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+    </group>
+</config>

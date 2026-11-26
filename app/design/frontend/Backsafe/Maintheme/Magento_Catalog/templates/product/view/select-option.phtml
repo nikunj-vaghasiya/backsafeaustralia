@@ -1,0 +1,51 @@
+<?php
+
+/** @var \Magento\Catalog\Model\Product|null $product */
+$product = $block->getProduct() ?? $block->getData('product');
+$getRentThisToday = $product->getRentThisToday();
+$hsforms = $this->helper('Digital\Productenquiry\Helper\Data')->getConfig('rentthistoday/rent_this_today_view/rent_this_today_url');
+if (!$product && $block->getParentBlock()) {
+    $product = $block->getParentBlock()->getProduct();
+}
+
+$isGrouped = $product && $product->getTypeId() === \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE;
+if ($isGrouped) { ?>
+    <div class="flex row">
+        <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-12/12 xl:w-12/12 xxl:w-12/12 sl:w-12/12 flex-asc">
+            <div class="product-details-buttons">
+                <a href="#product-options-table-container" title="Select Options" class="btn btn-primary scroll-to">Select Options</a>
+                <?php if (isset($getRentThisToday)) { ?>
+                    <?php if ($getRentThisToday == 1) { ?>
+                        <?php if (!empty($hsforms)) { ?>
+                            <a href="<?php echo $hsforms; ?>" title="Rent This Today" target="_blank" class="btn btn-primary">Rent This Today</a>
+                        <?php  } ?>
+
+                    <?php } ?>
+                <?php } ?>
+                <a href="#product-enquiry-form" class="btn btn-primary scroll-to" title="Product Enquiry">Product Enquiry</a>
+            </div>
+        </div>
+
+    </div>
+<?php } ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollLinks = document.querySelectorAll('.scroll-to');
+
+        scrollLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1); // remove #
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="print" />      
+    <body>
+        <referenceContainer name="content">
+            <container name="projects" htmlTag="section" htmlClass="digital-projects">
+                <block class="Digital\Projects\Block\Projectsview" name="projects.block.print" template="Digital_Projects::view.phtml">                
+                </block> 
+            </container>           
+        </referenceContainer>
+        <referenceBlock name="copyright" remove="true"/>
+    </body>
+</page>

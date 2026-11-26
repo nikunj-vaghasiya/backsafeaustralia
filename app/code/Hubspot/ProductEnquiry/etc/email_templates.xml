@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="hubspot_productenquiry_admin_template"
+              label="Product Enquiry - Admin Notification"
+              file="enquiry_admin.html"
+              type="html"
+              module="Hubspot_ProductEnquiry"
+              area="frontend"/>
+    <template id="hubspot_productenquiry_customer_template"
+              label="Product Enquiry - Customer Acknowledgement"
+              file="enquiry_customer.html"
+              type="html"
+              module="Hubspot_ProductEnquiry"
+              area="frontend"/>
+</config>

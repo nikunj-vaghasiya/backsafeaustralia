@@ -1,0 +1,60 @@
+<?php
+/** @var \Digital\Homeboxes\Block\Cms\Slider $block */
+/** @var \Digital\Homeboxes\Model\Boxes[] $boxesCollection */
+$boxesCollection = $block->getBoxesCollection();
+$helper = $block->getBoxHelper();
+$baseHelper = $block->getBaseHelper();
+$defaultbuttonText = $helper->getButtonText();
+?>
+<div class="container">
+    <div class="section-content text-center">
+        <p>Australia’s Leading</p>
+        <h1 class="h2">Material Handling, Storage & Custom Solutions</h1>
+    </div>
+    <div class="gap grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-3 sl:grid-cols-3 text-center">
+        <?php $i = 0; ?>
+        <?php foreach ($boxesCollection as $boxes):?>
+            <figure class="safety-sol">
+                <?php $boxesUrl = $baseHelper->checkUrl($boxes->getBoxesUrl()); 
+                $classes = ['card-shadow-yellow', 'card-shadow-orange', 'card-shadow-green', 'card-shadow-red', 'card-shadow-pink', 'card-shadow-blue']; ?>
+
+                <a href="<?= $boxesUrl ?: 'javascript:void(0);'?>" class="safety-sol-img" title="<?= /* @noEscape */ $block->escapeHtml($boxes->getName()) ?>">
+                    <picture>
+                        <?php if ($imageDesktopUrl = $boxes->getImageDesktopUrl()):?>
+                            <source srcset="<?= /* @noEscape */ $imageDesktopUrl;?>" media="(min-width: 1024px)">
+                        <?php endif; ?>
+                        <?php if ($imageTabletUrl = $boxes->getImageTabletUrl()):?>
+                            <source srcset="<?= /* @noEscape */ $imageTabletUrl;?>"
+                                media="(min-width: 768px) and (max-width: 1023px)">
+                        <?php endif; ?>
+                        <?php if ($imageMobileUrl = $boxes->getImageMobileUrl()):?>
+                            <source srcset="<?= /* @noEscape */ $imageMobileUrl;?>" media="(max-width: 767px)">
+                        <?php endif; ?>
+                        <img width="580" height="580" data-lazy="<?= /* @noEscape */ $imageDesktopUrl;?>"
+                        srcset="<?= /* @noEscape */ $imageDesktopUrl;?>"
+                        alt="<?= /* @noEscape */ $boxes->getName();?>">
+                    </picture>
+                </a>
+                <figcaption class="safety-sol-content">
+                    <h2 class="safety-sol-title"><a href="<?= $boxesUrl ?: 'javascript:void(0);'?>" title="<?= /* @noEscape */ $block->escapeHtml($boxes->getName()) ?>"><?= /* @noEscape */ $block->escapeHtml($boxes->getName()) ?></a></h2>
+                    <?php if ($boxes->getDescription()):?>
+                        <p class="safety-sol-text"><?= /* @noEscape */ $boxes->getDescription()?></p>
+                    <?php endif;?>
+                    <?php if ($boxes->getEnableButton() == 1):?>
+                        <?php $buttonText = $boxes->getButtonText() ?: $defaultbuttonText;?>
+                        <?php if ($buttonText != '' && $boxesUrl != '') { ?>
+                        <div class="flex-center safety-sol-actions">
+                            <a class="btn btn-secondary product-atc-btn" href="<?= $block->escapeUrl($boxesUrl);?>"
+                               title="<?= /* @noEscape */ $buttonText?>">
+                                <?= /* @noEscape */ $buttonText?> <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.512 4.32164L6.93449 0.744141L5.75616 1.92247L8.50033 4.66664H0.166992V6.33331H8.50033L5.75616 9.07747L6.93449 10.2558L10.512 6.67831C10.8244 6.36576 11 5.94191 11 5.49997C11 5.05803 10.8244 4.63419 10.512 4.32164Z" fill="currentColor"></path></svg></span>
+                            </a>
+                        </div>
+                        <?php } ?>
+                    <?php endif;?>
+                </figcaption>
+                <span class="card-shadow <?= /* @noEscape */ $classes[$i] ?>"></span>
+            </figure>
+            <?php $i++; ?>
+        <?php endforeach;?>
+    </div>
+</div>

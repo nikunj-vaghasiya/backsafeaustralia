@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="digital_elasticsearch_alert"
+              label="Elasticsearch Health Check Alert"
+              file="es_health_alert.html"
+              type="html"
+              module="Digital_Elasticsearch"
+              area="frontend"/>
+</config>

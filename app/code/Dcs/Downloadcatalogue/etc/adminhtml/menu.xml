@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">   
+    <menu>
+        <add
+             id="Dcs_Downloadcatalogue::downloadcatalogue" 
+             title="Manage Download Catalogue"
+             module="Dcs_Downloadcatalogue"
+             sortOrder="18"
+             resource="Dcs_Homebanner::parent"
+             parent="Digital_Base::parent"
+        />        
+        <add 
+             id="Dcs_Downloadcatalogue::downloadcatalogue_manage" 
+             title="Download Catalogue" module="Dcs_Downloadcatalogue" 
+             sortOrder="50" parent="Dcs_Downloadcatalogue::downloadcatalogue" 
+             action="downloadcatalogue/index/"
+             resource="Dcs_Downloadcatalogue::downloadcatalogue"
+        /> 
+        <add
+             id="Dcs_Downloadcatalogue::downloadcatalogue_settings" 
+             title="Settings" module="Dcs_Downloadcatalogue" 
+             sortOrder="60" parent="Dcs_Downloadcatalogue::downloadcatalogue" 
+             action="adminhtml/system_config/edit/section/downloadcatalogue"
+             resource="Dcs_Downloadcatalogue::downloadcatalogue_settings"
+        />
+    </menu>
+</config>
+

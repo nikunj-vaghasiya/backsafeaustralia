@@ -1,0 +1,215 @@
+<?php $storeId = \Integration\ManualSync\Helper\Data::AU_WEBSITE_STORE_ID; ?>
+<?php $integrationProductHelper = $this->helper('Integration\Product\Helper\Data'); ?>
+<?php $integrationManualHelper = $this->helper('Integration\ManualSync\Helper\Data'); ?>
+
+<?php $websiteId = $integrationManualHelper->getWebsiteIdByStoreId($storeId); ?>
+
+<?php $productDumpDate = $integrationProductHelper->getProductRequestFilterDate($websiteId) ? "We will get all records modified on/after " . '"' . $integrationProductHelper->getProductRequestFilterDate($websiteId) . '".' : "We will get all records." ?>
+
+<div class="reload-area">
+  <a href="javascript:void(0)" title="<?php echo __('Refresh page to see latest change'); ?>" onclick="window.location.reload();" style="display: inline-block;padding: 8px 20px;background: #1f1f1f;color: #fff;text-decoration: none;"><?php echo __('Reload'); ?></a>
+</div>
+
+<?php if ($integrationProductHelper->isManualProductApiEnabled($storeId)): ?>
+  <hr />
+  <div class="products">
+    <h2><?php echo __("Product"); ?></h2>
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th class="col number"><?php echo __('No.'); ?></th>
+          <th class="col name"><?php echo __('Process'); ?></th>
+          <th class="col description"><?php echo __('Description'); ?></th>
+          <th class="col action"><?php echo __('Action'); ?></th>
+          <th class="col action"><?php echo __('History'); ?></th>
+          <th class="col action"><?php echo __('Logs'); ?></th>
+          <th class="col action"><?php echo __('Process'); ?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <?php $currentProductEntity = $this->checkManualRunningBatch(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID, $storeId); ?>
+          <?php $isProductDumpCronRunning = $this->checkCronRunningBatch(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID, $storeId); ?>
+          <td class="number"><?php echo __('1'); ?></td>
+          <td class="name"><?php echo __('Save products to custom table'); ?></td>
+          <td class="description">
+            <?php echo __('This Process will get all products records from Integration system and save in custom table. ' . $productDumpDate); ?>
+          </td>
+          <td class="action">
+            <?php if (!$isProductDumpCronRunning): ?>
+              <?php if (!$currentProductEntity): ?>
+                <a href="javascript:void(0)" onClick="javascript:openConfirmPopup(jQuery(this),'<?php echo $this->getEntitySyncUrl(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID, $storeId); ?>')" title="<?php echo __('Run'); ?>">
+                  <?php echo __('Run'); ?></a>
+              <?php else: ?>
+                <span><?php echo __('Running'); ?></span>
+              <?php endif; ?>
+            <?php else: ?>
+              <span><?php echo __('Running'); ?></span>
+            <?php endif; ?>
+          </td>
+          <td class="history">
+            <?php if ($this->hasHistoryForTypeId(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID)): ?>
+              <a href="<?php echo $this->getHistoryUrl(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID, $storeId); ?>" target="_blank" title="<?php echo __('View'); ?>">
+                <?php echo __('View'); ?>
+              </a>
+            <?php endif; ?>
+          </td>
+          <td class="logs">
+            <a href="<?php echo $this->getLogUrl(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID, $storeId, $integrationManualHelper->getCurrentDate('Ymd'), 'dump'); ?>" target="_blank" title="<?php echo __('View'); ?>">
+              <?php echo __('View'); ?>
+            </a>
+          </td>
+          <td class="logs">
+            <?php if ($isProductDumpCronRunning || $currentProductEntity): ?>
+              <a onclick="return confirm('Are you sure you would like to update process in Dormant state ? At least wait minimum 20 minutes after running process to change the process in dormant')" href="<?php echo $this->getDormantUrl(\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID, $storeId); ?>" title="<?php echo __('Dormant'); ?>">
+                <?php echo __('Dormant'); ?>
+              </a>
+            <?php endif; ?>
+          </td>
+        </tr>
+        <tr>
+          <?php $currentProductBatchEntity = $this->checkManualRunningBatch(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID, $storeId); ?>
+          <?php $isProductBatchCronRunning = $this->checkCronRunningBatch(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID, $storeId); ?>
+          <td class="number"><?php echo __('2'); ?></td>
+          <td class="name"><?php echo __('Divide the products data in batch'); ?></td>
+          <td class="description">
+            <?php echo __('This Process will get all products records from Integration system and schedule batch to import the data. '); ?>
+          </td>
+          <td class="action">
+            <?php if (!$isProductBatchCronRunning): ?>
+              <?php if (!$currentProductBatchEntity): ?>
+                <a href="javascript:void(0)" onClick="javascript:openConfirmPopup(jQuery(this),'<?php echo $this->getEntitySyncUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID, $storeId); ?>')" title="<?php echo __('Run'); ?>">
+                  <?php echo __('Run'); ?></a>
+              <?php else: ?>
+                <span><?php echo __('Running'); ?></span>
+              <?php endif; ?>
+            <?php else: ?>
+              <span><?php echo __('Running'); ?></span>
+            <?php endif; ?>
+          </td>
+          <td class="history">
+            <?php if ($this->hasHistoryForTypeId(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID)): ?>
+              <a href="<?php echo $this->getHistoryUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID, $storeId); ?>" target="_blank" title="<?php echo __('View'); ?>">
+                <?php echo __('View'); ?>
+              </a>
+            <?php endif; ?>
+          </td>
+          <td class="logs">
+            <a href="<?php echo $this->getLogUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID, $storeId, $integrationManualHelper->getCurrentDate('Ymd'), 'batch'); ?>" target="_blank" title="<?php echo __('View'); ?>">
+              <?php echo __('View'); ?>
+            </a>
+          </td>
+          <td class="logs">
+            <?php if ($isProductBatchCronRunning || $currentProductBatchEntity): ?>
+              <a onclick="return confirm('Are you sure you would like to update process in Dormant state ? At least wait minimum 20 minutes after running process to change the process in dormant')" href="<?php echo $this->getDormantUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_BATCH_TYPE_ID, $storeId); ?>" title="<?php echo __('Dormant'); ?>">
+                <?php echo __('Dormant'); ?>
+              </a>
+            <?php endif; ?>
+          </td>
+        </tr>
+        <tr>
+          <?php $currentProductImportEntity = $this->checkManualRunningBatch(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID, $storeId); ?>
+          <?php $isProductImportCronRunning = $this->checkCronRunningBatch(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID, $storeId); ?>
+          <td class="number"><?php echo __('3'); ?></td>
+          <td class="name"><?php echo __('Add/update products in website'); ?></td>
+          <td class="description">
+            <?php echo __('This Process will get all products records from custom table and import in magento.'); ?>
+          </td>
+          <td class="action">
+            <?php if (!$isProductImportCronRunning): ?>
+              <?php if (!$currentProductImportEntity): ?>
+                <a href="javascript:void(0)" onClick="javascript:openConfirmPopup(jQuery(this),'<?php echo $this->getEntitySyncUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID, $storeId); ?>')" title="<?php echo __('Run'); ?>">
+                  <?php echo __('Run'); ?></a>
+              <?php else: ?>
+                <span><?php echo __('Running'); ?></span>
+              <?php endif; ?>
+            <?php else: ?>
+              <span><?php echo __('Running'); ?></span>
+            <?php endif; ?>
+          </td>
+          <td class="history">
+            <?php if ($this->hasHistoryForTypeId(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID)): ?>
+              <a href="<?php echo $this->getHistoryUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID, $storeId); ?>" target="_blank" title="<?php echo __('View'); ?>">
+                <?php echo __('View'); ?>
+              </a>
+            <?php endif; ?>
+          </td>
+          <td class="logs">
+            <a href="<?php echo $this->getLogUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID, $storeId, $integrationManualHelper->getCurrentDate('Ymd'), 'import') ?>" target="_blank" title="<?php echo __('View'); ?>">
+              <?php echo __('View'); ?>
+            </a>
+          </td>
+          <td class="logs">
+            <?php if ($isProductImportCronRunning || $currentProductImportEntity): ?>
+              <a onclick="return confirm('Are you sure you would like to update process in Dormant state ? At least wait minimum 20 minutes after running process to change the process in dormant')" href="<?php echo $this->getDormantUrl(\Integration\ManualSync\Helper\Data::PRODUCT_IMPORT_TYPE_ID, $storeId); ?>" title="<?php echo __('Dormant'); ?>">
+                <?php echo __('Dormant'); ?>
+              </a>
+            <?php endif; ?>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<?php endif; ?>
+
+
+<style>
+  .products-table th {
+    background: #eee;
+  }
+
+  .products-table th,
+  .products-table td {
+    border: 1px solid #CCC;
+    padding: 10px;
+    text-align: center
+  }
+
+  .products-table td input {
+    width: 100%;
+    max-width: 370px;
+    display: block;
+    padding: 5px;
+  }
+
+  .productattchments-attchedfile table,
+  .upload-file table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .products-table td.description,
+  .products-table td.name {
+    min-width: 600px;
+    max-width: 600px;
+    text-align: left
+  }
+
+  .products-table td.name {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .products-table td.description {
+    text-align: left
+  }
+
+  .products h2 {
+    padding: 20px;
+    margin-bottom: 0;
+  }
+
+  .products-table {
+    margin-bottom: 20px;
+  }
+</style>
+<script type="text/javascript">
+  function openConfirmPopup(element, url) {
+    if (!confirm("Are you sure you would like to run this process?")) {
+      return false;
+    } else {
+      window.open(url);
+      window.location.reload();
+    }
+  }
+</script>

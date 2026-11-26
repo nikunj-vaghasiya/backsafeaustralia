@@ -1,0 +1,187 @@
+<!--@subject {{trans 'New Quote Enquiry #%quote_save_id' quote_save_id=$data.quote_save_id}} @-->
+
+<!--@vars {
+
+"var comment":"Comment",
+
+"var email":"Customer Email",
+
+"var name":"Customer Name",
+
+"var subject":"Subject"
+
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" class="main-cont-table">
+
+    <tr>
+
+        <td>
+
+            <table border="0" width="100%" cellpadding="20" cellspacing="0">
+
+                <tr>
+
+                    <td>
+
+                        <div class="top-info-sec">
+
+                            <h5 style="font-size: 20px; margin: 0 0 25px; color: #3c3c3c; font-weight: bold; font-family: 'Arial';" class="greeting">Hello Admin,</h5>
+
+                            <div class="order-box">
+
+                                <table border="0" width="100%" style="margin: 20px 0;">
+
+                                    <tr>
+
+                                        <td style="250px; text-align: center; vertical-align: middle;">
+
+                                            <div class="Product Enquiry" style="padding: 0; text-align: center;"><img src="{{view url='Magento_Email/images/product-inq.png'}}" width="120" height="120" alt="Quote Enquiry" /></div>
+
+                                        </td>
+
+                                        <td style="vertical-align: middle; width: 450px; padding-left: 20px;">
+
+                                            <p style="font-size: 16px; font-family: 'Arial'; color: #3c3c3c; margin-bottom:0;">
+
+                                                New Quote Request has been received as below:
+
+                                            </p>
+
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <table border="0" width="100%" cellpadding="20" cellspacing="0" bgcolor="#fff;" style="background:#fff; border-bottom: dashed 2px #eee; border-top: dashed 2px #eee; margin-bottom: 15px; font-family: 'Arial';">   
+
+                <tr style="background:#fff;">
+
+                    <td style="background:#fff;">
+
+                        <div class="order-summry">
+
+                            <div class="top-head" style="background: #fff; margin-bottom: 0;">
+
+                                <h6 style="margin: 0 0 20px; padding: 0; text-align: center; font-size: 24px; font-weight: bold; color: #3c3c3c; font-family: 'Arial';">
+
+                                    {{trans 'Quote Request Information'}}
+
+                                </h6>
+
+                                <table class="inq-table" border="1" style="width:100%" cellpadding="10" cellspacing="10" style="text-align: left; font-family: 'Arial';">
+
+                                    {{if data.quote_save_id}}
+                                    <tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Quote Request #</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %quote_save_id" quote_save_id=$data.quote_save_id}}</td>
+                                    </tr>
+                                    {{/if}}
+									
+									{{if data.datetime}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Placed on</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %datetime" datetime=$data.datetime}}</td>
+                                    </tr>
+									{{/if}}
+
+									
+									{{if data.first_name}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>By</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %first_name" first_name=$data.first_name}} {{trans " %last_name" last_name=$data.last_name}}</td>
+                                    </tr>
+									{{/if}}									
+												
+
+                                    {{if data.email}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Email</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %email" email=$data.email}}</td>
+                                    </tr>
+									{{/if}}
+
+                                     {{if data.site_name}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Site Name</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %site_name" site_name=$data.site_name}}</td>
+                                    </tr>
+									{{/if}}								
+									
+									
+									{{if data.company}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Company</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %company" company=$data.company}}</td>
+                                    </tr>
+									{{/if}}									
+									
+									
+									{{if data.phone}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Phone</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %phone" phone=$data.phone}}</td>
+                                    </tr>
+									{{/if}}
+									
+									{{if data.state}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>State</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %state" state=$data.state}}</td>
+                                    </tr>
+									{{/if}}		
+                                    
+                                    {{if data.postcode}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Postcode</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %postcode" postcode=$data.postcode}}</td>
+                                    </tr>
+									{{/if}}	
+									
+									
+									{{if data.message}}
+									<tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Message</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %message" message=$data.message}}</td>
+                                    </tr>
+									{{/if}}
+                                    
+
+                                    {{if data.products}}
+                                    <tr>
+                                        <td style="width:60px; font-family: 'Arial';"><b>Product(s)</b></td>
+                                        <td style="width:250px; font-family: 'Arial';">{{trans " %products" products=$data.products|raw}}</td>
+                                    </tr>
+                                    {{/if}}
+									
+
+                                </table>
+
+                            </div>
+
+                        </div>  
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </td>
+
+    </tr>
+
+{{template config_path="design/email/footer_template"}}

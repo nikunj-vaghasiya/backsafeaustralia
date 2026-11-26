@@ -1,0 +1,35 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+?>
+<div class="logout-wrapper section-space">
+    <div class="cmspage_content">
+        <div class="container-sm">
+            <div class="cms-content">
+                <div class="logout_content_main text-center">
+                    <div class="logout-icon-box">
+                        <div class="logout-icon">
+                            <img src="<?php echo $block->getViewFileUrl('images/time-out.gif'); ?>">
+                        </div>
+                    </div>
+                    <h1 class="h2"><?= $escaper->escapeHtml(__('You are Logged Out')) ?></h1>
+                    <p class=""><?= $escaper->escapeHtml(__('Returning you to our homepage')) ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function() {
+        location.href = "<?= $escaper->escapeJs($escaper->escapeUrl($block->getUrl())) ?>"
+    }, 5000);
+</script>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Digital_Testimonials::parent" title="Testimonials" sortOrder="100" >
+                <resource id="Digital_Testimonials::testimonials" title="Manage Testimonials" sortOrder="0">
+                    <resource id="Digital_Testimonials::save" title="Save Testimonial" sortOrder="10" />
+                </resource>
+                <resource id="Digital_Testimonials::settings" title="Settings" sortOrder="20"/> 
+            </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Digital_Testimonials::testimonial_config" title="Testimonials Section" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

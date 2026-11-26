@@ -1,0 +1,34 @@
+<?php
+
+/** @var \Digital\Base\Block\Product\Tabs $block */
+$tabs = $block->getTabs();
+?>
+
+<?php if (!empty($tabs) && is_array($tabs)): ?>
+<div class="accordion product-details-accordion" x-data="{ accordion: 0 }">
+    <?php foreach ($tabs as $index => $tab): ?>
+        <?php
+        // --- SAFETY CHECKS ---
+        // Skip if tab is not an array or missing expected keys
+            if (!is_array($tab) || !isset($tab['title'], $tab['content'])) {
+                continue;
+            }
+        ?>
+        <div class="accordion-item">
+            <button class="accordion-btn h5"
+                    @click="accordion = accordion === <?= (int)$index ?> ? null : <?= (int)$index ?>"
+                    x-bind:class="accordion === <?= (int)$index ?> ? 'active' : ''">
+                <?= $escaper->escapeHtml($tab['title']) ?>
+            </button>
+            <div x-show="accordion === <?= (int)$index ?>"
+                 x-transition
+                 class="accordion-content"
+                 x-bind:class="accordion === <?= (int)$index ?> ? 'active' : ''">
+                <div class="cms-content">
+                    <?= /* @noEscape */ $block->getFilteredContent($tab['content']) ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif; ?>

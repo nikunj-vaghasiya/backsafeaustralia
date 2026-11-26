@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="digital" translate="label" sortOrder="1000000" class="digital-tab">
+            <label>23 Digital Settings</label>
+        </tab>
+        <section id="digitalconfig" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General Configuration</label>
+            <tab>digital</tab>
+            <resource>Digital_Config::digital_config</resource>
+            <group id="top_links" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Top Links Configuration</label>
+                <field id="nationwide_text" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Nationwide Text</label>
+                </field>
+                <field id="tollfree_number" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Toll Free Number</label>
+                </field>
+                <field id="opening_days" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Opening Days</label>
+                </field>
+                <field id="opening_hours" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Opening Hours</label>
+                </field>
+            </group>
+            <group id="footer_links" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Footer Configuration</label>
+                <field id="store_email" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Head Office Email</label>
+                </field>
+                <field id="newsletter_text" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Newsletter Text</label>
+                </field>
+                <field id="facebook_link" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook Link</label>
+                </field>
+                <field id="instagram_link" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instagram Link</label>
+                </field>
+                <field id="footer_logo" translate="label comment" type="image" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Footer Logo</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">logo/footer</upload_dir>
+                    <base_url type="media" scope_info="1">logo/footer</base_url>
+                </field>
+            </group>
+            <group id="icons" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SVG Icons</label>
+                <field id="svg_nationwide" translate="label" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Nationwide Truck</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_search" translate="label" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Header Search</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_user" translate="label" type="textarea" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Header User</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_close_menu" translate="label" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Mobile Naviagation Menu Close</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_subscribe" translate="label" type="textarea" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Newsletter Subscribe Email</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_facebook" translate="label" type="textarea" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Facebook</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_instagram" translate="label" type="textarea" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Instagram</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_twitter" translate="label" type="textarea" sortOrder="8" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Twitter</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_linkedin" translate="label" type="textarea" sortOrder="9" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>LinkedIn</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_email" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_sort_asc" translate="label" type="textarea" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sort ASC</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_sort_desc" translate="label" type="textarea" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sort DESC</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_view_order" translate="label" type="textarea" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>View Order</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_re_order" translate="label" type="textarea" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Re Order</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_backto_top" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Back To Top Icon</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_location" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Location Icon</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_talk_to_us" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Talk To Us Icon</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_contact" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Contact Us Icon</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_wishlist" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Wishlist Icon</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+                <field id="svg_question_icon" translate="label" type="textarea" sortOrder="12" showInDefault="1" showInWebsite="0"
+                       showInStore="1">
+                    <label>Question Mark Icon</label>
+                </field>
+            </group>
+            <group id="view" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>CMS Page Banner Image</label>
+                <field id="cms_banner" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="2" showInDefault="1" showInWebsite="1" >
+                    <label>CMS Banner Image</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system" scope_info="1">wysiwyg/cms</upload_dir>
+                    <comment><![CDATA[Image Dimension : 1920px * 320px]]></comment>
+                </field>
+            </group>
+            <group id="main_category" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Main Category Configuration</label>
+                <field id="grid_per_page" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Main Category Per Page Values</label>
+                    <comment>Comma-separated.</comment>
+                    <validate>validate-per-page-value-list</validate>
+                </field>                                     
+                <field id="category_list_limit" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Main Category List Page Limit</label>
+                    <comment>Enter category item limit show on main category list page.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

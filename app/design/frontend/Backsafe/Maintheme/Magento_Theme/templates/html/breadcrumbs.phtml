@@ -1,0 +1,86 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Magento\Theme\Block\Html\Breadcrumbs;
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
+/** @var Breadcrumbs $block */
+/** @var array[] $crumbs */
+
+if (!$crumbs && !is_array($crumbs)) {
+    return '';
+}
+
+// The rendering of the application/ld+json BreadcrumbList can be disabled by setting this flag in layout XML
+$skipLinkedDataJsonSchema = $block->getData('skip_ld_json_schema');
+$schemaBreadcrumbs = [];
+$crumbsCount = 1;
+$currentPageUrl = $block->getUrl('', ['_current' => true, '_use_rewrite' => true]);
+?>
+
+<nav class="breadcrumbs bg-container-lighter text-slate-900 shadow-sm" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="items list-reset py-4 rounded flex flex-wrap text-grey text-sm test123">
+            <?php foreach ($crumbs as $crumbName => $crumbInfo): ?>
+                <?php
+                    preg_match('/category(\d+)/', $crumbName, $matches);
+                    $categoryId = isset($matches[1]) ? (int)$matches[1] : 0;
+
+                    $categoryRedirects = [
+                        180 => 'mining-solutions',
+                        168 => 'remote-facilities-management-solutions'
+                    ];
+
+                    if (isset($categoryRedirects[$categoryId])) {
+                        $crumbInfo['link'] = $block->getUrl($categoryRedirects[$categoryId]);
+                    }
+                ?>
+                <li class="item flex ">
+                <?php if (!$crumbInfo['first']): ?>
+                    <span aria-hidden="true" class="separator text-slate-600 px-2">/</span>
+                <?php endif; ?>
+                <?php if ($crumbInfo['link']): ?>
+                    <a
+                        href="<?= $escaper->escapeUrl($crumbInfo['link']) ?>"
+                        <?php if ($crumbInfo['title']): ?>
+                            aria-label="<?= $escaper->escapeHtmlAttr($crumbInfo['title']) ?>"
+                        <?php endif; ?>
+                    ><?= $escaper->escapeHtml($crumbInfo['label']) ?></a>
+                <?php elseif ($crumbInfo['last']): ?>
+                    <a
+                        href="<?= $escaper->escapeUrl($block->getUrl('', ['_current' => true, '_use_rewrite' => true])) ?>"
+                        class="text-slate-600"
+                        aria-current="page"
+                    ><?= $escaper->escapeHtml($crumbInfo['label']) ?></a>
+                <?php else: ?>
+                    <?= $escaper->escapeHtml($crumbInfo['label']) ?>
+                <?php endif; ?>
+                </li>
+                <?php if (! $skipLinkedDataJsonSchema) {
+                    $schemaBreadcrumbs[] = [
+                        "@type" => "ListItem",
+                        "position" => $crumbsCount,
+                        "item" => [
+                            "@id" => $crumbInfo['last'] ? $currentPageUrl : $crumbInfo['link'],
+                            "name" => $crumbInfo['label']
+                        ]
+                    ];
+                } ?>
+            <?php $crumbsCount++; endforeach ?>
+        </ol>
+    </div>
+</nav>
+
+<?php if (! $skipLinkedDataJsonSchema): ?>
+    <script type="application/ld+json">
+        { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": <?= /* @noEscape */ json_encode($schemaBreadcrumbs) ?> }
+    </script>
+<?php endif; ?>

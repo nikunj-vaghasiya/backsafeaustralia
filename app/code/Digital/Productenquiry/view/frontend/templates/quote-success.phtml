@@ -1,0 +1,66 @@
+<?php
+/**
+ * Quote Success Template
+ * 
+ * This template displays the success message after a quote inquiry is submitted.
+ * It includes validation to ensure the user actually submitted a quote inquiry.
+ */
+
+$quoteSaveId = $block->getQuoteSaveId() ?? null;
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$session = $objectManager->get('Magento\Framework\Session\SessionManagerInterface');
+
+// Double-check quote_save_id
+if (empty($quoteSaveId)) {
+    $quoteSaveId = $session->getQuoteSaveId();
+}
+
+// If still empty after both checks, show error and redirect
+if (empty($quoteSaveId) || is_null($quoteSaveId) || $quoteSaveId <= 0) {
+    echo '<div class="container"><div class="alert alert-danger" style="margin-top: 20px;">';
+    echo '<strong>Error:</strong> ';
+    echo __('Invalid request. Please submit a quote inquiry to access this page.');
+    echo '</div>';
+    echo '<p><a href="' . $block->getBaseUrl() . '" class="btn btn-primary">Back to Home</a></p>';
+    echo '</div>';
+    
+    // Clear session
+    $session->unsQuote();
+    $session->unsQuoteSaveId();
+    return;
+}
+?>
+
+<div class="cart_page_wrapper">
+    <div class="container">
+        <div class="wrapper">
+            <div class="quote-box-wrap quote_success_page">
+                <div class="cart-empty">
+                    <div class="cart-icon">
+                        <div class="cart-icon-inner">
+                            <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" fill="#63bc48" data-name="Layer 1" viewBox="0 0 24 24" width="100" height="100">
+                                    <path d="m11,23.5c0,.276-.224.5-.5.5h-6c-2.481,0-4.5-2.019-4.5-4.5V4.5C0,2.019,2.019,0,4.5,0h9c2.481,0,4.5,2.019,4.5,4.5v4c0,.276-.224.5-.5.5s-.5-.224-.5-.5v-4c0-1.93-1.57-3.5-3.5-3.5H4.5c-1.93,0-3.5,1.57-3.5,3.5v15c0,1.93,1.57,3.5,3.5,3.5h6c.276,0,.5.224.5.5Zm3-18c0-.276-.224-.5-.5-.5H4.5c-.276,0-.5.224-.5.5s.224.5.5.5h9c.276,0,.5-.224.5-.5Zm-2,5c0-.276-.224-.5-.5-.5h-7c-.276,0-.5.224-.5.5s.224.5.5.5h7c.276,0,.5-.224.5-.5Zm-7.5,4.5c-.276,0-.5.224-.5.5s.224.5.5.5h4c.276,0,.5-.224.5-.5s-.224-.5-.5-.5h-4Zm19.5,2.5c0,3.584-2.916,6.5-6.5,6.5s-6.5-2.916-6.5-6.5,2.916-6.5,6.5-6.5,6.5,2.916,6.5,6.5Zm-1,0c0-3.032-2.468-5.5-5.5-5.5s-5.5,2.468-5.5,5.5,2.468,5.5,5.5,5.5,5.5-2.468,5.5-5.5Zm-3.347-.88l-2.218,2.129c-.336.332-.886.332-1.224.002l-1.131-1.108c-.196-.191-.513-.19-.707.008-.193.197-.189.514.008.707l1.131,1.108c.362.354.838.531,1.312.531s.95-.178,1.31-.532l2.213-2.124c.199-.19.205-.508.014-.707-.19-.198-.507-.205-.707-.014Z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="page-title"><?= $escaper->escapeHtml(__('Quote Request Submitted')) ?></h1>
+                    <p class="small-title text-green"><?= $escaper->escapeHtml(__('Thank you -- Your quote request has been received successfully.')) ?></p>
+                    <p class="small-title"><?= $escaper->escapeHtml(__('Our team is currently reviewing your request and will be in touch shortly with pricing and availability.')) ?></p>
+                    
+                    <div class="xsmall-title">
+                        <a class="btn btn-primary" title="Continue Shopping" href="<?= $escaper->escapeUrl($block->getBaseUrl() . 'shop-by-product.html'); ?>">Continue Shopping</a>
+                        <a class="btn btn-outline-primary" title="Back to Home" href="<?php echo $block->getBaseUrl(); ?>">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+
+$session->unsQuote();
+$session->unsQuoteSaveId();
+?>

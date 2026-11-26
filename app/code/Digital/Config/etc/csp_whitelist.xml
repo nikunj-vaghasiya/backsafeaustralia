@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="digital-instant-one-script-src" type="host">instant.one</value>
+                <value id="digital-js-instant-one-script-src" type="host">js.instant.one</value>
+                <value id="digital-addthis.com-script-src" type="host">addthis.com</value>
+                <value id="digital-static-zdassets-com-script-src" type="host">https://static.zdassets.com</value>
+                <value id="digital-widget-mediator-zopim-com-script-src" type="host">https://widget-mediator.zopim.com</value>
+                <value id="digital-s7-addthis-com-script-src" type="host">http://s7.addthis.com</value>
+                <value id="digital-z-moatads-com-script-src" type="host">https://z.moatads.com</value>
+                <value id="digital-v1-addthisedge-com-script-src" type="host">https://v1.addthisedge.com</value>
+                <value id="digital-m-addthis-com-script-src" type="host">https://m.addthis.com</value>
+                <value id="digital-widgets-pinterest-com-script-src" type="host">http://widgets.pinterest.com</value>
+                <value id="digital-static-zipmoney-com-au-script-src" type="host">https://static.zipmoney.com.au</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="digital-api-instant-one-connect-src" type="host">api.instant.one</value>
+                <value id="apptrian-checkout-instant-one-connect-src" type="host">instant.one</value>
+                <value id="digital-addthis.com-connect-src" type="host">addthis.com</value>
+                <value id="digital-ekr-zdassets-com-connect-src" type="host">https://ekr.zdassets.com</value>
+                <value id="digital-baygallery-zendesk-com-connect-src" type="host">https://baygallery.zendesk.com</value>
+                <value id="digital-widget-mediator-zopim-com-connect-src" type="host">wss://widget-mediator.zopim.com</value>
+                <value id="digital-api-public-addthis-com-connect-src" type="host">https://api-public.addthis.com</value>
+                <value id="digital-api-sandbox-zipmoney-com-au-connect-src" type="host">https://api.sandbox.zipmoney.com.au</value>
+                <value id="digital-t.labs.au.edge.zip.co-connect-src" type="host">https://t.labs.au.edge.zip.co</value>
+            </values>
+        </policy>
+        <policy id="media-src">
+            <values>
+                <value id="digital-static-zdassets-com-media-src" type="host">https://static.zdassets.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="digital-s7-addthis-com-frame-src" type="host">https://s7.addthis.com</value>
+                <value id="digital-www-google-com-frame-src" type="host">https://www.google.com</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="digital-static-zipmoney-com-au-img-src" type="host">https://static.zipmoney.com.au</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

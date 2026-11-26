@@ -1,0 +1,66 @@
+<div class="cron-info-wrap" style="margin-top:10px; background:#fffbbb;">
+	<?php /* AU Website sync notification */ ?>
+	<?php if($runningScript = $this->getRunningScripts()): ?>
+		<p style="padding:5px"><?php echo __('Please don\'t Run Manual Sync because import of '. $runningScript .' is running.');?></p>
+	<?php endif; ?>
+	<?php if($cutomerImportTime = $this->getCustomerImportRemainingTime(
+				\Integration\ManualSync\Helper\Data::CUSTOMER_DUMP_TYPE_ID,
+				\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+				\Integration\ManualSync\Helper\Data::AUTO_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total approx. time to complete Sync process of customer: ') . ($cutomerImportTime) ." Minutes.";?></p>
+	<?php endif; ?>
+	<?php if($cutomerImportTime = $this->getCustomerImportRemainingTime(
+				\Integration\ManualSync\Helper\Data::CUSTOMER_DUMP_TYPE_ID,
+				\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+				\Integration\ManualSync\Helper\Data::MANUAL_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total batches created to updated customer is: ') . ($cutomerImportTime) ." Batch(es). ".__('Please run the Add/update customers process.');?></p>
+	<?php endif; ?>
+	<?php if($cutomerParentImportTime = $this->getCustomerParentImportRemainingTime(
+				\Integration\ManualSync\Helper\Data::CUSTOMER_PARENT_ASSIGNMENT_DUMP_TYPE_ID,
+				\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+				\Integration\ManualSync\Helper\Data::AUTO_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total approx. time to complete Sync process of parent assignment to customer: ') . ($cutomerParentImportTime) ." Minutes.";?></p>
+	<?php endif; ?>
+	<?php if($cutomerParentImportTime = $this->getCustomerParentImportRemainingTime(
+				\Integration\ManualSync\Helper\Data::CUSTOMER_PARENT_ASSIGNMENT_DUMP_TYPE_ID,
+				\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+				\Integration\ManualSync\Helper\Data::MANUAL_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total batches created to updated parent assignment to customer is: ') . ($cutomerParentImportTime) ." Batch(es). ".__('Please run the Add/update parent assignment of customers process.');?></p>
+	<?php endif; ?>
+	<?php if($productImportTime = $this->getProductImportRemainingTime(
+			\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID,
+			\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+			\Integration\ManualSync\Helper\Data::AUTO_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total approx. time to complete Sync process of product: ') . ($productImportTime) ." Minutes.";?></p>
+	<?php endif; ?>
+	<?php if($productImportTime = $this->getProductImportRemainingTime(
+			\Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID,
+			\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+			\Integration\ManualSync\Helper\Data::MANUAL_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total batches created to updated product is: ') . ($productImportTime) ." Batch(es). ".__('Please run the Add/update product process.');?></p>
+	<?php endif; ?>
+	<?php if($guestCustomerPriceImportTime = $this->getGuestCustomerPriceImportRemainingTime(
+			\Integration\ManualSync\Helper\Data::CUSTOMER_PRICING_GUEST_DUMP_TYPE_ID,
+			\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+			\Integration\ManualSync\Helper\Data::AUTO_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total approx. time to complete Sync process of guest customer pricing : ') . ($guestCustomerPriceImportTime) ." Minutes.";?></p>
+	<?php endif; ?>
+	<?php if($guestCustomerPriceImportTime = $this->getGuestCustomerPriceImportRemainingTime(
+			\Integration\ManualSync\Helper\Data::CUSTOMER_PRICING_GUEST_DUMP_TYPE_ID,
+			\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+			\Integration\ManualSync\Helper\Data::MANUAL_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total batches created to updated guest customer pricing is: ') . ($guestCustomerPriceImportTime) ." Batch(es). ".__('Please run the Add/update product base pricing process.');?></p>
+	<?php endif; ?>
+	<?php if($loggedInCustomerPriceImportTime = $this->getLoggedInCustomerPriceImportRemainingTime(
+			\Integration\ManualSync\Helper\Data::CUSTOMER_PRICING_DUMP_TYPE_ID,
+			\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+			\Integration\ManualSync\Helper\Data::AUTO_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total approx. time to complete Sync process of logged in customer pricing : ') . ($loggedInCustomerPriceImportTime) ." Minutes.";?></p>
+	<?php endif; ?>
+	<?php if($loggedInCustomerPriceImportTime = $this->getLoggedInCustomerPriceImportRemainingTime(
+			\Integration\ManualSync\Helper\Data::CUSTOMER_PRICING_DUMP_TYPE_ID,
+			\Integration\ManualSync\Model\Status::SYNC_PENDING_STATUS,
+			\Integration\ManualSync\Helper\Data::MANUAL_MODE)): ?>
+		<p style="padding:5px"><?php echo __('Total batches created to updated logged in customer pricing is: ') . ($loggedInCustomerPriceImportTime) ." Batch(es). ".__('Please run the Add/update customer pricing of specific customer process.');?></p>
+	<?php endif; ?>
+</div>

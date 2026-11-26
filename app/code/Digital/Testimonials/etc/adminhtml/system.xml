@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="digital" translate="label" sortOrder="10" class="digital-tab">
+            <label>23 Digital Settings</label>
+        </tab>
+        <section id="digital_testimonials" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>testimonials</class>
+            <label>Testimonial Setting</label>
+            <tab>digital</tab>
+            <resource>Digital_Testimonials::testimonial_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Testimonial Setting</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Testimonials</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				
+                <!--<field id="per_page" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Record per page</label>
+                    <validate>validate-not-negative-number</validate>
+                    <comment>show how many records you want to display by deault for Ex. "10". zero is not allowed.</comment> 
+                </field>-->
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <homeboxes_section>
+            <general>
+                <box_limit>6</box_limit>
+                <button_text>Visit Now</button_text>
+            </general>
+        </homeboxes_section>
+    </default>
+</config>

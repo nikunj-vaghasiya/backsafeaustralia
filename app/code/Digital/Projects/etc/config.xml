@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sitemap>
+            <digital_projects>
+                <enabled>1</enabled>
+                <include_listing>1</include_listing>
+                <changefreq>weekly</changefreq>
+                <priority>0.5</priority>
+            </digital_projects>
+        </sitemap>
+    </default>
+</config>

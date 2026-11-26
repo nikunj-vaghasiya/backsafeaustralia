@@ -1,0 +1,138 @@
+<script type="text/javascript">
+    // Carousel global object
+    window.carouselHandler = {
+        active: 0,
+        itemCount: 0,
+        pageSize: 4,
+        pageFillers: 0,
+        autoPlay: false,
+        autoPlayTimer: 0,
+        autoPlayDelay: 4000,
+        dragging: false,
+        isDragging: false,
+        dragStartX: 0,
+        dragStartScrollLeft: 0,
+        dragDirection:0,
+        isMobile: false,
+        sliderRef: 'carouselSection',
+        getSlider() {
+            return this.$refs[this.sliderRef].querySelector('.js_slides');
+        },
+        calcPageSize() {
+            const slider = this.getSlider();
+            if (slider) {
+                this.itemCount = slider.querySelectorAll('.js_slide').length;
+                this.pageSize = Math.round(slider.clientWidth / slider.querySelector('.js_slide').clientWidth);
+                this.pageFillers = (
+                    this.pageSize * Math.ceil(this.itemCount / this.pageSize)
+                ) - this.itemCount;
+
+                this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.screen.width < 1025;
+            }
+        },
+        calcActive() {
+            const slider = this.getSlider();
+            if (slider) {
+                const sliderItems = this.itemCount + this.pageFillers;
+                const calculatedActiveSlide = slider.scrollLeft / (slider.scrollWidth / sliderItems);
+                this.active = Math.round(calculatedActiveSlide / this.pageSize) * this.pageSize;
+            }
+        },
+        scrollPrevious() {
+            this.scrollTo(this.active - this.pageSize);
+        },
+        scrollNext() {
+            this.scrollTo(this.active + this.pageSize);
+        },
+        scrollTo(idx) {
+            const slider = this.getSlider();
+            if (slider) {
+                let getMaxValue = () => {
+                    let maxValue = this.pageSize + this.active >= this.itemCount ? this.active : this.itemCount;
+                    return Math.max(0, Math.min(idx, maxValue));
+                }
+
+                idx = getMaxValue();
+
+                const slideWidth = slider.scrollWidth / (this.itemCount + this.pageFillers);
+                slider.scrollLeft = Math.floor(slideWidth) * idx;
+                this.active = idx;
+
+                if(this.autoPlay) {
+                    this.pause();
+                    this.resume();
+                }
+            }
+        },
+        initDrag() {
+            if(this.dragging){
+                const slider = this.getSlider();
+
+                if (slider) {
+                    slider.addEventListener('mousedown', (e) => {
+                        this.isDragging = true;
+                        this.dragStartX = e.clientX;
+                        this.dragStartScrollLeft = slider.scrollLeft;
+                    });
+
+                    document.addEventListener('mousemove', (e) => {
+                        if (this.isDragging) {
+                            const dragDistance = e.clientX - this.dragStartX;
+
+                            if (dragDistance > 0) {
+                                this.dragDirection = 2; // dragging to the right
+                            } else if (dragDistance < 0) {
+                                this.dragDirection = 1; // dragging to the left
+                            } else {
+                                this.dragDirection = 0; // no drag
+                            }
+                        }
+                    });
+
+                    document.addEventListener('mouseup', (e) => {
+                        if (this.isDragging) {
+                            this.isDragging = false;
+
+                            if (this.dragDirection === 1) {
+                                this.scrollNext();
+                            } else if (this.dragDirection === 2) {
+                                this.scrollPrevious();
+                            }
+
+                            this.dragDirection = 0; // reset drag direction
+                        }
+
+                    });
+                }
+            }
+        },
+        autoPlayInt(){
+            if(this.autoPlay && !this.isMobile){
+                this.autoPlayTimer = setInterval(
+                    () => {
+                        this.plusSlides()
+                    }, this.autoPlayDelay
+                );
+
+                this.$el.addEventListener('mouseenter', () => {this.pause()})
+                this.$el.addEventListener('mouseleave', () => {this.resume()})
+            }
+
+            this.initDrag();
+        },
+        plusSlides(){
+            this.active + this.pageSize >= this.itemCount ? this.scrollTo(0) : this.scrollTo(this.active + this.pageSize);
+        },
+        pause(){
+            clearInterval(this.autoPlayTimer);
+        },
+        resume(){
+            clearInterval(this.autoPlayTimer);
+            this.autoPlayTimer = setInterval(
+                () => {
+                    this.plusSlides()
+                }, this.autoPlayDelay
+            );
+        }
+    }
+</script>

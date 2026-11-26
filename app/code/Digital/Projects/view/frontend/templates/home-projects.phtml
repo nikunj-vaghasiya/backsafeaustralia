@@ -1,0 +1,121 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var ViewModelRegistry $viewModels */
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+$mediaUrl = $this->helper('\Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl();
+?>
+<?php
+$collection = $block->getHomeProjectsCollection();
+?>
+<div class="container"
+    x-data="initBrandsCarousel()"
+    x-defer="intersect"
+    x-init="calcPageSize(); autoPlayInt();"
+    x-ref="popularCategoryCarouselSection"
+    @resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })">
+    <div class="section-content text-center">
+        <h2 class="text-secondary">Success Stories and Project Showcase</h2>
+        <p>Explore how we've transformed workplace safety for Australia's leading companies. Real projects, measurable results, lasting impact.</p>
+    </div>
+
+    <div class="container container-full">
+        <div class="proj-detail-slider-container">
+            <div class="slider-wrapper projects-swiper">
+                <div class="projects-items relative flex -mx-[15px] overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                    <?php foreach ($collection as $projects) : ?>
+                        <div class="relative js_slide flex shrink-0 px-[15px] w-12/12 xs:w-12/12 sm:w-6/12 md:w-6/12 lg:w-6/12 xl:w-3/12 xxl:w-3/12 sl:w-3/12">
+                            <figure class="proj-showcase">
+                                <div class="relative">
+                                    <a href="<?= $this->getUrl() . 'projects/' . $projects->getData('projects_url'); ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>" class="proj-info-img">
+                                        <picture>
+                                            <img width="490" height="380" loading="lazy" decoding="async" src="<?= $mediaUrl . 'digital/projects/' . $projects->getImageListing(); ?>" alt="<?= /* @noEscape */ $projects->getTitle() ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>">
+                                        </picture>
+                                    </a>
+                                    <div class="showcase-detail">
+                                        <?php if ($projects->getCategories()) : ?>
+                                            <h6 class="proj-category-title"><?= /* @noEscape */ $projects->getCategories() ?></h6>
+                                        <?php endif; ?>
+                                        <?php /* <div class="showcase-detail-header">
+                                        <h5 class="proj-showcase-title"><a href="<?= $this->getUrl().'projects/'.$projects->getData('projects_url'); ?>" title="<?= $projects->getTitle() ?>"><?= $projects->getTitle() ?></a></h5>
+                                        <?php if ($projects->getDuration() || $projects->getEngineers()) : ?>
+                                            <ul class="flex-ac gap proj-list-duration">
+                                                <?php if ($projects->getDuration()) : ?>
+                                                <li>
+                                                    <span>
+                                                        <?= $heroicons->watchIconHtml('', 20, 20, ['aria-hidden' => 'true']); ?>
+                                                    </span> <?= $projects->getDuration() ?>
+                                                </li>
+                                                <?php endif ?>
+                                                <?php if ($projects->getEngineers()) : ?>
+                                                <li>
+                                                    <span>
+                                                        <?= $heroicons->usersIconHtml('', 20, 20, ['aria-hidden' => 'true']); ?>
+                                                    </span> <?= $projects->getEngineers() ?>  
+                                                </li>
+                                                <?php endif ?>
+                                            </ul>
+                                        <?php endif ?>
+                                    </div> */ ?>
+                                    </div>
+                                </div>
+                                <figcaption class="proj-showcase-content">
+                                    <div class="showcase-detail-header">
+                                        <h5 class="proj-showcase-title"><a href="<?= $this->getUrl() . 'projects/' . $projects->getData('projects_url'); ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>"><?= /* @noEscape */ $projects->getTitle() ?></a></h5>
+                                    </div>
+                                    <?php /* <div class="gap-3 md:gap-5 grid grid-cols-2 proj-info-list">
+                                    <?= $projects->getShortDescription() ?>
+                                </div> */ ?>
+                                    <div class="flex proj-showcase-actions">
+                                        <a href="<?= $this->getUrl() . 'projects/' . $projects->getData('projects_url'); ?>" title="View Case Study" class="btn btn-outline-primary proj-showcase-btn">View Case Study <span><?= $heroicons->rightArrowHtml('', 20, 20, ['aria-hidden' => 'true']); ?></span></a>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <div class="slider_arrow absolute">
+                    <template x-if="itemCount > pageSize">
+                        <nav class="flex items-center justify-between mt-8 lg:m-0">
+                            <button @click="scrollPrevious"
+                                :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                aria-label="Previous"
+                                class="absolute prevslide">
+                                <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                            </button>
+
+                            <button @click="scrollNext"
+                                :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                aria-label="Next"
+                                class="absolute nextslide">
+                                <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                            </button>
+                        </nav>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    'use strict';
+
+    function initBrandsCarousel() {
+        return {
+            ...window.carouselHandler,
+            active: 0,
+            itemCount: 0,
+            pageSize: 3,
+            pageFillers: 0,
+            autoPlay: true,
+            sliderRef: 'popularCategoryCarouselSection',
+        }
+    }
+</script>

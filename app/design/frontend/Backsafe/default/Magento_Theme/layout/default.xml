@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <css src="css/header.css" />
+        <css src="css/footer.css" />
+        <css src="css/general.css" />
+        <css src="css/common.css" />
+        <css src="css/megamenu.css" /> -->
+    </head>
+    <body>
+        <referenceContainer name="footer_links" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true" />
+        
+        <!-- <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template" name="footer-chat" as="footer-chat-backtotop" template="Magento_Theme::html/back-to-top.phtml" after="footer" cacheable="false"/>
+        </referenceContainer> -->
+        <referenceContainer name="footer">
+            <block class="Magento\Framework\View\Element\Template" name="footer-section" as="footer-sections" template="Magento_Theme::html/footer-links.phtml" after="-" >
+                <block class="Magento\Newsletter\Block\Subscribe" name="footer.newsletter" as="footer.newsletter" template="Magento_Newsletter::subscribe.phtml" ifconfig="newsletter/general/active">
+                    <arguments>
+                        <argument name="button_lock_manager" xsi:type="object">Magento\Framework\View\Element\ButtonLockManager</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="footer.headquarters">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_headquarters</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="footer.call.us">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_call_us</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="footer.email.us">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_email_us</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="footer.products.links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_products_links</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="footer.industries.links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_industries_links</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="footer.support.links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer_support_links</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+        <move element="copyright" destination="footer" after="-"/>
+    </body>
+</page>

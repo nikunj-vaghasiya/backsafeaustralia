@@ -1,0 +1,45 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Catalog\Block\Product\ProductList\Toolbar;
+use Magento\Framework\Escaper;
+
+/** @var Toolbar $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+?>
+<div class="toolbar-sorter sorter flex items-center order-1 col-span-3 sm:col-span-6
+        md:col-span-3 lg:col-span-6 justify-end">
+    <label class="inline-block mr-3">
+        <select data-role="sorter"
+                class="form-select sorter-options form-control input-select product-shorting"
+                aria-label="<?= $escaper->escapeHtmlAttr(__('Sort By')) ?>"
+                @change="changeUrl(
+                    'product_list_order',
+                    $event.currentTarget.options[$event.currentTarget.selectedIndex].value,
+                    options.orderDefault
+                )">
+            <?php foreach ($block->getAvailableOrders() as $orderCode => $orderLabel):?>
+                <option value="<?= $escaper->escapeHtmlAttr($orderCode) ?>"
+                    <?php if ($block->isOrderCurrent($orderCode)): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                    >
+                    <?= $escaper->escapeHtml(__($orderLabel)) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </label>
+</div>

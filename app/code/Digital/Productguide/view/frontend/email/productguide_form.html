@@ -1,0 +1,93 @@
+<!--@subject {{trans "Your Product Guide Enquiry at "}}{{config path="general/store_information/name"}} @-->
+<!--@vars {
+"var data.email":"Customer Email",
+"var data.name":"Customer Name",
+"var data.phone":"Customer Telephone",
+"var data.message":"Customer Message",
+"var store.getFrontendName()":"Store FrontName"
+} @-->
+{{template config_path="design/email/header_template"}}
+  <table cellpadding="0" cellspacing="0" border="0" class="contact_form_detail" style="width:100%">
+	 	<tr>
+			<td>
+				<p class="name">Hello {{var data.firstname}},</p>
+				<p>{{trans "Thank you for your product guide enquiry at %store_name. A member of our team will be in touch shortly." store_name=$store.getFrontendName()}}</p>
+				<p>{{trans "If you wish to contact us directly, you can reach us at "}}<a href='tel:{{config path="general/store_information/phone"}}'>{{config path="general/store_information/phone"}}</a>.</p>
+			</td>
+	 	</tr>
+    <tr>
+    	<td>
+    		<h3 class="title mt-20" style="text-align:center;">{{trans "Details of Your Product Guide Enquiry"}}</h3>
+    	</td>
+    </tr>
+    <tr>
+      <td>
+				<table class="inq-table" border="1" style="width:100%" cellpadding="10" cellspacing="10">
+					{{if data.firstname}}
+					<tr>
+						<td style="width:60px;"><b>First Name</b></td>
+						<td style="width:250px;">{{trans " %firstname" firstname=$data.firstname}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.lastname}}
+					<tr>
+						<td style="width:60px;"><b>Last Name</b></td>
+						<td style="width:250px;">{{trans " %lastname" lastname=$data.lastname}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.company}}
+					<tr>
+						<td style="width:60px;"><b>Company Name</b></td>
+						<td style="width:250px;">{{trans " %company" company=$data.company}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.email}}
+					<tr>
+						<td style="width:60px;"><b>Email</b></td>
+						<td style="width:250px;">{{trans " %email" email=$data.email}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.street}}
+					<tr>
+						<td style="width:60px;"><b>Street Address</b></td>
+						<td style="width:250px;">{{trans " %street" street=$data.street}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.city}}
+					<tr>
+						<td style="width:60px;"><b>City</b></td>
+						<td style="width:250px;">{{trans " %city" city=$data.city}}</td>
+					</tr>
+					{{/if}}
+						
+					{{if data.state}}
+					<tr>
+						<td style="width:60px;"><b>State</b></td>
+						<td style="width:250px;">{{trans " %state" state=$data.state}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.postcode}}
+					<tr>
+						<td style="width:60px;"><b>Postal Code</b></td>
+						<td style="width:250px;">{{trans " %postcode" postcode=$data.postcode}}</td>
+					</tr>
+					{{/if}}
+
+					{{if data.phone}}
+					<tr>
+						<td style="width:60px;"><b>Phone Number</b></td>
+						<td style="width:250px;">{{trans " %phone" phone=$data.phone}}</td>
+					</tr>
+					{{/if}}
+				</table>
+      </td>
+    </tr>
+	</table>
+
+{{template config_path="design/email/footer_template"}}

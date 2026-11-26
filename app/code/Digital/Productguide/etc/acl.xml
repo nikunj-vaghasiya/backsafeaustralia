@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Acl/etc/acl.xsd">
+   <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Digital_Base::23Digital" title="23Digital Extensions" sortOrder="50">
+                    <resource id="Digital_Productguide::parent" title="Productguide" sortOrder="100">
+                        <resource id="Digital_Productguide::manage" title="Manage Productguide Enquiries" sortOrder="10">
+                            <resource id="Digital_Productguide::delete" title="Delete Productguide" sortOrder="20" />
+                            <resource id="Digital_Productguide::settings" title="Configuration" sortOrder="20" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Digital_Productguide::productguide" title="Productguide Configuration" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

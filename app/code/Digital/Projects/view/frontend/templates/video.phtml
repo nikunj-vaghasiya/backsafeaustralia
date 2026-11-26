@@ -1,0 +1,60 @@
+<div id="preview-image" class="video-preview">
+    <img src="<?php echo $this->getUrl().'media/wysiwyg/Projects-video-img.jpg'; ?>" alt="Video Thumbnail">
+    <div class="video-icon-text">
+        <span>
+            <svg width="94" height="94" viewBox="0 0 94 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M46.9997 91.1666C71.3923 91.1666 91.1663 71.3925 91.1663 46.9999C91.1663 22.6073 71.3923 2.83325 46.9997 2.83325C22.6071 2.83325 2.83301 22.6073 2.83301 46.9999C2.83301 71.3925 22.6071 91.1666 46.9997 91.1666Z" stroke="#F3F3F3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M38.1663 29.3333L64.6663 46.9999L38.1663 64.6666V29.3333Z" stroke="#F3F3F3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <div class="sectiontitle text-left">
+            <span class="subtitle">PREMIUM QUALITY, EXCEPTIONAL FLAVOR</span>
+            <h2>Customer Favorite Projects</h2>
+        </div>                                  
+    </div>
+</div>
+
+<!-- Video Popup Container -->
+<div id="projects-video" style="display: none;">
+    <video id="video-player" width="300" height="150" controls>
+        <source src="<?php echo $this->getUrl().'media/wysiwyg/video/Cooking Stake.mp4'; ?>" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<script>
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ], function($, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            buttons: [],
+            opened: function () {
+                $('.modal-popup').addClass('projects-video-modal');
+            },
+            closed: function () {
+                $('.modal-popup').removeClass('projects-video-modal');
+            }
+        };
+
+        var popup = $('#projects-video');
+        
+        modal(options, popup);
+
+        $(".video-preview").click(function() {
+            popup.modal('openModal');
+
+            var video = $("#video-player")[0];
+            video.play();
+        });
+
+        popup.on('modalclosed', function() {
+            var video = $("#video-player")[0];
+            video.pause();
+            video.currentTime = 0;
+        });
+    });
+</script>

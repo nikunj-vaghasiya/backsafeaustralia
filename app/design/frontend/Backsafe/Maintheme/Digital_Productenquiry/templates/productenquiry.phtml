@@ -1,0 +1,678 @@
+<?php
+
+use Hyva\Theme\ViewModel\ReCaptcha;
+?>
+<?php $enquiryQuoteProducts = $block->getEnquiryQuoteProducts(); ?>
+
+<div class="cart_page_wrapper">
+  <div class="container">
+    <form action="<?= $escaper->escapeUrl($block->getUrl('productenquiry/index/save')) ?>"
+      method="post"
+      id="productenquiry-form"
+      class="form productenquiry-cart"
+      x-data="initProductForm()"
+      @submit.prevent="submitForm()"
+      novalidate>
+      <?= $block->getBlockHtml('formkey') ?>
+
+      <div class="wrapper">
+        <div class="quote-box-wrap grid gap-4 lg:gap-10 grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-2 sl:grid-cols-2">
+          <?php if ($block->isExistEnquiryQuote()): ?>
+            <div class="quote-box quote-box-left">
+              <div class="quote-box-title">
+                <h3><?= $escaper->escapeHtml(__('Customers Information')) ?></h3>
+              </div>
+              <div class="quote-box-cont">
+                <div class="form_section">
+                  <fieldset class="fieldset">
+                    <div class="form-wrapper">
+                      <div class="form-wrapper-inner">
+                        <div class="form-wrap">
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="text" name="first_name"
+                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('first_name') ?: $block->getFirstname()) ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Full Name')) ?>"
+                                class="input-text form-control letters-only" id="first_name"
+                                data-validate="{required:true}" maxlength="100"
+                                placeholder="<?= $escaper->escapeHtml(__('First Name*')) ?>"
+                                x-on:keypress="onlyAlphabets($event)">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="text" name="last_name"
+                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('last_name') ?: $block->getLastname()) ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Last Name')) ?>"
+                                class="input-text form-control" id="last_name"
+                                data-validate="{required:true}"
+                                maxlength="100"
+                                placeholder="<?= $escaper->escapeHtml(__('Last Name*')) ?>"
+                                x-on:keypress="onlyAlphabets($event)">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="text" name="company"
+                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('company') ?: $block->getCompayName()) ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Company Name')) ?>"
+                                class="input-text form-control" id="company" maxlength="250"
+                                placeholder="<?= $escaper->escapeHtml(__('Company Name')) ?>">
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two">
+                            <div class="control">
+                              <input type="text" name="site_name" id="site_name"
+                                value=""
+                                title="<?= $escaper->escapeHtmlAttr(__('Site Name')) ?>"
+                                data-validate="{'validate-url':true}"
+                                class="input-text form-control"
+                                maxlength="100"
+                                placeholder="<?= $escaper->escapeHtml(__('Site Name')) ?>">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="email" name="email" id="email"
+                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('email') ?: $block->getEmailaddress()) ?>"
+                                title="<?= $escaper->escapeHtmlAttr(__('Email Address')) ?>"
+                                class="input-text form-control" data-validate="{required:true, 'validate-email':true}"
+                                maxlength="100"
+                                placeholder="<?= $escaper->escapeHtml(__('Email Address*')) ?>">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="text" name="phone"
+                                id="phone" value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('phone')) ?>" title="<?= $escaper->escapeHtmlAttr(__('Phone')) ?>"
+                                class="input-text form-control" data-validate="{required:true}"
+                                placeholder="<?= $escaper->escapeHtml(__('Mobile*')) ?>"
+                                minlength="10"
+                                maxlength="25"
+                                x-on:keypress="isNumberKey($event)">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="text" name="state"
+                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('state')) ?>" title="<?= $escaper->escapeHtmlAttr(__('state')) ?>" class="input-text form-control"
+                                data-validate="{required:true}"
+                                id="state" maxlength="250"
+                                placeholder="<?= $escaper->escapeHtml(__('State *')) ?>"
+                                onkeypress="return onlyAlphabets(event)">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <div class="field input-group box-two required">
+                            <div class="control">
+                              <input type="text" name="postcode"
+                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('Postcode')) ?>" title="<?= $escaper->escapeHtmlAttr(__('Postcode')) ?>"
+                                class="input-text form-control" data-validate="{required:true}" id="postcode"
+                                maxlength="4"
+                                placeholder="<?= $escaper->escapeHtml(__('Postcode *')) ?>"
+                                x-on:keypress="isNumberKey($event)">
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div>
+                          <!-- <div class="field input-group box-two required">
+                            <div class="control">                              
+                              <input type="checkbox" id="subscribe" name="subscribe" value="1" checked data-validate="{required:true}">
+                              <label for="my_checkbox_field" class="label">
+                                <span>Ship Outside Australia</span>
+                              </label>
+                              <div class="error-message"></div>
+                              <span class="animation-span"><i></i></span>
+                            </div>
+                          </div> -->
+                          <div class="submit-box">
+                            <div class="field input-group required comment">
+                              <div class="control">
+                                <textarea maxlength="500" name="message" id="message" title="<?= $escaper->escapeHtml(__("Message")) ?>" class="input-text form-control" data-validate="{required:true}" placeholder="<?= $escaper->escapeHtml(__("Message")) ?>"><?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('message')); ?></textarea>
+                                <div class="error-message"></div>
+                                <span class="animation-span"><i></i></span>
+                              </div>
+                            </div>
+                            <div class="captcha">
+                              <?= $block->getBlockHtml('recaptcha_input_field_recaptcha') ?>
+                              <div id="recaptcha-error-message" class="error-message"></div>
+                            </div>
+
+                            <div class="field-inner input-group">
+                              <div class="field input-group form-footer">
+                                <div class="field required submit">
+                                  <div class="actions-toolbar">
+                                    <div class="primary">
+                                      <button type="submit"
+                                        class="action submit submit_product_enquiry btn-black btn small-btn btn-lblue"
+                                        title="<?= $escaper->escapeHtmlAttr(__('Submit')) ?>"
+                                        :disabled="isSubmitting"
+                                        :class="{ 'opacity-50 cursor-not-allowed': isSubmitting }">
+                                        <span x-show="!isSubmitting"><?= $escaper->escapeHtml(__('Submit')) ?></span>
+                                        <span x-show="isSubmitting"><?= $escaper->escapeHtml(__('Submitting...')) ?></span>
+                                        <span class="button-hover"><i>&nbsp;</i></span>
+                                      </button>
+                                      <a href="<?= $escaper->escapeUrl($block->getBaseUrl() . 'products'); ?>"
+                                        class="btn btn-outline-primary">
+                                        <?= $escaper->escapeHtml(__('Browse More Products')) ?>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          <?php endif; ?>
+          <?php if ($block->isExistEnquiryQuote()): ?>
+            <div class="quote-box quote-box-right">
+              <div class="quote-box-title">
+                <h3><?= $escaper->escapeHtml(__('Items')) ?></h3>
+              </div>
+              <div class="quote-box-cont">
+                <div class="quote-pro-table">
+                  <div class="cart table-wrapper">
+                    <table id="shopping-cart-table"
+                      class="cart items data table">
+                      <caption role="heading" aria-level="2" class="table-caption">
+                        <?= $escaper->escapeHtml(__('Quote Items')) ?>
+                      </caption>
+
+                      <tbody>
+                        <?php if (count($enquiryQuoteProducts)): ?>
+                          <?php
+                          foreach ($enquiryQuoteProducts as $product):
+                            $product_image = $block->getProductImage($product['product_id'], $product['parentid']);
+                          ?>
+                            <tr>
+                              <td data-th="Product" class="col Product">
+                                <div class="product-item-details-inner flex items-center">
+                                  <div class="product-item-image">
+                                    <?php if (!empty($product_image)) { ?>
+                                      <img width="90"
+                                        height="90"
+                                        class="img-responsive lazy"
+                                        src="<?= /* @noEscape */ $product_image; ?>"
+                                        alt="<?= $escaper->escapeHtml(__($product['name'])); ?>">
+                                    <?php } else {
+                                      $no_productImage = '';
+                                    ?>
+                                      <img width="90"
+                                        height="90"
+                                        class="img-responsive lazy"
+                                        src="<?= /* @noEscape */ $no_productImage; ?>"
+                                        alt="<?= $escaper->escapeHtml(__($product['name'])); ?>">
+                                    <?php } ?>
+                                  </div>
+                                  <div class="product-item-details">
+                                    <strong class="product-item-name">
+                                      <?php $productname = $product['name'];
+                                      echo $productname;
+                                      ?>
+                                    </strong>
+                                  </div>
+                                </div>
+                              </td>
+
+                              <td class="col qty" data-th="Qty">
+                                <div class="field input-group qty qty-box qty-increment">
+                                  <input type="text" name="qty"
+                                    id="qty"
+                                    min="0"
+                                    max="999"
+                                    maxlength="3"
+                                    value="<?= $escaper->escapeHtml(__($product['qty'])); ?>"
+                                    title="<?= $escaper->escapeHtml(__($product['qty'])); ?>"
+                                    class="input-text qty qty-box-text form-control"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 3);" />
+
+                                </div>
+                              </td>
+                              <td class="col action" colspan="100">
+                                <a href="javascript:void(0)"
+                                  title="Remove item"
+                                  class="actiondelete button-gray"
+                                  data-enquiryid="<?= $escaper->escapeHtml(__($product['product_id'] . $product['parentid'])); ?>">
+                                  <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 18">
+                                    <g>
+                                      <path fill="#FFFFFF" d="M8.939,0C4.01,0,0,4.018,0,8.956c0,4.938,4.01,8.956,8.939,8.956c4.928,0,8.939-4.019,8.939-8.956
+                                                                            C17.878,4.018,13.867,0,8.939,0z M8.939,16.377c-4.084,0-7.407-3.33-7.407-7.421c0-4.092,3.322-7.421,7.407-7.421
+                                                                            c4.083,0,7.406,3.329,7.406,7.421C16.345,13.047,13.022,16.377,8.939,16.377z"></path>
+                                      <path fill="#FFFFFF" d="M12.398,5.491c-0.301-0.3-0.785-0.3-1.084,0l-2.375,2.38l-2.375-2.38c-0.299-0.3-0.784-0.3-1.083,0
+                                                                            c-0.299,0.299-0.299,0.786,0,1.085l2.375,2.38l-2.375,2.38c-0.299,0.3-0.299,0.785,0,1.086c0.15,0.15,0.347,0.225,0.542,0.225
+                                                                            c0.196,0,0.393-0.074,0.542-0.225l2.375-2.381l2.375,2.381c0.149,0.15,0.346,0.225,0.542,0.225c0.195,0,0.392-0.074,0.542-0.225
+                                                                            c0.298-0.301,0.298-0.786,0-1.086l-2.376-2.38l2.376-2.38C12.696,6.277,12.696,5.791,12.398,5.491z"></path>
+                                    </g>
+                                  </svg>
+                                </a>
+                              </td>
+                            </tr>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php else: ?>
+        </div>
+
+      </div>
+      <div x-data x-init="document.body.classList.add('no-item-class')"></div>
+      <div class="cart-empty-wrapper section-space">
+        <div class="cart-empty text-center cms-content">
+          <div class="cart-icon">
+            <div class="cart-icon-inner">
+              <div class="icon">
+                <svg x="0px" y="0px" width="172px" height="186px" viewBox="0 0 172 186">
+                  <g>
+                    <g>
+                      <path fill="#EAEAEA" d="M130.852,37.368c0-4.035-1.574-7.834-4.429-10.688l-14.251-14.251C109.357,9.614,105.362,8,101.386,8
+                                        h-0.866v30.234h30.333L130.852,37.368L130.852,37.368z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path fill="#EAEAEA" d="M92.025,111.984c0.965-2.928,2.648-5.653,4.843-7.863l34.118-33.98V48.313H95.578
+                                        c-2.785,0-4.875-2.254-4.875-5.039V8H15.117C6.781,8,0,14.781,0,23.117v141.766C0,173.219,6.781,180,15.117,180h100.617
+                                        c8.336,0,15.252-6.781,15.252-15.117v-37.608l-5.537,5.403c-2.244,2.225-4.872,3.843-7.834,4.832l-16.023,5.35l-2.44,0.133
+                                        c-4.035,0-7.854-1.964-10.226-5.251c-2.353-3.272-2.992-7.515-1.713-11.348L92.025,111.984z M25.195,98.703h50.227
+                                        c2.785,0,5.039,2.254,5.039,5.039s-2.254,5.039-5.039,5.039H25.195c-2.785,0-5.039-2.254-5.039-5.039S22.41,98.703,25.195,98.703z
+                                        M20.156,83.586c0-2.785,2.254-5.039,5.039-5.039h50.227c2.785,0,5.039,2.254,5.039,5.039s-2.254,5.039-5.039,5.039H25.195
+                                        C22.41,88.625,20.156,86.371,20.156,83.586z M20.156,123.898c0-2.785,2.254-5.039,5.039-5.039h50.227
+                                        c2.785,0,5.039,2.254,5.039,5.039s-2.254,5.039-5.039,5.039H25.195C22.41,128.938,20.156,126.684,20.156,123.898z M95.578,149.094
+                                        c2.785,0,5.039,2.254,5.039,5.039s-2.253,5.039-5.039,5.039H65.344c-2.785,0-5.039-2.254-5.039-5.039s2.254-5.039,5.039-5.039
+                                        H95.578z M25.195,68.469c-2.785,0-5.039-2.254-5.039-5.039s2.254-5.039,5.039-5.039h70.383c2.785,0,5.039,2.254,5.039,5.039
+                                        s-2.254,5.039-5.039,5.039H25.195z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path fill="#EAEAEA" d="M101.154,116.443l-4.384,13.152c-0.657,1.971,1.218,3.844,3.188,3.187l13.145-4.39L101.154,116.443z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path fill="#EAEAEA" d="M140.291,74.955l-33.188,33.187l14.313,14.313c7.501-7.502,22.096-22.099,33.186-33.188L140.291,74.955z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path fill="#EAEAEA" d="M169.039,60.501c-1.771-1.781-4.38-2.8-7.146-2.8c-2.767,0-5.374,1.019-7.155,2.805l-7.322,7.322
+                                        l14.311,14.311c4.008-4.009,6.779-6.78,7.322-7.323C172.985,70.874,172.984,64.453,169.039,60.501z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <g>
+                        <path fill="#EAEAEA" d="M169.049,74.816C169.049,74.816,169.049,74.816,169.049,74.816c0.014-0.013,0.02-0.019,0.029-0.029
+                                            C169.068,74.798,169.063,74.804,169.049,74.816z" />
+                        <path fill="#EAEAEA" d="M169.078,74.787c0.017-0.016,0.035-0.035,0.045-0.045C169.113,74.752,169.095,74.771,169.078,74.787z" />
+                        <path fill="#EAEAEA" d="M169.123,74.742C169.156,74.71,169.156,74.709,169.123,74.742L169.123,74.742z" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <div class="empty-qty">
+                <span>0</span>
+                <span>Items</span>
+                <span class="line-box">
+                  <span class="line"></span>
+                  <span class="line"></span>
+                  <span class="line"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <h1 class="page-title mt-4"><?= $escaper->escapeHtml(__('Request Quote')) ?></h1>
+          <p class="small-title mt-4"><?= $escaper->escapeHtml(__('We couldn’t process your quote request because your cart doesn’t contain any items.Kindly add the products you’re interested in and return to submit your request.')) ?></p>
+          <p class="xsmall-title">
+            <a href="<?= $escaper->escapeUrl($block->getBaseUrl() . 'products'); ?>">
+              <?= $escaper->escapeHtml(__('Click here')); ?>
+            </a><?= $escaper->escapeHtml(__(' to continue shopping.')); ?>
+          </p>
+        </div>
+      </div>
+    <?php endif; ?>
+    </form>
+  </div>
+</div>
+<script>
+  function initProductForm() {
+    return {
+      errors: {},
+      isSubmitting: false,
+
+      validateField(field) {
+        const name = field.name;
+        const value = field.value.trim();
+        const errorDiv = field.nextElementSibling;
+
+        if (!errorDiv || !errorDiv.classList.contains('error-message')) return;
+
+        errorDiv.textContent = '';
+
+
+
+        if (field.dataset.validate?.includes('required') && !value) {
+          const msg = 'This is a required field.';
+          this.errors[name] = msg;
+          errorDiv.textContent = msg;
+          return;
+        }
+
+        if (field.type === 'email' && value && !this.validateEmail(value)) {
+          const msg = 'Please enter a valid email address (Ex: johndoe@domain.com).';
+          this.errors[name] = msg;
+          errorDiv.textContent = msg;
+          return;
+        }
+
+       /* const email = document.getElementById('email').value;
+        const confirmEmail = document.getElementById('confirm_email').value;
+        console.table(confirmEmail);
+
+        if (email !== confirmEmail) {
+          if (field.name === 'confirm_email') {
+            msg = 'Email addresses do not match';
+            this.errors[name] = msg;
+            errorDiv.textContent = msg;
+            return;
+          }
+        }*/
+
+
+
+        delete this.errors[name];
+      },
+
+      validateRecaptcha() {
+        const recaptchaResponse = grecaptcha.getResponse();
+        const recaptchaErrorDiv = document.getElementById('recaptcha-error-message');
+
+        if (!recaptchaResponse) {
+          this.errors['recaptcha'] = 'Please verify that you are not a robot.';
+          if (recaptchaErrorDiv) {
+            recaptchaErrorDiv.textContent = this.errors['recaptcha'];
+          }
+          return false;
+        } else {
+          delete this.errors['recaptcha'];
+          if (recaptchaErrorDiv) {
+            recaptchaErrorDiv.textContent = '';
+          }
+          return true;
+        }
+      },
+
+      validateForm() {
+        const form = document.getElementById('productenquiry-form');
+        const fields = form.querySelectorAll('[data-validate]');
+        this.errors = {};
+
+        fields.forEach(field => this.validateField(field));
+
+        this.validateRecaptcha();
+
+        return Object.keys(this.errors).length === 0;
+      },
+
+      submitForm() {
+        if (this.validateForm()) {
+          this.isSubmitting = true;
+          document.getElementById('productenquiry-form').submit();
+        }
+      },
+
+      validateEmail(email) {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(email);
+      }
+    };
+  }
+
+  function onlyAlphabets(event) {
+    const charCode = event.charCode;
+    // Allow uppercase (A-Z) and lowercase (a-z) alphabets
+    if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)) {
+      return true; // Allow the character
+    } else {
+      event.preventDefault(); // Prevent the character from being entered
+      return false;
+    }
+  }
+
+  function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+</script>
+<script>
+  function initProductGroup() {
+    return {
+      deleteProducts() {
+        const products = [];
+        const enquiryId = this.getEnquiryId();
+
+        if (enquiryId > 0) {
+          products.push(enquiryId);
+        }
+
+        if (products.length) {
+          const postUrl = "<?= $block->escapeUrl($block->getUrl()) . 'productenquiry/index/deletes' ?>";
+          const data = new URLSearchParams({
+            form_key: hyva.getFormKey(),
+            products: products.join(',')
+          });
+
+          fetch(postUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              },
+              body: data,
+              credentials: "include",
+            })
+            .then(async (response) => {
+              const responseData = await response.text();
+              const jsonData = JSON.parse(responseData);
+              if (jsonData != 'error') {
+                window.location.href = jsonData;
+              } else if (response.ok) {
+                return response.json();
+              }
+            })
+            .then(async (response) => {
+              const responseData = await response.text();
+              const jsonData = JSON.parse(responseData);
+              if (jsonData != 'error') {
+                window.location.href = jsonData;
+              } else if (response.ok) {
+                return response.json();
+              }
+            })
+            .then(response => {
+              if (!response) {
+                return;
+              }
+            })
+            .catch(error => {
+              /* alert(error.message); */
+            });
+        }
+      },
+      decreasesQty() {
+        const products = [];
+        const enquiryId = this.getEnquiryId();
+
+        if (enquiryId > 0) {
+          products.push(enquiryId);
+        }
+
+        if (products.length) {
+          const postUrl = "<?= $block->escapeUrl($block->getUrl()) . 'productenquiry/index/decreases' ?>";
+          const data = new URLSearchParams({
+            form_key: hyva.getFormKey(),
+            products: products.join(',')
+          });
+
+          fetch(postUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              },
+              body: data,
+              credentials: "include",
+            })
+            .then(async (response) => {
+              const responseData = await response.text();
+              const jsonData = JSON.parse(responseData);
+              if (jsonData != 'error') {
+                const qtySpan = document.querySelector(`[data-qtyid="${enquiryId}"]`);
+                const currentQty = parseInt(qtySpan.textContent.trim());
+                const newQty = Math.max(currentQty - 1, 0);
+
+                if (newQty === 0) {
+                  window.location.href = jsonData;
+                } else {
+                  qtySpan.textContent = newQty;
+                }
+                /*window.location.href = jsonData;*/
+              } else if (response.ok) {
+                return response.json();
+              }
+            })
+            .then(response => {
+              if (!response) {
+                return;
+              }
+            })
+            .catch(error => {
+              /* alert(error.message); */
+            });
+        }
+      },
+      increasesQty() {
+        const products = [];
+        const enquiryId = this.getEnquiryId();
+
+        if (enquiryId > 0) {
+          products.push(enquiryId);
+        }
+
+        if (products.length) {
+          const postUrl = "<?= $block->escapeUrl($block->getUrl()) . 'productenquiry/index/increases' ?>";
+          const data = new URLSearchParams({
+            form_key: hyva.getFormKey(),
+            products: products.join(',')
+          });
+
+          fetch(postUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+              },
+              body: data,
+              credentials: "include",
+            })
+            .then(async (response) => {
+              const responseData = await response.text();
+              const jsonData = JSON.parse(responseData);
+              if (jsonData != 'error') {
+                const qtySpan = document.querySelector(`[data-qtyid="${enquiryId}"]`);
+                const currentQty = parseInt(qtySpan.textContent.trim());
+                const newQty = currentQty + 1;
+                qtySpan.textContent = newQty;
+                /*window.location.href = jsonData;*/
+              } else if (response.ok) {
+                return response.json();
+              }
+            })
+            .then(response => {
+              if (!response) {
+                return;
+              }
+            })
+            .catch(error => {
+              /* alert(error.message); */
+            });
+        }
+      },
+      getEnquiryId() {
+        return this.enquiryId;
+      }
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const productComponent = initProductGroup();
+    document.querySelectorAll('.actiondelete').forEach(button => {
+      button.addEventListener('click', function() {
+        productComponent.enquiryId = this.dataset.enquiryid;
+        productComponent.deleteProducts();
+      });
+    });
+    document.querySelectorAll('.decreases').forEach(button => {
+      button.addEventListener('click', function() {
+        productComponent.enquiryId = this.dataset.enquiryid;
+        productComponent.decreasesQty();
+      });
+    });
+    document.querySelectorAll('.increases').forEach(button => {
+      button.addEventListener('click', function() {
+        productComponent.enquiryId = this.dataset.enquiryid;
+        productComponent.increasesQty();
+      });
+    });
+
+    const hideMessages = () => {
+      const messages = document.querySelectorAll('.message-success, .message-error, .message-warning, .message-notice, .messages .message, .messages');
+      messages.forEach(message => {
+        setTimeout(() => {
+          message.style.transition = 'opacity 0.5s ease-out';
+          message.style.opacity = '0';
+          setTimeout(() => {
+            message.style.display = 'none';
+          }, 500);
+        }, 5000); // 5 seconds delay
+      });
+    };
+
+    hideMessages();
+
+    const observer = new MutationObserver(hideMessages);
+    const messagesContainer = document.querySelector('.page.messages, .messages');
+    if (messagesContainer) {
+      observer.observe(messagesContainer, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+
+  });
+</script>

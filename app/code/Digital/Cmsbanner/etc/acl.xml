@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Digital_Cmsbanner::cmsbanner" title="CMS Banners" sortOrder="100">
+                    <resource id="Digital_Cmsbanner::banner_list" title="List" sortOrder="10"/>
+                    <resource id="Digital_Cmsbanner::banner_save" title="Save" sortOrder="20"/>
+                    <resource id="Digital_Cmsbanner::banner_delete" title="Delete" sortOrder="30"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer>
+            <captcha>
+                <shown_to_logged_in_user>
+                    <productenquiry-form>1</productenquiry-form>
+                </shown_to_logged_in_user>
+                <always_for>
+                    <productenquiry-form>1</productenquiry-form>
+                </always_for>
+            </captcha>
+        </customer>
+        <captcha translate="label">
+            <frontend>
+                <areas>
+                    <productenquiry-form>
+                        <label>Productenquiry Form</label>
+                    </productenquiry-form>
+                </areas>
+            </frontend>
+        </captcha>
+    </default>
+</config>

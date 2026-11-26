@@ -1,0 +1,30 @@
+<script>
+(function () {
+    if (window.hsChatDelayStarted) {
+        return;
+    }
+
+    window.hsChatDelayStarted = true;
+
+    window.hsConversationsSettings =
+        window.hsConversationsSettings || {};
+
+    window.hsConversationsSettings.loadImmediately = false;
+
+    function loadChat() {
+        if (
+            window.HubSpotConversations &&
+            window.HubSpotConversations.widget
+        ) {
+            window.HubSpotConversations.widget.load();
+        } else {
+            setTimeout(loadChat, 500);
+        }
+    }
+
+    window.addEventListener('load', function () {
+        setTimeout(loadChat, 8000);
+    }, { once: true });
+
+})();
+</script>

@@ -1,0 +1,36 @@
+<?php
+
+namespace Digital\Testimonials\Controller\Adminhtml\testimonials;
+
+use Magento\Backend\App\Action;
+use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\App\Response\Http\FileFactory;
+
+class ExportExcel extends \Magento\Backend\App\Action
+{
+    protected $_fileFactory;
+
+    public function execute()
+    {
+        $this->_view->loadLayout(false);
+
+        $fileName = 'testimonials.xml';
+
+        $exportBlock = $this->_view->getLayout()->createBlock(
+            \Digital\Testimonials\Block\Adminhtml\Testimonials\ExportExcel::class
+        );
+
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+        $this->_fileFactory = $objectManager->create(
+            \Magento\Framework\App\Response\Http\FileFactory::class
+        );
+
+        return $this->_fileFactory->create(
+            $fileName,
+            $exportBlock->getExcelFile(),
+            DirectoryList::VAR_DIR
+        );
+    }
+}

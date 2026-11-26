@@ -1,0 +1,93 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+?>
+<?php if ($block->isEnabled()) { ?>
+    <?php $_testimonialsColl = $block->getHomeTestimonials(); ?>
+    <?php if ($_testimonialsColl->count()) { ?>
+        <section class="testimonial-section section-space bg-light-gray hidden"
+        x-data="initBrandsCarousel()"
+        x-defer="intersect"
+        x-init="calcPageSize(); autoPlayInt();"
+        x-ref="popularCategoryCarouselSection"
+        @resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })">
+            <div class="container">
+                <div class="section-content">
+                    <h2 class="text-secondary"><?= __('Testimonials'); ?></h2>
+                </div>
+                <div class="relative testimonial-slider-container slider-wrapper">
+                    <div class="relative flex -mx-[10px] overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                        <?php foreach ($_testimonialsColl as $testimonial) { ?>
+                            <?php if ($testimonial->getData('content')) { ?>
+                                <div class="js_slide flex shrink-0 px-[10px] w-12/12 xs:w-12/12 sm:w-6/12 md:w-6/12 lg:w-6/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12"> 
+                                    <figure class="testimonial-item">
+                                        <figcaption class="testimonial-content">
+                                            <?php $content=  $testimonial->getData('content'); 
+                                                if (strlen($content) > 300) {
+                                                    $stringCut = substr($content, 0, 300);
+                                                    $content = substr($stringCut, 0, 300).'...';
+                                                }
+                                            ?>
+                                            <p class="testimonial-text"><?php echo $content; ?></p>
+                                            <div class="flex-as reviewer-detail">
+                                                <div class="reviewer-content">
+                                                    <h5><?= $escaper->escapeHtml($testimonial->getData('submitter_name')); ?></h5>
+                                                </div>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                    <div class="slider_arrow absolute">
+                        <template x-if="itemCount > pageSize">
+                            <nav class="flex items-center justify-between mt-8 lg:m-0">
+                                <button @click="scrollPrevious"
+                                        :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                        aria-label="Previous"
+                                        class="absolute prevslide">
+                                        <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                                </button>
+
+                                <button @click="scrollNext"
+                                        :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                        aria-label="Next"
+                                        class="absolute nextslide">
+                                        <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                                </button>
+                            </nav>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            'use strict';
+            function initBrandsCarousel() {
+                return {
+                    ...window.carouselHandler,
+                    active: 0,
+                    itemCount: 0,
+                    pageSize: 3,
+                    pageFillers: 0,
+                    autoPlay: true,
+                    sliderRef: 'popularCategoryCarouselSection',
+                }
+            }
+        </script>
+    <?php } ?>
+<?php } ?>

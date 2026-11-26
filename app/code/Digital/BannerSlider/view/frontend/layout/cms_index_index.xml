@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Digital_Base::css/swiper-bundle.min.css"/>
+        <css src="Digital_BannerSlider::css/bannerslider.css"/>
+    </head>
+    <body>
+        <referenceContainer name="page.wrapper">
+            <block class="Digital\BannerSlider\Block\Slider" ifconfig="bannerslider_section/general/enable" name="digital.bannerslider.block.slider" template="Digital_BannerSlider::slider.phtml" before="main.content" after="page.top"/>
+        </referenceContainer>
+    </body>
+</page>

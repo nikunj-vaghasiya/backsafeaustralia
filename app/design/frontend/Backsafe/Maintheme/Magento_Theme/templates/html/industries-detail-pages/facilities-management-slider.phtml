@@ -1,0 +1,179 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+?>
+
+<section class="related-product-section solutions_slider_main product-section section-space"
+x-data="initBrandsCarousel()"
+x-defer="intersect"
+x-init="calcPageSize(); autoPlayInt();"
+x-ref="popularCategoryCarouselSection"
+@resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })">
+    <div class="container">
+        <div class="section-content flex-ae-js">
+            <h2 class="h2 text-secondary">Robust solutions to<br/> the toughest cleaning</h2>
+            <p>Whether you're mobilising a new village or optimising an existing camp, pitching for a new contract or working to retain an existing one. Whether you are a village manager or housekeeping supervisor, maintenance worker or chef.</p>
+        </div>
+        <div class="relative feature-slider-container slider-wrappe">
+            <div class="relative flex flex-nowrap -mx-[15px] overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/materials-handling/pallet-jacks-trucks-movers" title="Pallet Jacks / Trucks / Movers" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product01.jpg'); ?>" alt="Pallet Jacks / Trucks / Movers" title="Pallet Jacks / Trucks / Movers">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/materials-handling/pallet-jacks-trucks-movers" title="Pallet Jacks / Trucks / Movers">Pallet Jacks / Trucks / Movers</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/storage-solutions/dangerous-goods-storage" title="Dangerous Goods Storage" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product02.jpg'); ?>" alt="Dangerous Goods Storage" title="Dangerous Goods Storage">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/storage-solutions/dangerous-goods-storage" title="Dangerous Goods Storage">Dangerous Goods Storage</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/workshop-factory/workbenches" title="Workbenches" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product03.jpg'); ?>" alt="Workbenches" title="Workbenches">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/workshop-factory/workbenches" title="Workbenches">Workbenches</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/ladders-platforms/platform-ladders" title="Platform Ladders" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product04.jpg'); ?>" alt="Platform Ladders" title="Platform Ladders">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/ladders-platforms/platform-ladders" title="Platform Ladders">Platform Ladders</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-trolleys-carts" title="Custom Trolleys / Carts" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product05.jpg'); ?>" alt="Custom Trolleys / Carts" title="Custom Trolleys / Carts">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-trolleys-carts" title="Custom Trolleys / Carts">Custom Trolleys / Carts</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/workshop-factory/warehouse-racking" title="Warehouse Racking" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product06.jpg'); ?>" alt="Warehouse Racking" title="Warehouse Racking">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/workshop-factory/warehouse-racking" title="Warehouse Racking">Warehouse Racking</a></h5>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/storage-solutions/shelving" title="Shelving" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Shelving.jpg'); ?>" alt="Shelving" title="Shelving">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/storage-solutions/shelving" title="Shelving">Shelving</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-workshop-factory" title="Custom Workshop & Factory" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Custom-Workshop-Factory.jpg'); ?>" alt="Custom Workshop & Factory" title="Custom Workshop & Factory">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-workshop-factory" title="Custom Workshop & Factory">Custom Workshop & Factory</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/storage-solutions/stillages-pallet-cages-storage-cages" title="Stillages / Pallet Cages / Storage Cages" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Stillages-Pallet-Cages-Storage-Cages.jpg'); ?>" alt="Stillages / Pallet Cages / Storage Cages" title="Stillages / Pallet Cages / Storage Cages">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/storage-solutions/stillages-pallet-cages-storage-cages" title="Stillages / Pallet Cages / Storage Cages">Stillages / Pallet Cages / Storage Cages</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-5s-lean-systems" title="Custom 5S / Lean Systems" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Custom-5S-Lean-Systems.jpg'); ?>" alt="Custom 5S / Lean Systems" title="Custom 5S / Lean Systems">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-5s-lean-systems" title="Custom 5S / Lean Systems">Custom 5S / Lean Systems</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products" title="And more" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/And-more.jpg'); ?>" alt="And more" title="And more">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products" title="And more">And more</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="slider_arrow absolute">
+                <template x-if="itemCount > pageSize">
+                    <nav class="flex items-center justify-between mt-8 lg:m-0">
+                        <button @click="scrollPrevious"
+                                :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                aria-label="Previous"
+                                class="absolute prevslide">
+                                <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+
+                        <button @click="scrollNext"
+                                :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                aria-label="Next"
+                                class="absolute nextslide">
+                                <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+                    </nav>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    'use strict';
+    function initBrandsCarousel() {
+        return {
+            ...window.carouselHandler,
+            active: 0,
+            itemCount: 0,
+            pageSize: 6,
+            pageFillers: 0,
+            autoPlay: true,
+            sliderRef: 'popularCategoryCarouselSection',
+        }
+    }
+</script>
+    

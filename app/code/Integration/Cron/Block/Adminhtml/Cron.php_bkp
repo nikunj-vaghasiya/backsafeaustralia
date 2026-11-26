@@ -1,0 +1,121 @@
+<?php
+namespace Integration\Cron\Block\Adminhtml;
+
+class Cron extends \Magento\Backend\Block\Template
+{
+	const IMPORT_PRODUCT_CRON_TIME = 5;
+	const IMPORT_CUSTOMER_CRON_TIME = 5;
+	const ADD_BATCH_BUFFER = 2;
+
+    public function __construct(
+		\Magento\Backend\Block\Template\Context $context,
+		\Magento\Framework\App\ResourceConnection $resource,
+		\Integration\Cron\Model\Buffer $cronBuffer,
+		\Integration\Customer\Model\Batch\Process $batchProcess,
+		\Integration\ManualSync\Helper\Data $manualHelper
+    ) {
+        parent::__construct($context);
+        $this->_resource = $resource;
+        $this->cronBuffer = $cronBuffer;
+        $this->manualHelper = $manualHelper;
+        $this->batchProcess = $batchProcess;
+        $this->_connection = $resource->getConnection();
+    }
+
+    public function getRunningScripts($status,$websiteId=1)
+    {
+    	try{
+    		$runningEntities = array();
+			$records = $this->cronBuffer->getCollection()
+						->addFieldToFilter('status',['eq' => $status])
+						->addFieldToFilter('website_id',['eq' => $websiteId]);
+
+			$customerTypeId = ($websiteId != 1) ? \Integration\ManualSync\Helper\Data::NZ_CUSTOMER_DUMP_TYPE_ID: \Integration\ManualSync\Helper\Data::CUSTOMER_DUMP_TYPE_ID;
+			$productTypeId = ($websiteId != 1) ? \Integration\ManualSync\Helper\Data::NZ_PRODUCT_DUMP_TYPE_ID: \Integration\ManualSync\Helper\Data::PRODUCT_DUMP_TYPE_ID;
+
+			if($records && $records->getSize()){
+				foreach($records as $record){
+					if(isset($record['type']) && $record['type'] == $customerTypeId){
+						$runningEntities[] = 'Customer';
+					} else if(isset($record['type']) && $record['type'] == $productTypeId){
+						$runningEntities[] = 'Product';
+					}
+				}
+			}
+
+			if(count($runningEntities)){
+				return array_unique($runningEntities);
+			}
+
+			return array_unique($runningEntities);
+		} catch(Exception $e){
+			return false;
+		}
+    }
+
+	public function getCustomerImportRemainingTime($type,$status,$mode=\Integration\ManualSync\Helper\Data::AUTO_MODE,$websiteId=1)
+	{
+		try{
+			$cronBuffer = $this->cronBuffer->getCollection()
+						->addFieldToFilter('type',['eq' => $type])
+						->addFieldToFilter('status',['eq' => $status])
+						->addFieldToFilter('mode',['eq' => $mode])
+						->addFieldToFilter('website_id',['eq' => $websiteId]);
+
+			if($cronBuffer && $cronBuffer->getSize() && $mode == \Integration\ManualSync\Helper\Data::AUTO_MODE){
+				$count = $cronBuffer->getSize();
+				return (int)(($count + self::ADD_BATCH_BUFFER) * self::IMPORT_CUSTOMER_CRON_TIME);
+			} else {
+				$count = $cronBuffer->getSize();
+				return (int)$count;
+			}
+			return false;
+		} catch(Exception $e){
+			return false;
+		}
+	}
+
+	public function getCustomerParentImportRemainingTime($type,$status,$mode=\Integration\ManualSync\Helper\Data::AUTO_MODE,$websiteId=1)
+	{
+		try{
+			$cronBuffer = $this->cronBuffer->getCollection()
+						->addFieldToFilter('type',['eq' => $type])
+						->addFieldToFilter('status',['eq' => $status])
+						->addFieldToFilter('mode',['eq' => $mode])
+						->addFieldToFilter('website_id',['eq' => $websiteId]);
+
+			if($cronBuffer && $cronBuffer->getSize() && $mode == \Integration\ManualSync\Helper\Data::AUTO_MODE){
+				$count = $cronBuffer->getSize();
+				return (int)(($count + self::ADD_BATCH_BUFFER) * self::IMPORT_CUSTOMER_CRON_TIME);
+			} else {
+				$count = $cronBuffer->getSize();
+				return (int)$count;
+			}
+			return false;
+		} catch(Exception $e){
+			return false;
+		}
+	}
+
+	public function getProductImportRemainingTime($type,$status,$mode=\Integration\ManualSync\Helper\Data::AUTO_MODE,$websiteId=1)
+	{
+		try{
+			$cronBuffer = $this->cronBuffer->getCollection()
+						->addFieldToFilter('type',['eq' => $type])
+						->addFieldToFilter('status',['eq' => $status])
+						->addFieldToFilter('mode',['eq' => $mode])
+						->addFieldToFilter('website_id',['eq' => $websiteId]);
+
+			if($cronBuffer && $cronBuffer->getSize() && $mode == \Integration\ManualSync\Helper\Data::AUTO_MODE){
+				$count = $cronBuffer->getSize();
+				return (int)(($count + self::ADD_BATCH_BUFFER) * self::IMPORT_CUSTOMER_CRON_TIME);
+			} else {
+				$count = $cronBuffer->getSize();
+				return (int)$count;
+			}
+			return false;
+		} catch(Exception $e){
+			return false;
+		}
+	}
+}

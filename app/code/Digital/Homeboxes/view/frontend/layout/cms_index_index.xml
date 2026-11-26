@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="homeboxes" htmlTag="section" htmlClass="safety-sol-section section-space">
+                <block class="Digital\Homeboxes\Block\Boxes" ifconfig="homeboxes_section/general/enable" name="homeboxes.block.slider" template="Digital_Homeboxes::boxes.phtml" after="home.brand.section"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

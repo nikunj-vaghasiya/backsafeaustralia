@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<title>Request a Quote</title>
+ 	</head>
+    <body>
+		<referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Go to Home Page</item>
+                    <item name="label" xsi:type="string">Home</item>
+                    <item name="link" xsi:type="string">{{baseUrl}}</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Quote Request Submitted</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Quote Request Submitted</item>
+                    <item name="label" xsi:type="string">Quote Request Submitted</item>
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+			 <block class="Digital\Productenquiry\Block\Product\Success" name="productenquirysuccess" template="Digital_Productenquiry::quote-success.phtml" cacheable="false" />
+        </referenceContainer>
+    </body>
+</page>

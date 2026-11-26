@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+   <preference for="Digital\Homeboxes\Api\Data\BoxesInterface" type="Digital\Homeboxes\Model\Boxes"/>
+   <preference for="Digital\Homeboxes\Api\BoxesRepositoryInterface" type="Digital\Homeboxes\Model\BoxesRepository"/>
+   <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+      <arguments>
+         <argument name="collections" xsi:type="array">
+            <item name="digital_boxes_listing_data_source" xsi:type="string">Digital\Homeboxes\Model\ResourceModel\Boxes\Grid\Collection</item>
+            <item name="digital_boxes_grid_data_source" xsi:type="string">Digital\Homeboxes\Model\ResourceModel\Boxes\Grid\Collection</item>
+         </argument>
+      </arguments>
+   </type>
+   <type name="Digital\Homeboxes\Model\ResourceModel\Boxes\Grid\Collection">
+     <arguments>
+         <argument name="mainTable" xsi:type="string">digital_boxes</argument>
+         <argument name="eventPrefix" xsi:type="string">digital_boxes_grid_collection</argument>
+         <argument name="eventObject" xsi:type="string">boxes_grid_collection</argument>
+         <argument name="resourceModel" xsi:type="string">Digital\Homeboxes\Model\ResourceModel\Boxes</argument>
+     </arguments>
+   </type>
+</config>

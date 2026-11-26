@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+   <preference for="Digital\Projects\Api\Data\ProjectsInterface" type="Digital\Projects\Model\Projects"/>
+   <preference for="Digital\Projects\Api\ProjectsRepositoryInterface" type="Digital\Projects\Model\ProjectsRepository"/>
+   <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+      <arguments>
+         <argument name="collections" xsi:type="array">
+            <item name="digital_projects_listing_data_source" xsi:type="string">Digital\Projects\Model\ResourceModel\Projects\Grid\Collection</item>
+            <item name="digital_projects_grid_data_source" xsi:type="string">Digital\Projects\Model\ResourceModel\Projects\Grid\Collection</item>
+         </argument>
+      </arguments>
+   </type>
+   <type name="Digital\Projects\Model\ResourceModel\Projects\Grid\Collection">
+     <arguments>
+         <argument name="mainTable" xsi:type="string">digital_projects</argument>
+         <argument name="eventPrefix" xsi:type="string">digital_projects_grid_collection</argument>
+         <argument name="eventObject" xsi:type="string">projects_grid_collection</argument>
+         <argument name="resourceModel" xsi:type="string">Digital\Projects\Model\ResourceModel\Projects</argument>
+     </arguments>
+   </type>
+
+   <!-- ===== XML Sitemap integration ===== -->
+   <type name="Digital\Projects\Model\Sitemap\ItemProvider\Projects">
+      <arguments>
+         <argument name="configReader" xsi:type="object">Digital\Projects\Model\Sitemap\ItemProvider\ProjectsConfigReader</argument>
+      </arguments>
+   </type>
+   <type name="Magento\Sitemap\Model\ItemProvider\Composite">
+      <arguments>
+         <argument name="itemProviders" xsi:type="array">
+            <item name="digitalProjectsItemResolver" xsi:type="object">Digital\Projects\Model\Sitemap\ItemProvider\Projects</item>
+         </argument>
+      </arguments>
+   </type>
+
+   
+</config>

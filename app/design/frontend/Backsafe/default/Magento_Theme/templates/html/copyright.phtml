@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<div class="footer-copyright">
+    <div class="footer-signature">
+        <?= $block->escapeHtml($block->getCopyright()) ?>
+    </div>
+    <div class="footer-signature-links">
+        <ul class="flex-ac gap-3 sm:gap-5 md:gap-[60px]">
+            <li><a title="Web Design" target="_blank" href="https://www.23digital.com.au/web-design">Web Design</a> by <a target="_blank" href="https://www.23digital.com.au/wordpress-web-design" title="Digital Agencies">23 Digital</a></li>
+            <li><a href="<?= $block->getBaseUrl().'privacy-policy' ?>" title="Privacy Policy">Privacy Policy</a></li>
+            <li><a href="<?= $block->getBaseUrl().'terms-of-service' ?>" title="Terms of Service">Terms of Service</a></li>
+            <li><a href="<?= $block->getBaseUrl().'sitemap' ?>" title="Sitemap">Sitemap</a></li>
+        </ul>
+    </div>
+</div>

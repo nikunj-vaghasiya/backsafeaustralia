@@ -1,0 +1,54 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Magento\Catalog\Block\Product\View;
+
+/** @var View $block */
+
+$product = $block->getProduct();
+$isGrouped = $product && $product->getTypeId() === \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE;
+?>
+<section class="product-details-section section-space">
+    <div class="container">
+        <div class="product-details grid x-gap grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-2 sl:grid-cols-2">
+            <div class="product-details-slider-container">
+                <?= $block->getChildHtml('product.media') ?>
+            </div>
+            <div class="product-details-content">
+                <?= $block->getChildHtml('product.title') ?>
+                <?= $block->getChildHtml('product.info') ?>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <?= $block->getChildHtml('product_options_wrapper_bottom') ?>
+</section>
+<?php if ($isGrouped) : ?>
+    <section class="grouped-table quantities-section section-space bg-light-gray border-b30">
+        <div class="container">
+            <?= $block->getChildHtml('product.info.form') ?>
+            <?= $block->getChildHtml('product.info.addtocart') ?>
+        </div>
+    </section>
+<?php endif; ?>
+<section>
+    <?= $block->getChildHtml('related') ?>
+</section>
+<?php if ($product->getHowToOperate()) : ?>
+<section class="why-product-section section-space bg-secondary">
+    <?= $block->getChildHtml('content-with-video'); ?>
+</section>
+<?php endif; ?>
+<section>
+    <?= $block->getChildHtml('upsell') ?>
+    <?= $block->getChildHtml('review_list') ?>
+    <?= $block->getChildHtml('review_form') ?>
+</section>

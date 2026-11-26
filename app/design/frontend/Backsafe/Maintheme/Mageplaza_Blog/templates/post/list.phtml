@@ -1,0 +1,80 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Blog
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\Blog\Block\Frontend;
+use Mageplaza\Blog\Model\Post;
+use Magento\Framework\Escaper;
+
+/** @var Frontend $block */
+/** @var Escaper $escaper */
+?>
+
+<section class="hire-equipment-section product-section section-space border-b30">
+    <div class="container" id="mpblog-list-container">
+        <?php $postCollection = $block->getPostCollection(); ?>
+        <?php if ($postCollection && $postCollection->getSize()) : ?>
+            <div class="news-blog-wrapper grid gap grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-3 sl:grid-cols-3">
+                <?php /** @var Post $post */
+                foreach ($postCollection as $post) : ?>
+                    <?php 
+                            $url = $post->getUrl();
+                            $cleanUrl = str_replace('/post/', '/', $url);
+                    ?>
+                    <figure class="product">
+                        <?php if ($post->getImage()) : ?>
+                                <a href="<?= $escaper->escapeUrl($cleanUrl) ?>" class="news-img">
+                                    <img src="<?= $escaper->escapeUrl($block->resizeImage($post->getImage(), '400x')) ?>"
+                                         alt="<?= $escaper->escapeHtml($post->getName()); ?>"
+                                         title="<?= $escaper->escapeHtml($post->getName()); ?>"/>
+                                </a>
+                        <?php endif; ?>
+                        <figcaption class="product-content">
+                            <h5 class="product-title">
+                                <a class="post-link-title" title="<?= $escaper->escapeHtml($post->getName()); ?>"
+                                   href="<?= $escaper->escapeUrl($cleanUrl) ?>">
+                                    <?= $escaper->escapeHtml($post->getName()) ?>
+                                </a>
+                            </h5>
+                            <div class="mp-post-info">
+                                <?= /** @noEscape */ $block->getPostInfo($post) ?>
+                            </div>
+                            <p class="product-text">
+                                <?= /** @noEscape */ $block->maxShortDescription($post->getShortDescription()) ?>
+                            </p>
+                            <div class="flex-center product-actions">
+                                <a href="<?= $escaper->escapeUrl($cleanUrl) ?>" title="<?= $escaper->escapeHtmlAttr(__('VIEW DETAILS')) ?>" class="btn btn-primary product-atc-btn"><?= $escaper->escapeHtml(__('VIEW DETAILS')) ?></a>
+                            </div>
+                        </figcaption>
+                    </figure>
+                <?php endforeach; ?>
+            </div>
+            <?= $block->getPagerHtml() ?>
+        <?php else : ?>
+            <?= $escaper->escapeHtml(__('There are no posts at this moment')) ?>
+        <?php endif; ?>
+        <?= $block->getChildHtml('additional'); ?>
+    </div>
+</section>
+<style>
+    .limiter {
+        float: right;
+    }
+</style>

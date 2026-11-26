@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Manual Sync Manager</title>
+    </head>
+    <body>
+    	<referenceContainer name="page.main.actions" remove="true" />
+        <referenceContainer name="content">
+            <block class="Integration\ManualSync\Block\Adminhtml\Run\Process" name="manualsync.run.process" template="Integration_ManualSync::run/process.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

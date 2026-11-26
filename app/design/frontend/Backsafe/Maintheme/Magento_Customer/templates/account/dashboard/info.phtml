@@ -1,0 +1,89 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Customer\Block\Account\Dashboard\Info;
+use Magento\Framework\Escaper;
+
+/** @var Info $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+?>
+<div class="white_box box-p-30">
+    <h2 class="h3 boxtitle">
+        <?= $escaper->escapeHtml(__('Account Information')) ?>
+    </h2>
+    <div class="flex flex-wrap justify-between -m-4">
+        <div class="w-full p-4 lg:w-1/2">
+            <div class="flex flex-col h-full sm:flex-row gray_box box-p-20">
+                <div class="icon">
+                    <?= $heroicons->userHtml('', 32, 32, ['aria-hidden' => 'true']) ?>
+                </div>
+                <div class="content">
+                    <h3 class="mb-3 text-lg font-medium text-gray-900 title-font">
+                        <span><?= $escaper->escapeHtml(__('Contact Information')) ?></span>
+                    </h3>
+                    <p class="mb-3">
+                        <?= $escaper->escapeHtml($block->getName()) ?><br>
+                        <?= $escaper->escapeHtml($block->getCustomer()->getEmail()) ?>
+                    </p>
+                    <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+                    <a
+                        class="link link-primary no_line mr-4"
+                        href="<?= $escaper->escapeUrl($block->getUrl('customer/account/edit')) ?>"
+                        aria-label="<?= $escaper->escapeHtml(__('Edit contact information')) ?>"
+                    >
+                        <span><?= $escaper->escapeHtml(__('Edit')) ?></span>
+                        <?= $heroicons->arrowRightHtml('ml-2', 16, 16, ['aria-hidden' => 'true']); ?>
+                    </a>
+                    <a
+                        class="link link-primary no_line"
+                        href="<?= $escaper->escapeUrl($block->getChangePasswordUrl()) ?>"
+                    >
+                        <?= $escaper->escapeHtml(__('Change Password')) ?>
+                        <?= $heroicons->arrowRightHtml('ml-2', 16, 16, ['aria-hidden' => 'true']); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="w-full p-4 lg:w-1/2">
+                <div class="flex flex-col h-full sm:flex-row gray_box box-p-20">
+                    <div class="icon email">
+                        <?= $heroicons->mailHtml('', 32, 32, ['aria-hidden' => 'true']) ?>
+                    </div>
+                    <div class="content">
+                        <h3 class="mb-3 text-lg font-medium text-gray-900 title-font">
+                            <?= $escaper->escapeHtml(__('Newsletters')) ?>
+                        </h3>
+                        <p class="mb-3">
+                            <?php if ($block->getIsSubscribed()): ?>
+                                <?= $escaper->escapeHtml(__('You are subscribed to "General Subscription".')) ?>
+                            <?php else: ?>
+                                <?= $escaper->escapeHtml(__('You aren\'t subscribed to our newsletter.')) ?>
+                            <?php endif; ?>
+                        </p>
+                        <a
+                            class="link link-primary no_line"
+                            href="<?= $escaper->escapeUrl($block->getUrl('newsletter/manage')) ?>"
+                            aria-label="<?= $escaper->escapeHtml(__('Edit newsletters')) ?>"
+                        >
+                            <span><?= $escaper->escapeHtml(__('Edit')) ?></span>
+                            <?= $heroicons->arrowRightHtml('ml-2', 16, 16, ['aria-hidden' => 'true']); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?= $block->getChildHtml('additional_blocks'); ?>
+    </div>
+</div>

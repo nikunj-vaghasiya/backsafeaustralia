@@ -1,0 +1,65 @@
+<?php
+/* @codingStandardsIgnoreStart */
+$configHelper = $this->helper(\Digital\Base\Helper\Data::class);
+/* @codingStandardsIgnoreEnd */
+?>
+<?php //$storeInfo = $configHelper->getStoreInformation(); ?>
+<div class="container">
+    <div class="footer-left">
+        <div class="footer-logo">
+            <img src="<?php echo $this->getViewFileUrl('images/footer-logo.svg'); ?>" alt="<?= __('Backsafe Australia'); ?>" title="<?= __('Backsafe Australia'); ?>" />
+        </div>
+        <div class="newsletter-box">
+            <?php echo $this->getChildHtml('footer.newsletter');?>
+        </div>
+        <div class="footer-accordion footer-social">
+            <h5 class="footer-accordion-title">Follow us</h5>
+            <div class="footer-social-links">
+                <ul class="footer-social-wrapper">
+                    <li><a title="Facebook" href="<?php echo $configHelper->getFacebookLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getFacebookIcon(); ?></a></li>
+                    <li><a title="LinkedIn" href="<?php echo $configHelper->getLinkedInLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getLinkedInIcon(); ?></a></li>
+                    <li><a title="Instagram" href="<?php echo $configHelper->getInstagramLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getInstagramIcon(); ?></a></li>
+                    <li><a title="Youtube" href="<?php echo $configHelper->getYoutuberLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getYoutubeIcon(); ?></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-right">
+        <div class="footer-accordion" x-data="{ openTab: 0 }">
+            <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Headquarters</h5>
+            <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                <?php echo $this->getChildHtml('footer.headquarters');?>
+            </div>
+        </div>
+        <div class="footer-accordion" x-data="{ openTab: 0 }">
+            <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Call us</h5>
+            <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                <?php echo $this->getChildHtml('footer.call.us');?>
+            </div>
+        </div>
+        <div class="footer-accordion" x-data="{ openTab: 0 }">
+            <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Email us</h5>
+            <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                <?php echo $this->getChildHtml('footer.email.us');?>
+            </div>
+        </div>
+        <div class="footer-accordion" x-data="{ openTab: 0 }">
+            <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Products</h5>
+            <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                <?php echo $this->getChildHtml('footer.products.links');?>
+            </div>
+        </div>
+        <div class="footer-accordion" x-data="{ openTab: 0 }">
+            <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Industries</h5>
+            <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                <?php echo $this->getChildHtml('footer.industries.links');?>
+            </div>
+        </div>
+        <div class="footer-accordion" x-data="{ openTab: 0 }">
+            <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Support</h5>
+            <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                <?php echo $this->getChildHtml('footer.support.links');?>
+            </div>
+        </div>
+    </div>
+</div>

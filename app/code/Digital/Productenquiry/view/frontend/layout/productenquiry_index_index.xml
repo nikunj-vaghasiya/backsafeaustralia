@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<title>Request a Quote</title>
+ 	</head>
+    <body>
+		<referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Go to Home Page</item>
+                    <item name="label" xsi:type="string">Home</item>
+                    <item name="link" xsi:type="string">{{baseUrl}}</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Request a Quote</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Request a Quote</item>
+                    <item name="label" xsi:type="string">Request a Quote</item>
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+			 <block class="Digital\Productenquiry\Block\Product\Productenquiry" name="productenquiry" template="Digital_Productenquiry::productenquiry.phtml" ifconfig="productenquiry/view/enabled" cacheable="false" >
+                <!--<container name="form.additional.info.productenquiry" label="Captcha">
+                    <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+                        <action method="setFormId">
+                            <argument name="formId" xsi:type="string">productenquiry-form</argument>
+                        </action>
+                        <action method="setImgWidth">
+                            <argument name="width" xsi:type="string">230</argument>
+                        </action>
+                        <action method="setImgHeight">
+                            <argument name="width" xsi:type="string">50</argument>
+                        </action>
+                    </block>
+                </container>-->
+            </block>
+            <referenceBlock name="head.components">
+                <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

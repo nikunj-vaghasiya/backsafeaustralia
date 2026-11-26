@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <!-- "Manage Enquiries" group sits under the 23 Digital top-level menu.
+             Set parent below to the id of the "23 Digital" menu (grep it from app/code menu.xml files).
+             Replace Digital_Base::digital if your id differs. -->
+        <add id="Hubspot_ProductEnquiry::manage_enquiries"
+             title="Manage Enquiries"
+             module="Hubspot_ProductEnquiry"
+             sortOrder="200"
+             resource="Hubspot_ProductEnquiry::enquiry"
+             parent="Digital_Base::parent"/>
+
+        <add id="Hubspot_ProductEnquiry::enquiry"
+             title="Product Enquiries"
+             module="Hubspot_ProductEnquiry"
+             sortOrder="10"
+             resource="Hubspot_ProductEnquiry::enquiry"
+             action="productenquiry/enquiry/index"
+             parent="Hubspot_ProductEnquiry::manage_enquiries"/>
+    </menu>
+</config>

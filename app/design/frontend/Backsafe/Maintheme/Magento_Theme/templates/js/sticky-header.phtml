@@ -1,0 +1,7 @@
+<div x-data="{ isSticky: false }"
+     x-init="window.addEventListener('scroll', () => {
+         isSticky = window.scrollY > 1;
+     })"
+     x-effect="document.querySelector('header.page-header')?.classList.toggle('header-sticky', isSticky)"
+>
+</div>

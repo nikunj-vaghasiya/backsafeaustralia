@@ -1,0 +1,30 @@
+<!--@subject Elasticsearch Health Check Alert @-->
+<!--@vars {
+"var errorMessage":"Elasticsearch Error Message",
+"var indexerMessage":"Indexer Reset Message",
+"var detectedAt":"Detected At",
+"var searchEngine":"Current Search Engine"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr>
+        <td>
+            <h2>Elasticsearch Health Check Alert</h2>
+
+            <p>Elasticsearch connection failure detected.</p>
+
+            <p><strong>Error message:</strong> {{var errorMessage}}</p>
+
+            <p>{{var indexerMessage}}</p>
+
+            <p><strong>Detected at:</strong> {{var detectedAt}}</p>
+
+            <p><strong>Current search engine:</strong> {{var searchEngine}}</p>
+
+            <p>This is an automated notification from the Digital_Elasticsearch module.</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

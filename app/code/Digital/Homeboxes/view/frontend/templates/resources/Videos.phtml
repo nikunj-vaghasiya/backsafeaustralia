@@ -1,0 +1,43 @@
+<?php
+$helper     = $block->getData('helper') ?? $this->helper(\Digital\Homeboxes\Helper\Data::class);
+
+try {
+    $getVideoList = $helper->getVideoList();
+    $getVideoList_array = json_decode($getVideoList, true);
+} catch (\Exception $e) {
+    $getVideoList = [];
+}
+if (is_array($getVideoList_array) || !empty($getVideoList_array)) {
+    foreach ($getVideoList_array as $key => $value) {
+        $url = $value['video_url'];
+        $videoId = '';
+
+        // Extract YouTube Video ID
+        if (preg_match('/(youtu\.be\/|v=|\/embed\/)([a-zA-Z0-9_-]{11})/', $url, $matches)) {
+            $videoId = $matches[2];
+        }
+        
+        $embedUrl = $videoId ? "https://www.youtube.com/embed/" . $videoId : '';
+?>
+        <figure class="product">
+            <div class="product-img">
+                <?php if ($embedUrl): ?>
+                    <iframe 
+                        style="width: 640px; height: 385px;" 
+                        src="<?= $embedUrl; ?>"
+                        frameborder="0" allowfullscreen="allowfullscreen">
+                    </iframe>
+                <?php else: ?>
+                    <p>Invalid YouTube URL</p>
+                <?php endif; ?>
+            </div>
+            <figcaption class="product-content">
+                <h5 class="product-title">
+                    <?= $escaper->escapeHtml($value['video_title']); ?>
+                </h5>
+            </figcaption>
+        </figure>
+
+
+<?php  }
+} ?>

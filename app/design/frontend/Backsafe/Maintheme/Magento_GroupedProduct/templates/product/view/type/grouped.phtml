@@ -1,0 +1,172 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Magento\Catalog\Block\Product\View\BaseImage;
+use Magento\Catalog\Pricing\Price\TierPrice;
+use Magento\Framework\Escaper;
+use Magento\GroupedProduct\Block\Product\View\Type\Grouped;
+use Hyva\Theme\ViewModel\ProductStockItem;
+
+// phpcs:disable Generic.WhiteSpace.ScopeIndent
+
+/**
+ * @var BaseImage $block
+ * @var Grouped $block
+ * @var Escaper $escaper
+ */
+
+$block->setPreconfiguredValue();
+$product = $block->getProduct();
+$associatedProducts = $block->getAssociatedProducts();
+$hasAssociatedProducts = count($associatedProducts) > 0;
+?>
+<script>
+    function initGroupedOptions() {
+        return {
+            isValid: true,
+            validateForm() {
+                const validateInputs = Array.from(
+                    document.querySelectorAll('input[name^=super_group]')
+                );
+
+                // at least one of the inputs has to have a qty > 0
+                this.isValid = validateInputs.filter(
+                    input => input.value > 0
+                ).length;
+
+                // we set or unset validity for all fields at once
+                // and empty string un-sets invalidity
+                validateInputs.map(input =>
+                    input.setCustomValidity(this.isValid ?
+                        "" :
+                        "<?= $escaper->escapeJs(__('Please specify the quantity of product(s).')) ?>")
+                )
+
+                if (!this.isValid) {
+                    // this triggers an immediate display of the form errors
+                    document.querySelector("#product_addtocart_form").reportValidity();
+                    return false;
+                }
+                return true;
+            },
+            init() {
+                document.querySelector("#product_addtocart_form")
+                    .addEventListener("submit", (e) => {
+                        if (!this.validateForm()) {
+                            e.preventDefault();
+                        }
+                    });
+            }
+        }
+    }
+</script>
+<div class="product-options-table-container" id="product-options-table-container" x-data="initGroupedOptions()" @validate.window="validateForm()">
+<?php if ($hasAssociatedProducts): ?>
+    <div class="section-content">
+        <h2 class="text-secondary">Choose your quantities</h2>
+    </div>
+    <div class="table-container">
+        <table class="product-options-table table w-1/1">
+            <thead>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Code')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Description')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Qty')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($associatedProducts as $item): ?>
+                    <?php
+                        $result_class = '';
+                        if (isset($_REQUEST['q']) && count($associatedProducts) > 1) {
+                            if (strtoupper($item->getSku()) == strtoupper(trim($_REQUEST['q']))) {
+                                $result_class = 'result-sku-data';
+                            }
+                        }
+				    ?>
+                    <tr
+                        <?php foreach ($block->getData('product_data_attributes') ?? [] as $attribute => $include): ?>
+                             <?php if ($include): ?>
+                                 <?= $escaper->escapeHtml(sprintf('data-%s', $attribute)); ?>="<?= $escaper->escapeHtmlAttr($item->getData($attribute)); ?>"
+                             <?php endif; ?>
+                         <?php endforeach; ?>
+                    >
+                        <td class="product-option-code <?= $result_class ?>"><?= $escaper->escapeHtml($item->getSku()) ?></td>
+                        <td class="product-option-title-avibility uppercase <?= $result_class ?>"><?= $escaper->escapeHtml($item->getName()) ?></td>
+                        <td class="product-option-quantity <?= $result_class ?>">
+                            <?php if ($product->isSaleable()): ?>
+                                <?php if ($item->isSaleable()): ?>
+                                    <div x-data="{
+                                                    qty: <?= (int) $item->getQty() ?>,
+                                                    min: 0,
+                                                    max: 999,
+                                                    increment() {
+                                                        this.qty = Math.min(this.qty + 1, this.max);
+                                                        setTimeout(() => { $dispatch('validate') }, 100);
+                                                    },
+                                                    decrement() {
+                                                        this.qty = Math.max(this.qty - 1, this.min);
+                                                        setTimeout(() => { $dispatch('validate') }, 100);
+                                                    }
+                                                }" class="quantity-box">
+                                        <button type="button" class="quantity-minus" @click="decrement"></button>
+                                        <input type="number"
+                                                   x-model.number="qty"
+                                                   min="0"
+                                                    max="999"
+                                                   :min="min"
+                                                   :max="max"
+                                                   name="super_group[<?= $escaper->escapeHtmlAttr($item->getId()) ?>]"
+                                                   id="super_group[<?= $escaper->escapeHtmlAttr($item->getId()) ?>]"
+                                                   :class=" { 'border-red-500 focus:border-red-500 focus:ring-red-500': !this.isValid }"
+                                                   class="form-control quantity-input enquirytxt"
+                                                   title="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>"
+                                                   :value="qty"
+                                                   value="<?= $escaper->escapeHtmlAttr($item->getQty() * 1) ?>"
+                                                   @input.debounce="validateForm()"
+                                                   @input="if(qty > max) qty = max"
+                                                   data-id="<?= $item->getId(); ?>"
+                                                   data-parentid="<?= $product->getId(); ?>"
+                                                   data-name="<?= str_replace("&", "", $item->getName()); ?>"
+                                                   data-parenturl="<?= $product->getUrlModel()->getUrl($product); ?>"
+                                                   data-sku="<?= $item->getSku(); ?>"
+                                            />
+                                        <button type="button" class="quantity-plus" @click="increment"></button>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+    <?= $escaper->escapeHtml(__('No options of this product are available.')) ?>
+<?php endif; ?>
+</div>
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const qValue = urlParams.get('q');
+  
+  if (qValue) {
+    const targetTbody = document.querySelector(`tr[data-sku="${qValue}"]`);
+    
+    if (targetTbody) {
+      targetTbody.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }
+});
+</script>

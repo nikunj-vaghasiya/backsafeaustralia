@@ -1,0 +1,179 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+?>
+
+<section class="related-product-section solutions_slider_main product-section section-space"
+x-data="initBrandsCarousel()"
+x-defer="intersect"
+x-init="calcPageSize(); autoPlayInt();"
+x-ref="popularCategoryCarouselSection"
+@resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })">
+    <div class="container">
+        <div class="section-content flex-ae-js">
+            <h2 class="h2 text-secondary">Military-Grade Solutions.</h2>
+            <p>Designed for maximum durability and performance in extreme conditions, our military-grade, Defence-spec storage and material handling solutions ensure the safe storage of sensitive equipment and materials. Whether it’s high-spec shelving, heavy-duty trolleys, or custom-built storage systems, our products are built to withstand the harsh demands of Defence environments while ensuring efficient and safe handling of critical assets.<br><br>When you brief us on your Defence safety and productivity challenges, we’ll help you select the ideal products from our 7,000+ inventory, sourced from the world’s leading brands. If we can’t find it, we’ll build it!</p>
+        </div>
+        <div class="relative feature-slider-container slider-wrappe">
+            <div class="relative flex flex-nowrap -mx-[15px] overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-trolleys-carts" title="Custom Trolleys / Carts" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product05.jpg'); ?>" alt="Custom Trolleys / Carts" title="Custom Trolleys / Carts">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-trolleys-carts" title="Custom Trolleys / Carts">Custom Trolleys / Carts</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-workshop-factory" title="Custom Workshop & Factory" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Custom-Workshop-Factory.jpg'); ?>" alt="Custom Workshop & Factory" title="Custom Workshop & Factory">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-workshop-factory" title="Custom Workshop & Factory">Custom Workshop & Factory</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/storage-solutions/heavy-duty-site-and-parts-boxes" title="Heavy Duty Site and Parts Boxes" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Heavy-Duty-Site-and-Parts-Boxes.jpg'); ?>" alt="Heavy Duty Site and Parts Boxes" title="Heavy Duty Site and Parts Boxes">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/storage-solutions/heavy-duty-site-and-parts-boxes" title="Heavy Duty Site and Parts Boxes">Heavy Duty Site and Parts Boxes</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/storage-solutions/shelving" title="Shelving" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Shelving.jpg'); ?>" alt="Shelving" title="Shelving">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/storage-solutions/shelving" title="Shelving">Shelving</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/workshop-factory/warehouse-racking" title="Warehouse Racking" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product06.jpg'); ?>" alt="Warehouse Racking" title="Warehouse Racking">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/workshop-factory/warehouse-racking" title="Warehouse Racking">Warehouse Racking</a></h5>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/storage-solutions/dangerous-goods-storage" title="Dangerous Goods Storage" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Dangerous-Goods-Storage.jpg'); ?>" alt="Dangerous Goods Storage" title="Dangerous Goods Storage">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/storage-solutions/dangerous-goods-storage" title="Dangerous Goods Storage">Dangerous Goods Storage</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-safety-security" title="Custom Safety & Security" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Custom-Safety-Security.jpg'); ?>" alt="Custom Safety & Security" title="Custom Safety & Security">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-safety-security" title="Custom Safety & Security">Custom Safety & Security</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/trolleys-carts/cleaning-carts-trolleys" title="Cleaning Carts / Trolleys" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Cleaning-Carts-Trolleys.jpg'); ?>" alt="Cleaning Carts / Trolleys" title="Cleaning Carts / Trolleys">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/trolleys-carts/cleaning-carts-trolleys" title="Cleaning Carts / Trolleys">Cleaning Carts / Trolleys</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/custom-made-products/custom-storage-solutions" title="Custom Storage Solutions" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/Custom-Storage-Solutions.jpg'); ?>" alt="Custom Storage Solutions" title="Custom Storage Solutions">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/custom-made-products/custom-storage-solutions" title="Custom Storage Solutions">Custom Storage Solutions</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products/workshop-factory/workbenches" title="Workbenches" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/cleaning-product03.jpg'); ?>" alt="Workbenches" title="Workbenches">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products/workshop-factory/workbenches" title="Workbenches">Workbenches</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="js_slide flex shrink-0 px-[15px] w-6/12 xs:w-6/12 sm:w-4/12 md:w-4/12 lg:w-3/12 xl:w-3/12 xxl:w-2/12 sl:w-2/12">
+                    <figure class="product">
+                        <a href="{{store url}}products" title="And more" class="product-img">
+                            <img src="<?php echo $this->getViewFileUrl('images/industries/And-more.jpg'); ?>" alt="And more" title="And more">
+                        </a>
+                        <figcaption class="product-content">
+                            <h6 class="product-title"><a href="{{store url}}products" title="And more">And more</a></h6>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="slider_arrow absolute">
+                <template x-if="itemCount > pageSize">
+                    <nav class="flex items-center justify-between mt-8 lg:m-0">
+                        <button @click="scrollPrevious"
+                                :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                aria-label="Previous"
+                                class="absolute prevslide">
+                                <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+
+                        <button @click="scrollNext"
+                                :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                aria-label="Next"
+                                class="absolute nextslide">
+                                <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+                    </nav>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    'use strict';
+    function initBrandsCarousel() {
+        return {
+            ...window.carouselHandler,
+            active: 0,
+            itemCount: 0,
+            pageSize: 6,
+            pageFillers: 0,
+            autoPlay: true,
+            sliderRef: 'popularCategoryCarouselSection',
+        }
+    }
+</script>
+    

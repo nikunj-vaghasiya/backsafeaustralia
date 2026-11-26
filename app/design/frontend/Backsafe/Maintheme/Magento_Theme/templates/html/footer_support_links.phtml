@@ -1,0 +1,55 @@
+<?php
+
+
+
+/**
+
+ * Hyvä Themes - https://hyva.io
+
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+
+ * This product is licensed per Magento install
+
+ * See https://hyva.io/license
+
+ */
+
+
+
+declare(strict_types=1);
+
+
+
+use Magento\Framework\View\Element\Template;
+
+use Magento\Framework\Escaper;
+
+
+
+/** @var Template $block */
+
+/** @var Escaper $escaper */
+
+?>
+
+<ul class="footer-links"
+
+    x-data="initFooterLinks()"
+
+    x-init="setActiveLink()">
+
+    <li><a title="videos" href="<?= $block->getBaseUrl() .'resources/videos' ?>" :class="{ 'active': activeLink === 'videos' }">Videos</a></li>
+
+    <li><a title="catalogue-downloads" href="<?= $block->getBaseUrl() .'resources/catalogue-downloads' ?>" :class="{ 'active': activeLink === 'catalogue-downloads' }">Catalogue Downloads</a></li>    
+
+    <li><a title="for-hire" href="<?= $block->getBaseUrl() .'for-hire' ?>" :class="{ 'active': activeLink === 'for-hire' }">For Hire</a></li>    
+
+    <li><a title="News" href="<?= $block->getBaseUrl() .'news' ?>" :class="{ 'active': activeLink === 'news' }">News</a></li>
+
+    <li><a title="Resources" href="<?= $block->getBaseUrl() .'resources' ?>" :class="{ 'active': activeLink === 'resources' }">Resources</a></li>
+
+    <li><a title="Projects" href="<?= $block->getBaseUrl() .'projects' ?>" :class="{ 'active': activeLink === 'projects' }">Projects</a></li>
+
+    <li><a title="Warranty" href="<?= $block->getBaseUrl() .'warranty' ?>" :class="{ 'active': activeLink === 'warranty' }">Warranty</a></li>
+    <li><a title="Our Team" href="<?= $block->getBaseUrl() . 'our-team' ?>" :class="{ 'active': activeLink === 'our-team' }">Our Team</a></li>
+</ul>

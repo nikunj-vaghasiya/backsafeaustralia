@@ -1,0 +1,104 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+$sliderShowArrows = $block->getShowArrows() !== null ? $block->getShowArrows() : "end";
+if ($sliderShowArrows == "false") {
+    $sliderShowArrows = false;
+}
+$sliderShowPager = $block->getShowPager() !== null ? (bool) $block->getShowPager() : true;
+$loadFirstEager = (bool) $block->getLoadFirstEager();
+
+$bannerCollection = $block->getBannerCollection();
+$bannerHelper   = $block->getBannerHelper();
+$baseHelper = $block->getBaseHelper();
+
+$pagerClasses = "flex gap-4 justify-center items-center mt-7 absolute w-full bottom-8";
+$markerClasses = "w-4 h-4 rounded-full shadow-md cursor-pointer ring-4 ring-transparent bg-white hover:bg-orange transition aria-[current=true]:ring-white aria-[current=true]:bg-orange";
+
+$items = $bannerCollection;
+?>
+
+<section
+    class="relative banner-section"
+    aria-label="<?= $escaper->escapeHtml(__('Latest items')) ?>"
+    x-data
+    <?php if ($sliderShowPager): ?>
+        x-snap-slider.auto-pager
+        data-pager-class="<?= $escaper->escapeHtmlAttr($pagerClasses) ?>"
+        data-marker-class="<?= $escaper->escapeHtmlAttr($markerClasses) ?>"
+    <?php else: ?>
+        x-snap-slider
+    <?php endif; ?>
+>
+
+    <?php if ($sliderShowArrows): ?>
+        <nav
+            class="z-10 flex gap-2 justify-between absolute bottom-4 sm:static
+                <?= $sliderShowArrows === "end" ? "right-4" : ($sliderShowArrows === "start" ? "left-4" : "inset-x-4") ?>"
+            aria-label="<?= $escaper->escapeHtml(__('Latest items controls')) ?>"
+        >
+            <button
+                type="button"
+                data-prev
+                class="sm:z-10 sm:absolute sm:top-1/2 sm:-translate-y-1/2 sm:left-4
+                    shrink-0 p-2.5 rounded-full transition bg-white text-primary shadow
+                    disabled:opacity-30 hover:shadow-primary/30 focus:shadow-primary/30"
+                aria-label="<?= $escaper->escapeHtmlAttr(__('Go to Previous Slide')) ?>"
+            >
+                <?= /** @noEscape */ $heroicons->arrowLeftHtml() ?>
+            </button>
+            <button
+                type="button"
+                data-next
+                class="sm:z-10 sm:absolute sm:top-1/2 sm:-translate-y-1/2 sm:right-4
+                    shrink-0 p-2.5 rounded-full transition bg-white text-primary shadow
+                    disabled:opacity-30 hover:shadow-primary/30 focus:shadow-primary/30"
+                aria-label="<?= $escaper->escapeHtmlAttr(__('Go to Next Slide')) ?>"
+            >
+                <?= /** @noEscape */ $heroicons->arrowRightHtml() ?>
+            </button>
+        </nav>
+    <?php endif; ?>
+    <div data-track class="snap relative grid grid-flow-col auto-cols-[100%] overflow-x-auto overscroll-x-contain">
+        <?php foreach ($items as $index => $item): ?>
+            <figure class="shrink-0 grid *:row-start-1 *:col-start-1 w-full snap-start">
+                <picture>
+                    <?php if ($imageDesktopUrl = $block->escapeUrl($item->getImageDesktopUrl())):?>
+                        <source srcset="<?= /* @noEscape */ $imageDesktopUrl;?>" media="(min-width: 1024px)">
+                    <?php endif; ?>
+                    <?php if ($imageTabletUrl = $block->escapeUrl($item->getImageTabletUrl())):?>
+                        <source srcset="<?= /* @noEscape */ $imageTabletUrl;?>"
+                            media="(min-width: 768px) and (max-width: 1023px)">
+                    <?php endif; ?>
+                    <?php if ($imageMobileUrl = $block->escapeUrl($item->getImageMobileUrl())):?>
+                        <source srcset="<?= /* @noEscape */ $imageMobileUrl;?>" media="(max-width: 767px)">
+                    <?php endif; ?>
+                    <img width="1920" height="598" loading="lazy"
+                    class="w-full object-cover"
+                    data-lazy="<?= /* @noEscape */ $imageDesktopUrl;?>"
+                    srcset="<?= /* @noEscape */ $imageDesktopUrl;?>"
+                    alt="<?= /* @noEscape */ $block->escapeHtml($item->getName());?>"
+                    title="<?= /* @noEscape */ $block->escapeHtml($item->getName());?>">
+                </picture>
+                <?php if ($item->getDescription()) : ?>
+                    <div class="container">
+                        <?= $block->filterOutputHtml($item->getDescription()); ?>
+                    </div>
+                <?php endif; ?>
+            </figure>
+        <?php endforeach; ?>
+    </div>
+</section>

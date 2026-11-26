@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>        
+        <add id="Integration_Base::base" title="Integration" module="Integration_Base" sortOrder="14" resource="Integration_Base::base"/>        
+        <add id="Integration_Base::settings" title="Configuration" module="Integration_Base" sortOrder="17" parent="Integration_Base::base" action="admin/system_config/edit/section/base" resource="Integration_Base::settings"/>       
+    </menu>
+</config>

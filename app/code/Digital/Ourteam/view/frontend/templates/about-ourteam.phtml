@@ -1,0 +1,74 @@
+<?php
+/**
+ * Our Team listing - Hyva compatible
+ *
+ * Markup + CSS supplied by the designer. Popup/modal removed (no jQuery / RequireJS in Hyva).
+ * Colours come from the theme CSS variables --primary-color (name / divider)
+ * and --secondary-color (section background).
+ *
+ * @var \Digital\Ourteam\Block\Ourteam $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$members = $block->getTeamCollection();
+$heading = $block->getHeading();
+$subheading = $block->getSubheading();
+?>
+<section class="newteam_section section-space">
+    <div class="container">
+        <?php if ($members->getSize()): ?>
+        <!-- <style>
+            .newteam_section .newteam_title { margin-bottom: 30px; }
+            .newteam_section .newteam_box_main { position: relative; overflow: hidden; }
+            .newteam_section .newteam_box_main .gap { gap: 0; margin: 0 -15px -50px -15px; }
+            .newteam_section {background: transparent;}
+            .newteam_section .newteam_title h2 { color: #fff; }
+            figure.newteam_box { position: relative; padding-left: 15px; padding-right: 15px; margin-bottom: 50px; }
+            figure.newteam_box .newteam_img {display: block;border: 1px solid #ddd;}
+            figure.newteam_box .newteam_img img { width: 100%; }
+            figure.newteam_box .newteam_content { padding-top: 15px; position: relative; padding-bottom: 15px; }
+            figure.newteam_box .newteam_content h5 { color: var(--primary-color); font-size: 20px; }
+            figure.newteam_box .newteam_content p {color: #666;text-transform: uppercase;font-size: 15px;margin-top: 3px;}
+            figure.newteam_box:before { content: ""; background: var(--primary-color); height: 1px; left: -15px; right: -15px; bottom: 0; position: absolute; }
+            figure.newteam_box:last-child:before {right: 10px;}
+            @media (max-width:1439px){
+            figure.newteam_box .newteam_content h5 { font-size: 18px; }
+            figure.newteam_box .newteam_content p { font-size: 14px; }
+            figure.newteam_box { margin-bottom: 40px; padding-left: 10px; padding-right: 10px; }
+            .newteam_section .newteam_box_main .gap { margin-bottom: -40px; margin-left: -10px; margin-right: -10px; }
+            }
+            @media (min-width:768px) {
+            body.ourteam-index-index nav.breadcrumbs { display: block; }
+            }
+        </style> -->
+            <?= $block->getChildHtml('our_team_top_content') ?>
+            <div class="newteam_box_main">
+                <div class="gap grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 sl:grid-cols-4">
+                    <?php foreach ($members as $member): ?>
+                        <?php
+                        $name        = trim((string)$member->getName());
+                        $designation = trim((string)$member->getDesignation());
+                        $imageUrl    = $member->getImage() ?: $block->getPlaceholderImageUrl();
+                        ?>
+                        <figure class="newteam_box">
+                            <span class="newteam_img">
+                                <img src="<?= $escaper->escapeUrl($imageUrl) ?>"
+                                     alt="<?= $escaper->escapeHtmlAttr($name) ?>"
+                                     title="<?= $escaper->escapeHtmlAttr($name) ?>"
+                                     loading="lazy"/>
+                            </span>
+                            <figcaption class="newteam_content">
+                                <h5><?= $escaper->escapeHtml($name) ?></h5>
+                                <?php if ($designation !== ''): ?>
+                                    <p><?= $escaper->escapeHtml($designation) ?></p>
+                                <?php endif; ?>
+                            </figcaption>
+                        </figure>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <p>No data found.</p>   
+        <?php endif; ?>
+    </div>
+</section>

@@ -1,0 +1,64 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+/** @var \Magento\Customer\Block\Newsletter $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?= $block->getChildHtml('form_before') ?>
+<div class="white_box box-p-30">
+    <form class="form form-newsletter-manage"
+          action="<?= $escaper->escapeUrl($block->getAction()) ?>"
+          method="post"
+          id="form-validate">
+        <fieldset class="fieldset">
+            <?= $block->getBlockHtml('formkey') ?>
+            <h2 class="h3 boxtitle">
+                <span>
+                    <?= $escaper->escapeHtml(__('Subscription option')) ?>
+                </span>
+            </h2>
+            <div class="field input-group choice">
+                <input type="checkbox" name="is_subscribed" id="subscription" value="1"
+                       title="<?= $escaper->escapeHtmlAttr(__('General Subscription')) ?>"
+                        <?php if ($block->getIsSubscribed()): ?> checked<?php endif; ?>
+                       class="checkbox" />
+                <label for="subscription" class="label">
+                    <span>
+                        <?= $escaper->escapeHtml(__('General Subscription')) ?>
+                    </span>
+                </label>
+            </div>
+            <?php /* Extensions placeholder */ ?>
+            <?= $block->getChildHtml('customer.form.newsletter.extra') ?>
+        </fieldset>
+        <div class="actions-toolbar mt-[10px]">
+            <div class="primary">
+                <button type="submit"
+                        title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>"
+                        class="action save primary"
+                >
+                        <?= $escaper->escapeHtml(__('Save')) ?>
+                </button>
+            </div>
+            <div class="secondary">
+                <a class="action back link link-primary no_line"
+                   href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M19,11H9l3.29-3.29a1,1,0,0,0,0-1.42,1,1,0,0,0-1.41,0l-4.29,4.3A2,2,0,0,0,6,12H6a2,2,0,0,0,.59,1.4l4.29,4.3a1,1,0,1,0,1.41-1.42L9,13H19a1,1,0,0,0,0-2Z"></path></svg>
+                    <span>
+                        <?= $escaper->escapeHtml(__('Go Back')) ?>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.newsletter.extra2') ?>

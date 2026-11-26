@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="digital_productguide" resource="default" engine="innodb" comment="Productguide Table">
+        <column xsi:type="int" name="productguide_id" unsigned="false" nullable="false" identity="true" comment="Productguide ID"/>
+        <column xsi:type="varchar" name="firstname" nullable="false" length="255" comment="First Name"/>
+        <column xsi:type="varchar" name="lastname" nullable="false" length="255" comment="Last Name"/>
+        <column xsi:type="varchar" name="company" nullable="false" length="255" comment="Company Name"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="street" nullable="false" length="255" comment="Street"/>
+        <column xsi:type="varchar" name="city" nullable="false" length="255" comment="City"/>
+        <column xsi:type="varchar" name="state" nullable="false" length="255" comment="State"/>
+        <column xsi:type="varchar" name="postcode" nullable="false" length="255" comment="Postcode"/>
+        <column xsi:type="varchar" name="phone" nullable="false" length="30" comment="Phone"/>
+        <column xsi:type="varchar" name="stores" nullable="false" comment="Stores"/>        
+        <column xsi:type="timestamp" name="created_at" nullable="false" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="productguide_id"/>
+        </constraint>
+    </table>
+</schema>

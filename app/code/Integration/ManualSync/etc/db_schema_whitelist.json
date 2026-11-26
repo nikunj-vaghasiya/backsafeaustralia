@@ -1,0 +1,27 @@
+{
+    "integration_product": {
+        "column": {
+            "api_entity_id": true,
+            "sku": true,
+            "status": true,
+            "name": true,
+            "price": true,
+            "quantity": true,
+            "stock_status": true,
+            "weight": true,
+            "description": true,
+            "supplier": true,
+            "website_id": true,
+            "new_flag": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "INTEGRATION_PRODUCT_SKU": true,
+            "INTEGRATION_PRODUCT_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

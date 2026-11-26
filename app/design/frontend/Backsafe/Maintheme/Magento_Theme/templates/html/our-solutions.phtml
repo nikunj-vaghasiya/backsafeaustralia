@@ -1,0 +1,106 @@
+<section class="our-sol-section section-space">
+                <div class="container">
+                    <div class="section-content text-center">
+                        <h2 class="text-secondary">Our Solutions</h2>
+                    </div>
+                    <!-- place-items-center  -->
+                    <div x-data="{ solutions: 1 }" class="row md:grid grid-cols-[1fr_1fr] xs:grid-cols-[1fr_1fr] sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr] xl:grid-cols-[1fr_3fr] xxl:grid-cols-[1fr_3fr] sl:grid-cols-[1fr_3fr]">
+                         <div class="sol-links">
+                          <div class="sol-options flex gap md:flex-col">
+                            <h6 class="h6 sol-list_link" @click="solutions = 1" x-bind:class="solutions === 1 ? 'active' : ''">Laundry, Linen & Cleaning</h6>
+                            <h6 class="h6 sol-list_link" @click="solutions = 2" x-bind:class="solutions === 2 ? 'active' : ''">Waste Management</h6>
+                            <h6 class="h6 sol-list_link" @click="solutions = 3" x-bind:class="solutions === 3 ? 'active' : ''">Kitchen & Wet Mess</h6>
+                            <h6 class="h6 sol-list_link" @click="solutions = 4" x-bind:class="solutions === 4 ? 'active' : ''">Building Maintenance</h6>
+                            <h6 class="h6 sol-list_link" @click="solutions = 5" x-bind:class="solutions === 5 ? 'active' : ''">Ladders and Platforms</h6>
+                            <h6 class="h6 sol-list_link" @click="solutions = 6" x-bind:class="solutions === 6 ? 'active' : ''">Conveyors</h6>
+                          </div>
+                        </div>
+                        <div class="solutions sol-list-col" >
+                            <div class="sol-list" x-show="solutions === 1" x-bind:class="solutions === 1 ? 'active' : ''">
+                                <figure class="sol-items">
+                                    <div class="img">
+                                        <img src="/media/wysiwyg/laundry-linen-and-Cleaning.jpg" alt="Laundry, Linen &amp; Cleaning" title="Laundry, Linen &amp; Cleaning">
+                                    </div>
+                                    <figcaption class="sol-content">
+                                        <h3 class="h3">Laundry, Linen & Cleaning</h3>
+                                        <div class="cms-content">
+                                            <p>Safe storage and smart shelving systems for everything from laundry and linen to dangerous chemicals and materials. A huge range of trolleys and carts, manual and electric, ergonomically designed and ready to modify.</p>
+                                            <p>Explore our range and tap into our expertise. We have a wealth of facilities management experience and all the manual handling and storage solutions your housekeeping teams need to work smarter, faster and safer.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="sol-list" x-show="solutions === 2" x-bind:class="solutions === 2 ? 'active' : ''">
+                                <figure class="sol-items">
+                                    <div class="img">
+                                        <img src="/media/wysiwyg/waste-management.jpg" alt="Waste Management" title="Waste Management">
+                                    </div>
+                                    <figcaption class="sol-content">
+                                        <h3 class="h3">Waste Management</h3>
+                                        <div class="cms-content">
+                                            <p>From wheelie bins to solar-powered bin tippers to multi-chamber balers, we provide the products, solutions and expertise you need to streamline and optimise your waste management, disposal and recycling systems.</p>
+                                            <p>Make no mistake: safe, effective waste management means a safe, effective workplace, free from unnecessary clutter, waste and the associated health and safety risks. Let’s find the perfect solution.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="sol-list" x-show="solutions === 3" x-bind:class="solutions === 3 ? 'active' : ''">
+                                <figure class="sol-items">
+                                    <div class="img">
+                                        <img src="/media/wysiwyg/kitchen-and-Wet-mess.jpg" alt="Kitchen &amp; Wet Mess" title="Kitchen &amp; Wet Mess">
+                                    </div>
+                                    <figcaption class="sol-content">
+                                        <h3 class="h3">Kitchen & Wet Mess</h3>
+                                        <div class="cms-content">
+                                            <p>Mine villages and remote facilities play a vital role in the success of mining operations. We offer the products, solutions and remote support and delivery capabilities to ensure yours runs smoothly, safely and efficiently.</p>
+                                            <p>Check out our range of storage and materials handling equipment, built to perform in the harshest environments, from pallets, jacks, bunding and shelving to manual and powered service trolleys and flexible conveyors.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="sol-list" x-show="solutions === 4" x-bind:class="solutions === 4 ? 'active' : ''">
+                                <figure class="sol-items">
+                                    <div class="img">
+                                        <img src="/media/wysiwyg/building-maintenance.jpg" alt="Building Maintenance" title="Building Maintenance">
+                                    </div>
+                                    <figcaption class="sol-content">
+                                        <h3 class="h3">Building Maintenance</h3>
+                                        <div class="cms-content">
+                                            <p>Keeping your mine site or remote facility maintained and moving optimally calls for smart, robust thinking and equally smart and robust storage and manual handling solutions. Our experienced team provides both.</p>
+                                            <p>Workbenches and platform ladders. Storage, bunding and shelving. Pallet racking, cages and stillage. Flooring and wheel stops. Find out more about how we can help keep your people safe and your workplace productive.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="sol-list" x-show="solutions === 5" x-bind:class="solutions === 5 ? 'active' : ''">
+                                <figure class="sol-items">
+                                    <div class="img">
+                                        <img src="/media/wysiwyg/ladders-and-platforms.jpg" alt="Ladders and Platforms" title="Ladders and Platforms">
+                                    </div>
+                                    <figcaption class="sol-content">
+                                        <h3 class="h3">Ladders and Platforms</h3>
+                                        <div class="cms-content">
+                                            <p>Raise your safety and efficiency game. With a host of smart solutions for all your vertical challenges, all built to Australian standards, you have everything you need for your people and productivity to reach new heights, safely.</p>
+                                            <p>Safety steps. Work platform ladders. Aluminium step ladders. Fibreglass step ladders. Extension ladders. Warehouse ladders. View our range of products or talk to our team about a modified or custom solution.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="sol-list" x-show="solutions === 6" x-bind:class="solutions === 6 ? 'active' : ''">
+                                <figure class="sol-items">
+                                    <div class="img">
+                                        <img src="/media/wysiwyg/Conveyors.jpg" alt="Conveyors" title="Conveyors">
+                                    </div>
+                                    <figcaption class="sol-content">
+                                        <h3 class="h3">Conveyors</h3>
+                                        <div class="cms-content">
+                                            <p>Did you know we also specialise in designing gravity conveyor systems? We’ve built conveyors for an array of manufacturing, mine site and dispatch operations, including for Amazon.</p>
+                                            <p>Whatever your materials handling challenge, we’ll design and build a conveyor system that meets your unique workplace requirements, optimising workflows, minimising safety risks and boosting productivity.</p>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>

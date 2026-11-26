@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="digital_product_enquiry" resource="default" engine="innodb" comment="Digital Product Enquiry Table">
+        <column xsi:type="int" name="enquiry_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Enquiry ID"/>
+        <column xsi:type="varchar" name="first_name" nullable="false" length="255" comment="First Name"/>
+        <column xsi:type="varchar" name="last_name" nullable="false" length="255" comment="Last Name"/>
+        <column xsi:type="mediumtext" name="products" nullable="true" comment="Products"/>
+        <column xsi:type="varchar" name="company" nullable="true" length="255" comment="Company"/>
+        <column xsi:type="varchar" name="phone_number" nullable="false" length="50" comment="Phone Number"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="state" nullable="true" length="255" comment="State"/>
+        <column xsi:type="varchar" name="postcode" nullable="true" length="20" comment="Postcode"/>
+        <column xsi:type="text" name="message" nullable="true" comment="Message"/>
+        <column xsi:type="smallint" name="ship_outside_australia" padding="5" unsigned="true" nullable="false" default="0" comment="Ship Outside Australia"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="enquiry_id"/>
+        </constraint>
+    </table>
+</schema>

@@ -1,0 +1,104 @@
+<?php
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Customer\Block\Address\Book;
+use Magento\Framework\Escaper;
+
+/** @var Book $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+?>
+<div class="white_box box-p-30">
+    <div class="block block-addresses-default">
+        <h2 class="h3 boxtitle flex gap-2 justify-between items-center">
+                <?= $escaper->escapeHtml(__('Default Addresses')) ?>
+        </h2>
+        <div class="block-content">
+        <div class="flex flex-wrap justify-between -m-4">
+            <?php if ($customerDefaultBillingAddressId = $block->getDefaultBilling()): ?>
+                <div class="lg:w-1/2 w-full p-4">
+                    <div class="box box-address-billing flex sm:flex-row flex-col h-full gray_box box-p-20">
+                        <div class="grow">
+                            <h3 class="text-lg font-medium text-gray-900 title-font mb-3">
+                                <span><?= $escaper->escapeHtml(__('Default Billing Address')) ?></span>
+                            </h3>                        
+                            <address class="mb-3">
+                                <?= $block->getAddressHtml($block->getAddressById($customerDefaultBillingAddressId)) ?>
+                            </address>                        
+                            <div class="box-actions">
+                                <a href="<?= $escaper->escapeUrl($block->getAddressEditUrl($customerDefaultBillingAddressId)) ?>"
+                                class="link link-primary no_line"
+                                >
+                                    <span>
+                                        <?= $escaper->escapeHtml(__('Change Billing Address')) ?>
+                                    </span>
+                                    <?= $heroicons->arrowRightHtml('ml-2', 16, 16); ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="lg:w-1/2 w-full p-4">
+                    <div class="box box-billing-address flex sm:flex-row flex-col h-full gray_box box-p-20">
+                        <div class="grow">
+                            <h3 class="text-lg font-medium text-gray-900 title-font mb-3">
+                                <span>
+                                    <?= $escaper->escapeHtml(__('Default Billing Address')) ?>
+                                </span>
+                            </h3>                        
+                            <address class="mb-3"><?= $escaper->escapeHtml(__('You have no default billing address in your address book.')) ?></address>                        
+                        </div>
+                    </div>
+                </div>
+            <?php endif ?>
+
+            <?php if ($customerDefaultShippingAddressId = $block->getDefaultShipping()): ?>
+                <div class="lg:w-1/2 w-full p-4">
+                    <div class="box box-address-shipping flex sm:flex-row flex-col h-full gray_box box-p-20">
+                        <div class="grow">
+                            <h3 class="text-lg font-medium text-gray-900 title-font mb-3">
+                                <span><?= $escaper->escapeHtml(__('Default Shipping Address')) ?></span>
+                            </h3>
+                            <address class="mb-3">
+                                <?= $block->getAddressHtml($block->getAddressById($customerDefaultShippingAddressId)) ?>
+                            </address>
+                            <div class="box-actions">
+                                <a href="<?= $escaper->escapeUrl($block->getAddressEditUrl($customerDefaultShippingAddressId)) ?>"
+                                class="link link-primary no_line"
+                                >
+                                    <span><?= $escaper->escapeHtml(__('Change Shipping Address')) ?></span>
+                                    <?= $heroicons->arrowRightHtml('ml-2', 16, 16); ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="lg:w-1/2 w-full p-4">
+                    <div class="box box-shipping-address flex sm:flex-row flex-col h-full gray_box box-p-20">
+                        <div class="grow">
+                            <h3 class="text-lg font-medium text-gray-900 title-font mb-3">
+                                <span>
+                                    <?= $escaper->escapeHtml(__('Default Shipping Address')) ?>
+                                </span>
+                            </h3>                        
+                            <address class="mb-3"><?= $escaper->escapeHtml(__('You have no default shipping address in your address book.')) ?></address>                        
+                        </div>
+                    </div>
+                </div>
+            <?php endif ?>
+        </div>
+        </div>
+    </div>
+</div>

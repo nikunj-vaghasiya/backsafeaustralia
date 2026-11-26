@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="integration" translate="label" sortOrder="10000002" class="integration-tab">
+            <label>API Integration</label>
+        </tab>
+        <section id="api_product" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product</label>
+            <tab>integration</tab>
+            <resource>Integration_Base::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Product</label>
+                <field id="sync_enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If this option is disabled product dump/sync not working.]]></comment>
+                </field>
+                <field id="manual_sync_enable" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Manual Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If this option is disabled manual product dump/sync not visible/working.]]></comment>
+                    <depends>
+                        <field id="sync_enable">1</field>
+                    </depends>
+                </field>
+                <field id="filter_options" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Filter By Date</label>
+                    <source_model>Integration\Base\Model\Config\Source\FilterOptions</source_model>
+                    <depends>
+                        <field id="sync_enable">1</field>
+                    </depends>
+                </field>
+                <field id="date_filter" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sync Date</label>
+                    <source_model>Integration\Base\Model\Config\Source\DateFilterOptions</source_model>
+                    <depends>
+                        <field id="filter_options">current-previous</field>
+                        <field id="sync_enable">1</field>
+                    </depends>
+                </field>
+                <field id="specific_date" translate="label" type="date" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Specific Date</label>
+                    <frontend_model>Integration\Base\Block\Adminhtml\System\Config\Form\Field\Date</frontend_model>
+                    <depends>
+                        <field id="filter_options">specific-date</field>
+                        <field id="sync_enable">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Specific Date format is (yyyy-mm-dd).]]></comment>
+                </field>
+                <field id="pagination_enable" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Pagination</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="sync_enable">1</field>
+                    </depends>
+                </field>
+                <field id="page_size" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Page Size</label>
+                    <depends>
+                        <field id="pagination_enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

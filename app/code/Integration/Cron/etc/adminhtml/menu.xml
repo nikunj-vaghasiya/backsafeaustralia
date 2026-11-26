@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+    	<add id="Integration_Cron::cron" title="Dormant Processes" module="Integration_Cron" sortOrder="15" resource="Integration_Cron::cron" parent="Integration_Base::base" action="cron/index"/>
+    </menu>
+</config>

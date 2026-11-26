@@ -1,0 +1,60 @@
+<?php
+/** @var \Digital\BannerSlider\Block\Cms\Slider $block */
+/** @var \Digital\BannerSlider\Model\Banner[] $bannerCollection */
+$bannerCollection = $block->getBannerCollection();
+$bannerHelper   = $block->getBannerHelper();
+$baseHelper = $block->getBaseHelper();
+$defaultbuttonText = $bannerHelper->getButtonText();
+?>
+<div class="bf-banner-sliders-block swiper bannerSwiper"
+data-mage-init='{"swiperSlider": {}}'>
+    <div class="bf-banner-sliders swiper-wrapper" id="bf-banner-sliders" data-block="bf-banner-sliders">
+        <?php foreach ($bannerCollection as $banner): ?>
+            <div class="banner-slider swiper-slide">
+                <div class="banner-image">
+                    <?php $bannerUrl = $baseHelper->checkUrl($banner->getBannerUrl()); ?>
+                    <a href="<?=  /* @noEscape */ $bannerUrl ?: 'javascript:void(0);'?>">
+                        <picture>
+                            <?php if ($imageDesktopUrl = $block->escapeUrl($banner->getImageDesktopUrl())):?>
+                                <source srcset="<?= /* @noEscape */ $imageDesktopUrl;?>" media="(min-width: 1024px)">
+                            <?php endif; ?>
+                            <?php if ($imageTabletUrl = $block->escapeUrl($banner->getImageTabletUrl())):?>
+                                <source srcset="<?= /* @noEscape */ $imageTabletUrl;?>"
+                                    media="(min-width: 768px) and (max-width: 1023px)">
+                            <?php endif; ?>
+                            <?php if ($imageMobileUrl = $block->escapeUrl($banner->getImageMobileUrl())):?>
+                                <source srcset="<?= /* @noEscape */ $imageMobileUrl;?>" media="(max-width: 767px)">
+                            <?php endif; ?>
+                            <img data-lazy="<?= /* @noEscape */ $imageDesktopUrl;?>"
+                            srcset="<?= /* @noEscape */ $imageDesktopUrl;?>"
+                            alt="<?= /* @noEscape */ $block->escapeHtml($banner->getName());?>"
+                            title="<?= /* @noEscape */ $block->escapeHtml($banner->getName());?>">
+                        </picture>
+                    </a>
+                </div>
+                <div class="banner-content <?= $block->escapeHtml($banner->getAlignText()) ?>">
+                    <h2 class="banner-title"><?= $block->escapeHtml($banner->getName()) ?></h2>
+                    <?php if ($banner->getDescription()):?>
+                        <div class="banner-inner <?= $block->escapeHtml($banner->getAlignText()) ?>">
+                            <span class="banner-caption"><?= /* @noEscape */ $banner->getDescription()?></span>
+                        </div>
+                    <?php endif;?>
+                    <?php if ($banner->getEnableButton() == 1):?>
+                        <?php $buttonText = $block->escapeHtml($banner->getButtonText()) ?: $defaultbuttonText;?>
+                        <?php if ($buttonText != '' && $bannerUrl != '') { ?>
+                            <div class="banner-button">
+                                <a class="action primary" href="<?= $block->escapeUrl($bannerUrl);?>"
+                                   title="<?= $block->escapeHtml($buttonText)?>">
+                                    <span><?= $block->escapeHtml($buttonText); ?></span>
+                                </a>
+                            </div>
+                        <?php } ?>
+                    <?php endif;?>
+                </div>
+            </div>
+        <?php endforeach;?>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>

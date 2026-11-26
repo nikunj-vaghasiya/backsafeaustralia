@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Integration_ManualSync::manual" title="Manual Sync Manager" module="Integration_ManualSync" sortOrder="12" resource="Integration_ManualSync::manual" parent="Integration_Base::base" action="manualsync/index"/>        
+    </menu>
+</config>

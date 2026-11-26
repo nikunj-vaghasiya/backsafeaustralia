@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Digital_Productenquiry::parent" title="Quote Requests" module="Digital_Productenquiry" sortOrder="30" resource="Digital_Productenquiry::parent" parent="Digital_Base::parent" />		
+		<add id="Digital_Productenquiry::manage" title="Manage Quote Requests" module="Digital_Productenquiry" sortOrder="20" parent="Digital_Productenquiry::parent" 
+			 action="productenquiry/index/" resource="Digital_Productenquiry::manage" /> 
+
+		<add id="Digital_Productenquiry::config_productenquiry" title="Settings" module="Digital_Productenquiry" sortOrder="30" parent="Digital_Productenquiry::parent" 
+			 action="adminhtml/system_config/edit/section/productenquiry" resource="Digital_Productenquiry::config_productenquiry" />
+
+	</menu>
+</config>
+
+
+

@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+/** @var ViewModelRegistry $viewModels */
+
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+?>
+<?php if ($description = $block->getCurrentCategory()->getDescription()):?>
+<section class="only-content-section section-space bg-light-gray relative">
+    <div class="container">
+        <div class="content-container cms-content">
+            <?php $descriptionHtml = $this->helper(Magento\Catalog\Helper\Output::class)->categoryAttribute(
+                $block->getCurrentCategory(),
+                $description,
+                'description'
+            );?>
+            <h5 class="h5"><strong class="text-primary"><?= $block->getCurrentCategory()->getName(); ?></strong></h5>
+            <?= /* @noEscape */$descriptionHtml; ?>
+            <a href="<?= $this->getUrl().'contact-us' ?>" title="Contact us" class="btn btn-outline-primary content-btn">Contact us 
+                <span><?= $heroicons->rightArrowHtml('', 20, 20, ['aria-hidden' => 'true']) ?></span>
+            </a>
+        </div>
+        <div class="component-logo"><img src="<?php echo $block->getViewFileUrl('images/component-logo.png'); ?>" alt=""></div>
+    </div>    
+</section>
+<?php endif; ?>

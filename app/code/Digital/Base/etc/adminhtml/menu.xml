@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digital_Base::parent" title="Digital" module="Digital_Base" resource="Digital_Base::parent" sortOrder="10"/>
+    </menu>
+</config>

@@ -1,0 +1,119 @@
+<?php
+declare(strict_types=1);
+
+use Digital\Cmsbanner\Block\BannerSlider;
+use Magento\Framework\Escaper;
+
+/** @var BannerSlider $block */
+/** @var Escaper $escaper */
+
+$banners = $block->getBanners();
+$bannerItems = $banners->getItems();
+$bannerArray = array_values($bannerItems);
+$checkDevice = $block->getCheckdevice();
+$currentPage = $block->getCurrentCmsPageIdentifier();
+$currentPageTitle = $block->getCurrentCmsPageTitle();
+$page = ['mining-solutions', 'remote-facilities-management-solutions'];
+/*if (empty($bannerArray)) {
+    return;
+}*/
+
+$bannerCount = count($bannerArray);
+?>
+<?php if (!in_array($currentPage, $page) || $bannerCount > 0) : ?>
+<!-- Swiper CSS -->
+<div class="banner-inner-section <?= $bannerCount > 0 ? '' : 'bg-secondary' ?>">
+    <div class="cms-banner-sliders swiper bannerSwiper">
+        <div class="cms-banner-sliders-wrapper swiper-wrapper">
+            <?php foreach ($bannerArray as $banner): ?>
+                <?php
+                    $desktopImageUrl = $block->getImageUrl($banner->getImage());
+                    $mobileImageUrl = $block->getImageUrl($banner->getMobileImage());
+                    $link     = $banner->getLink();
+                    $name     = $banner->getName();
+                ?>
+                <?php if ($desktopImageUrl && $checkDevice == '1'): ?>
+                <div class="cms-banner-slide swiper-slide">
+                    <?php if ($link): ?>
+                        <a href="<?= $escaper->escapeUrl($link) ?>" title="<?= $escaper->escapeHtml($name) ?>">
+                    <?php else: ?>
+                        <div>
+                    <?php endif; ?>
+                        <img
+                            src="<?= $escaper->escapeUrl($desktopImageUrl) ?>"
+                            alt="<?= $escaper->escapeHtml($name) ?>"
+                            title="<?= $escaper->escapeHtml($name) ?>"
+                            class="w-full h-auto object-cover"
+                            loading="lazy"
+                        />
+                    <?php if ($link): ?>
+                        </a>
+                    <?php else: ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+                <?php if ($mobileImageUrl && $checkDevice == '2'): ?>
+                <div class="cms-banner-slide swiper-slide">
+                    <?php if ($link): ?>
+                        <a href="<?= $escaper->escapeUrl($link) ?>" title="<?= $escaper->escapeHtml($name) ?>">
+                    <?php else: ?>
+                        <div>
+                    <?php endif; ?>
+                        <img
+                            src="<?= $escaper->escapeUrl($mobileImageUrl) ?>"
+                            alt="<?= $escaper->escapeHtml($name) ?>"
+                            title="<?= $escaper->escapeHtml($name) ?>"
+                            class="w-full h-auto object-cover max-h-[500px]"
+                            loading="lazy"
+                        />
+                    <?php if ($link): ?>
+                        </a>
+                    <?php else: ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+
+        <?php if ($bannerCount > 1): ?>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        <?php endif; ?>
+    </div>
+</div>
+<?php else : ?>
+<div class="banner-inner-section bg-secondary banner-img">
+    <div class="container">
+        <div class="banner-inner-content">
+            <h1 class="h1"><?= $currentPageTitle; ?></h1>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const bannerSlider = document.querySelector('.cms-banner-sliders.swiper');
+    if (bannerSlider) {
+        new Swiper(bannerSlider, {
+            loop: false,
+            slidesPerView: 1,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+});
+</script>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		 <tab id="digital" translate="label" sortOrder="10000001" class="digital-tab">
+            <label>23 Digital Settings</label>
+        </tab>
+        <section id="digitalconfig" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General Configuration</label>
+            <tab>digital</tab>
+            <resource>Digital_Base::digital_config</resource>
+            <group id="captchakey" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Captcha key Configuration</label>
+                <field id="recapcha_sitekey" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Recapcha Site Key</label>
+                </field>
+				<field id="recapcha_secretkey" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google Recapcha Secret Key</label>
+                </field>
+            </group>
+            <group id="social_links" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Social Links</label>
+                <field id="facebook_link" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook Link</label>
+                </field>
+
+                <field id="instagram_link" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instagram Link</label>
+                </field>
+
+                <field id="twitter_link" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter Link</label>
+                </field>
+
+                <field id="youtube_link" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Youtube Link</label>
+                </field>
+
+                <field id="linkedin_link" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LinkedIn Link</label>
+                </field>
+            </group>
+            <group id="icons" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SVG Icons</label>
+                <field id="svg_facebook" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+
+                <field id="svg_instagram" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instagram</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+
+                <field id="svg_twitter" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twitter</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+
+                <field id="svg_youtube" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Youtube</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+
+                <field id="svg_linkedin" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>LinkedIn</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+
+                <field id="svg_backto_top" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Back To Top Icon</label>
+                    <comment>Add SVG Code</comment>
+                </field>
+            </group>
+        </section>
+	</system>
+</config>

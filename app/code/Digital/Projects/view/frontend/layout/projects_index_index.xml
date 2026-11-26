@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Projects</title>
+        <css src="css/cms-page.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <container name="projects" htmlTag="section" htmlClass="digital-projects">
+                <block class="Digital\Projects\Block\Projects" ifconfig="projects_section/general/enable" name="projects.block.slider" template="Digital_Projects::projects.phtml" />
+            </container>
+            <container name="projects_bottom" htmlClass="projects-bottom-section content_img_wrapper" htmlTag="div">                
+                <block class="Magento\Cms\Block\Block" name="projects_page_bottom_block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">projects_page_bottom_block</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="page.top">
+            <container name="category.top.section" label="category.top.section" as="category.top.section" htmlTag="div" htmlClass="category-top-section" before="breadcrumbs">                    
+                <block class="Magento\Framework\View\Element\Template" name="main.banner" template="Digital_Projects::main-banner.phtml" cacheable="false" />
+                <container name="category.top.section.breadcrumbs" label="category.top.section.breadcrumbs" as="category.top.section.breadcrumbs" htmlTag="div" htmlClass="category-breadcrumbs-wrapper" after="-">
+                    <block class="Magento\Cms\Block\Block" name="contact.text.below.title" before="-">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">projects_page_text_below_main_title</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceBlock>
+
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Home</item>
+                    <item name="label" xsi:type="string">Home</item>
+                    <item name="link" xsi:type="string">{{baseUrl}}</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Projects</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string">Projects</item>
+                    <item name="label" xsi:type="string">Projects</item>
+                </argument>
+            </action>
+        </referenceBlock>
+        <move element="page.main.title" destination="category.top.section.breadcrumbs" before="-"/>
+    </body>
+</page>

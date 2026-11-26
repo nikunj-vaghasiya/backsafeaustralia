@@ -1,0 +1,148 @@
+<?php
+
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+/** @var \Magento\Catalog\Model\Product|null $product */
+$product = $block->getProduct() ?? $block->getData('product');
+if (!$product && $block->getParentBlock()) {
+    $product = $block->getParentBlock()->getProduct();
+}
+
+$isGrouped = $product && $product->getTypeId() === \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE;
+?>
+<div style="display:none;" id="validation-enquiry-box" class="prod_enq_validation_msg float-right error-message">
+    <div class="mage-error"><?php echo $block->escapeHtml(__('Please specify the quantity of product(s).')) ?></div>
+</div>
+<?php if (!$isGrouped) : ?>
+    <a href="javascript:void(0)"
+            title="<?= /* @escapeNotVerified */ __('Add to Quote') ?>"
+            class="action toenquiry button-blue btn btn-primary text-sm p-3 w-50"
+            id="product-addtoenquiry-button"
+            x-data="productEnquiry"
+            @click="doPostRequest">
+            <span class="m-0">
+                <?= $block->getData('is_cart_configure') ?
+                    $escaper->escapeHtml(__('Update item')) :
+                    $escaper->escapeHtml(__('Add to Quote')) ?>
+            </span>
+        </a>
+        <a href="#product-enquiry-form" class="btn btn-primary scroll-to" title="Product Enquiry">Product Enquiry</a>
+<?php endif; ?>
+
+<?php if ($isGrouped) : ?>
+    <div class="flex-ac-js quantities-actions">
+        <a href="<?= $this->getUrl() . 'products' ?>" class="btn btn-outline-primary back-btn">
+            <span><?= $heroicons->leftArrowHtml('', 20, 20, ['aria-hidden' => 'true']) ?></span>
+            Back To Search
+        </a>
+
+        <a href="javascript:void(0)"
+            title="<?= /* @escapeNotVerified */ __('Add to Quote') ?>"
+            class="action toenquiry button-blue btn btn-primary text-sm p-3 w-50"
+            id="product-addtoenquiry-button"
+            x-data="productEnquiry"
+            @click="doPostRequest">
+            <span class="m-0">
+                <?= $block->getData('is_cart_configure') ?
+                    $escaper->escapeHtml(__('Update item')) :
+                    $escaper->escapeHtml(__('Add to Quote')) ?>
+            </span>
+        </a>
+    </div>
+
+
+<?= $block->getChildHtml('', true) ?>
+
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('productEnquiry', () => ({
+            collectProducts() {
+                const products = [];
+                document.querySelectorAll('#product-options-table-container .enquirytxt').forEach(input => {
+                    const prodId = input.dataset.id;
+                    const prodQty = input.value;
+                    const parentId = input.dataset.parentid;
+                    const name = input.dataset.name?.split(",").join("");
+                    const parentUrl = input.dataset.parenturl;
+                    const sku = input.dataset.sku;
+
+                    if (prodQty > 0) {
+                        products.push(`${prodId}=>${parentId}=>${prodQty}=>${name}=>${parentUrl}=>${sku}`);
+                    }
+                });
+                return products;
+            },
+
+            async doPostRequest() {
+                const products = this.collectProducts();
+
+                const validationBox = document.getElementById('validation-enquiry-box');
+                if (products.length < 1) {
+                    validationBox.style.display = 'block';
+                    return;
+                }
+
+                validationBox.style.display = 'none';
+
+                const postUrl = "<?= $escaper->escapeUrl($block->getUrl('productenquiry/index/add')) ?>";
+                const formKey = hyva.getFormKey();
+                const uenc = btoa(window.location.href);
+
+                const data = new URLSearchParams({
+                    form_key: formKey,
+                    products: products.join(','),
+                    uenc: uenc,
+                });
+
+                try {
+                    const response = await fetch(postUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        },
+                        body: data,
+                        credentials: "include",
+                    });
+
+                    const responseText = await response.text();
+
+                    try {
+                        const jsonData = JSON.parse(responseText);
+                        
+
+                        if (jsonData !== 'error') {
+                            window.location.href = jsonData;
+                        } else if (response.ok) {
+                            return response.json();
+                        }
+                    } catch (jsonError) {
+                        console.error("Invalid JSON", jsonError);
+                    }
+
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        }));
+    });
+</script>
+<?php endif; ?>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Backsafe Admin</title>
+        <css src="Digital_Base::css/adminthemes.css" order="10"/>
+        <meta name="viewport" content="width=1024"/>
+        <meta name="format-detection" content="telephone=no"/>
+    </head>
+    <body>
+        <referenceBlock name="copyright">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Digital_Base::page/copyright.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="logo">
+            <action method="setTemplate">
+               <argument name="template" xsi:type="string">Digital_Base::page/header.phtml</argument>
+            </action>
+            <arguments>
+                <argument name="logo_image_src" xsi:type="string">Digital_Base::images/favicon.png</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="session.activity.link" remove="true"/>
+        <referenceBlock name="report" remove="true"/>
+        <referenceBlock name="privacyPolicy" remove="true"/>
+    </body>
+</page>

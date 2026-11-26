@@ -1,0 +1,287 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+strike,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block
+}
+
+body {
+    line-height: 1;
+    background: url(../images/Camp.JPG) 0 0 no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center center;
+}
+
+blockquote,
+q {
+    quotes: none
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+ol {
+    list-style: decimal;
+    margin: 0;
+    padding: 0 0 0 20px;
+    margin: 0 0 15px;
+    appearance: inherit!important
+}
+
+ol li {
+    margin: 0;
+    padding: 0
+}
+
+ul {
+    list-style: disc;
+    margin: 0;
+    padding: 0 0 0 20px;
+    margin: 0 0 15px
+}
+
+ul li {
+    margin: 0;
+    padding: 0
+}
+
+html,
+body {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    font: 14px/22px Arial, Helvetica, sans-serif
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%
+}
+
+img {
+    vertical-align: top;
+    border: 0
+}
+
+
+input[type=button],
+input[type=submit],
+button {
+background-image: none;
+    background: #e2001a;
+    border: 2px solid #e2001a;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Graphik-Medium','Helvetica Neue',Helvetica,Arial,sans-serif;
+    padding: 0 30px;
+    font-size: 15px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-transform: uppercase;
+    height: 50px;
+    line-height: 50px;
+	border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+a {
+    color: #000;
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: none
+}
+
+.wrap {
+    /* max-width: 422px;
+    min-height: 265px;
+	padding-top: 440px;	*/
+    margin: 0 auto;
+    background: url(../images/logon.png);
+    text-align: center;
+    position: relative;
+    display: flex;
+    height: 100%;
+    background-size: cover !important;
+    justify-content: center;
+    align-items: center;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+.landing-page {
+	display: table-cell;
+	vertical-align: middle;
+	background: rgba(255,255,255,0.8);
+	padding: 50px 30px;
+	border-radius: 20px;
+}
+.landing-page h1 {font-size: 34px;color: #202020;line-height:1.2;padding:20px 0;font-weight: 600;}
+.wrap a {
+    /* position: absolute;
+    bottom: -120px;
+    left: 30%;
+    opacity: .8 */
+}
+.store-info a {padding:10px 0 0px 0;color: #202020;font-size:18px;display: block;}
+.wrap a.inicon {
+    margin-left: 100px
+}
+
+.wrap a:hover {
+    opacity: 1
+}
+.wrap:before {
+    content: "";
+    background: #000;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.store-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.store-info .email:before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    background: #202020;
+    width: 1px;
+    height: 100%;
+}
+
+.store-info .email {
+    position: relative;
+}
+
+.store-info > * a {
+    padding: 0 !important;
+}
+@media (max-width:767px){
+.landing-page h1 {
+    font-size: 28px;
+}    
+.store-info a {
+    font-size: 16px;
+}
+.landing-page {
+    padding: 40px 20px;
+}
+}

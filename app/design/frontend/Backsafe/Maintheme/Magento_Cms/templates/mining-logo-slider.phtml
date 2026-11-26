@@ -1,0 +1,135 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+?>
+
+<section class="home-brand-section section-space-sm bg-light border-b20"
+x-data="initBrandsCarousel()"
+x-defer="intersect"
+x-init="calcPageSize(); autoPlayInt();"
+x-ref="popularCategoryCarouselSection"
+@resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })">
+    <div class="container">
+        <div class="relative brand-slider-container slider-wrapper">
+            <div class="relative flex row overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/fortescue-metals-group-logo.jpeg') ?>" alt="Fortescur" title="Fortescur">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/logo-rio-tinto.png') ?>" alt="Rio Tinto" title="Rio Tinto">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/logo-bhp.png') ?>" alt="BHP" title="BHP">
+                    </figure>
+                </div>                
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/woodside.png') ?>" alt="woodside" title="woodside">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/south32.png') ?>" alt="south32" title="south32">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/Newmont.png') ?>" alt="newmont" title="newmont">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/liebherr.png') ?>" alt="liebherr" title="liebherr">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/hancockironore.png') ?>" alt="hancockironore" title="hancockironore">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/Komatsu.png') ?>" alt="komatsu" title="komatsu">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/cummins.png') ?>" alt="cummins" title="cummins">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/epiroc.png') ?>" alt="epiroc" title="epiroc">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/glencore.png') ?>" alt="glencore" title="glencore">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/originenergy.png') ?>" alt="originenergy" title="originenergy">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img width="120" height="55" loading="lazy" decoding="async" src="<?= $this->getViewFileUrl('images/santos.png') ?>" alt="santos" title="santos">
+                    </figure>
+                </div>
+               
+            </div>
+            <div class="slider_arrow absolute">
+                <template x-if="itemCount > pageSize">
+                    <nav class="flex items-center justify-between mt-8 lg:m-0">
+                        <button @click="scrollPrevious"
+                                :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                aria-label="Previous"
+                                class="absolute prevslide">
+                                <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+
+                        <button @click="scrollNext"
+                                :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                aria-label="Next"
+                                class="absolute nextslide">
+                                <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+                    </nav>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    'use strict';
+    function initBrandsCarousel() {
+        return {
+            ...window.carouselHandler,
+            active: 0,
+            itemCount: 0,
+            pageSize: 3,
+            pageFillers: 0,
+            autoPlay: true,
+            sliderRef: 'popularCategoryCarouselSection',
+        }
+    }
+</script>

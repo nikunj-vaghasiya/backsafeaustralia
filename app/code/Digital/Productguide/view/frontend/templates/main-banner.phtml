@@ -1,0 +1,7 @@
+<?php
+/* @codingStandardsIgnoreStart */
+$mainImage = $this->helper(\Digital\Productguide\Helper\Data::class)->getMainBanner();
+/* @codingStandardsIgnoreEnd */
+if ($mainImage) { ?>
+	<div class="inner-banner"><img src="<?= $mainImage; ?>" alt="Productguide Image" /></div>
+<?php } ?>

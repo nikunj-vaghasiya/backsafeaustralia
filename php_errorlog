@@ -1,0 +1,44 @@
+[10-Apr-2026 01:54:28 UTC] PHP Warning:  include(/home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/AutoloaderInterface.php): Failed to open stream: Permission denied in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 01:54:28 UTC] PHP Warning:  include(): Failed opening '/home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/../magento/framework/Autoload/AutoloaderInterface.php' for inclusion (include_path='.:/usr/local/php83/pear') in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 01:54:28 UTC] PHP Fatal error:  Uncaught Error: Interface "Magento\Framework\Autoload\AutoloaderInterface" not found in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php:13
+Stack trace:
+#0 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(571): include()
+#1 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile('/home/customer/...')
+#2 /home/customer/www/backsafeaustralia.com.au/public_html/app/autoload.php(52): Composer\Autoload\ClassLoader->loadClass('Magento\\Framewo...')
+#3 /home/customer/www/backsafeaustralia.com.au/public_html/app/bootstrap.php(44): require_once('/home/customer/...')
+#4 /home/customer/www/backsafeaustralia.com.au/public_html/bin/magento(14): require('/home/customer/...')
+#5 {main}
+  thrown in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php on line 13
+[10-Apr-2026 01:54:58 UTC] PHP Warning:  include(/home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/AutoloaderInterface.php): Failed to open stream: Permission denied in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 01:54:58 UTC] PHP Warning:  include(): Failed opening '/home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/../magento/framework/Autoload/AutoloaderInterface.php' for inclusion (include_path='.:/usr/local/php83/pear') in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 01:54:58 UTC] PHP Fatal error:  Uncaught Error: Interface "Magento\Framework\Autoload\AutoloaderInterface" not found in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php:13
+Stack trace:
+#0 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(571): include()
+#1 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile('/home/customer/...')
+#2 /home/customer/www/backsafeaustralia.com.au/public_html/app/autoload.php(52): Composer\Autoload\ClassLoader->loadClass('Magento\\Framewo...')
+#3 /home/customer/www/backsafeaustralia.com.au/public_html/app/bootstrap.php(44): require_once('/home/customer/...')
+#4 /home/customer/www/backsafeaustralia.com.au/public_html/bin/magento(14): require('/home/customer/...')
+#5 {main}
+  thrown in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php on line 13
+[10-Apr-2026 02:15:33 UTC] PHP Warning:  include(/home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/AutoloaderInterface.php): Failed to open stream: Permission denied in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 02:15:33 UTC] PHP Warning:  include(): Failed opening '/home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/../magento/framework/Autoload/AutoloaderInterface.php' for inclusion (include_path='.:/usr/local/php83/pear') in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 02:15:33 UTC] PHP Fatal error:  Uncaught Error: Interface "Magento\Framework\Autoload\AutoloaderInterface" not found in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php:13
+Stack trace:
+#0 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(571): include()
+#1 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile('/home/customer/...')
+#2 /home/customer/www/backsafeaustralia.com.au/public_html/app/autoload.php(52): Composer\Autoload\ClassLoader->loadClass('Magento\\Framewo...')
+#3 /home/customer/www/backsafeaustralia.com.au/public_html/app/bootstrap.php(44): require_once('/home/customer/...')
+#4 /home/customer/www/backsafeaustralia.com.au/public_html/bin/magento(14): require('/home/customer/...')
+#5 {main}
+  thrown in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php on line 13
+[10-Apr-2026 02:16:06 UTC] PHP Warning:  include(/home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/AutoloaderInterface.php): Failed to open stream: Permission denied in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 02:16:06 UTC] PHP Warning:  include(): Failed opening '/home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/../magento/framework/Autoload/AutoloaderInterface.php' for inclusion (include_path='.:/usr/local/php83/pear') in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php on line 571
+[10-Apr-2026 02:16:06 UTC] PHP Fatal error:  Uncaught Error: Interface "Magento\Framework\Autoload\AutoloaderInterface" not found in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php:13
+Stack trace:
+#0 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(571): include()
+#1 /home/customer/www/backsafeaustralia.com.au/public_html/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile('/home/customer/...')
+#2 /home/customer/www/backsafeaustralia.com.au/public_html/app/autoload.php(52): Composer\Autoload\ClassLoader->loadClass('Magento\\Framewo...')
+#3 /home/customer/www/backsafeaustralia.com.au/public_html/app/bootstrap.php(44): require_once('/home/customer/...')
+#4 /home/customer/www/backsafeaustralia.com.au/public_html/bin/magento(14): require('/home/customer/...')
+#5 {main}
+  thrown in /home/customer/www/backsafeaustralia.com.au/public_html/vendor/magento/framework/Autoload/ClassLoaderWrapper.php on line 13

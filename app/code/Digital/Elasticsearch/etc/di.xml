@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--
+        This module does not override or plug into any Elasticsearch request/query
+        class. Detection runs in cron only (Cron\EsHealthCheck), so the default
+        product collection, layered navigation, filters, sorting, pagination,
+        visibility and stock filters are completely untouched.
+    -->
+
+    <!-- Dedicated log file: var/log/digital_elasticsearch.log -->
+    <type name="Digital\Elasticsearch\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Digital\Elasticsearch\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">digitalElasticsearch</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Digital\Elasticsearch\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Alert email recipient (configurable here, no code change needed) -->
+    <type name="Digital\Elasticsearch\Service\EmailNotifier">
+        <arguments>
+            <argument name="recipientEmail" xsi:type="string">nikunj.vaghasiya@yodep.co.in</argument>
+            <argument name="recipientName" xsi:type="string">Administrator</argument>
+            <argument name="senderIdentity" xsi:type="string">general</argument>
+        </arguments>
+    </type>
+</config>

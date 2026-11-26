@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="digital_boxes" resource="default" engine="innodb" comment="HomeBoxes Table">
+        <column xsi:type="smallint" name="boxes_id" unsigned="false" nullable="false" identity="true" comment="Boxes ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="smallint" name="showinhomepage" nullable="false" comment="Show in Home Page"/>
+        <column xsi:type="smallint" name="showinminingpage" nullable="false" comment="Show in Mining Page"/>
+        <column xsi:type="smallint" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="varchar" name="boxes_url" nullable="true" length="255" comment="Boxes URL"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Short Desc."/>
+        <column xsi:type="smallint" name="enable_button" nullable="false" default="1" comment="Button Enable"/>
+        <column xsi:type="varchar" name="button_text" nullable="true" length="100" comment="Button Text"/>
+        <!-- <column xsi:type="varchar" name="stores" nullable="true" length="255" comment="Store"/> -->
+        <column xsi:type="varchar" name="image_desktop" nullable="true" length="255" comment="Image in Desktop"/>
+        <column xsi:type="varchar" name="image_tablet" nullable="true" length="255" comment="Image in Tablet"/>
+        <column xsi:type="varchar" name="image_mobile" nullable="true" length="255" comment="Image in Mobile"/>
+        <column xsi:type="int" name="sort_order" nullable="true" comment="Sort Order"/>
+        <column xsi:type="timestamp" name="created_at" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="true" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+
+        <index referenceId="DIGITAL_BOXES_NAME" indexType="fulltext">
+            <column name="name"/>
+        </index>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="boxes_id"/>
+        </constraint>
+    </table>
+    <table name="digital_boxes_store" resource="default" engine="innodb" comment="Home boxes To Store Linkage Table">
+        <column xsi:type="smallint" name="boxes_id" padding="6" unsigned="false" nullable="false" identity="false"
+                comment="Boxes Entity ID"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
+                comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="boxes_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="DIGITAL_BOXES_STORE_BOXES_ID_DIGITAL_BOXES_BOXES_ID" table="digital_boxes_store" column="boxes_id" referenceTable="digital_boxes" referenceColumn="boxes_id" onDelete="CASCADE"/>
+
+        <constraint xsi:type="foreign" referenceId="DIGITAL_BOXES_STORE_STORE_ID_STORE_STORE_ID" table="digital_boxes_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+
+        <index referenceId="DIGITAL_BOXES_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,14 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+ 	<body>
+    	<referenceContainer name="page.main.title" remove="true"/> 
+		 <referenceContainer name="page.top">
+            <block class="Digital\BannerSlider\Block\Slider" ifconfig="bannerslider_section/general/enable" name="digital.bannerslider.block.slider" template="Digital_BannerSlider::slider.phtml" before="main.content">
+                <arguments>
+                    <argument name="show_arrows" xsi:type="string">false</argument> <!-- Show Slider nav arrows (true/false/start/end) -->
+                    <argument name="show_dots" xsi:type="boolean">true</argument> <!-- Show dots (true/false) -->
+                    <argument name="load_first_eager" xsi:type="boolean">false</argument> <!-- Load the first slider image eager (true/false) -->
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

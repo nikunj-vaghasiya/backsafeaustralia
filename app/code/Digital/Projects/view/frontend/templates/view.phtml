@@ -1,0 +1,282 @@
+<?php 
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+
+/** @var ViewModelRegistry $viewModels */
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+$collection = $this->getProjectsCollection();
+$mediaUrl = $this->helper('\Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl();
+?>
+
+<div class="project-info-section section-space bg-secondary">
+    <div class="container">
+        <?php foreach ($collection as $projects) : ?>
+        <div class="flex row gap-y-5 lg:gap-0 project-info-container">
+            <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-7/12 xxl:w-7/12 sl:w-7/12">
+                <?php if ($projects->getImageDesktop()) : ?>
+                    <div class="relative proj-info-wrapper">
+                        <picture>
+                            <img src="<?= $mediaUrl.'digital/projects/'. $projects->getImageDesktop(); ?>" alt="<?= /* @noEscape */ $projects->getTitle() ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>">
+                        </picture>
+                        <?php if ($projects->getCategories()) : ?>
+                            <div class="showcase-detail">
+                                <h6 class="proj-category-title"><?= /* @noEscape */ $projects->getCategories() ?></h6>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-6/12 xl:w-5/12 xxl:w-5/12 sl:w-5/12">
+                <div class="proj-info-content relative">
+                    <div class="showcase-detail-info">
+                        <h1 class="h2"><?= /* @noEscape */ $projects->getTitle() ?></h1>
+                        <?php if ($projects->getSubTitle()) : ?>
+                            <p><?= /* @noEscape */ $projects->getSubTitle() ?></p>
+                        <?php endif ?>
+                        <?php /* if ($projects->getDuration() || $projects->getEngineers()) : ?>
+                            <ul class="flex-ac gap proj-list-duration">
+                                <?php if ($projects->getDuration()) : ?>
+                                <li>
+                                    <span>
+                                        <?= $heroicons->watchIconHtml('', 20, 20, ['aria-hidden' => 'true']); ?>
+                                    </span> <?= $projects->getDuration() ?>
+                                </li>
+                                <?php endif ?>
+                                <?php if ($projects->getEngineers()) : ?>
+                                <li>
+                                    <span>
+                                        <?= $heroicons->usersIconHtml('', 20, 20, ['aria-hidden' => 'true']); ?>
+                                    </span> <?= $projects->getEngineers() ?>  
+                                </li>
+                                <?php endif ?>
+                            </ul>
+                        <?php endif */ ?>
+                    </div>
+                    <?php /* if ($projects->getShortDescription()) : ?>
+                        <div class="gap-2.5 sm:gap-3 md:gap-5 grid grid-cols-2 proj-info-list">
+                            <?= $projects->getShortDescription() ?>
+                        </div>
+                    <?php endif */?>
+                    <?php if ($projects->getProducts()) : ?>
+                       <div class="info-detail-sm">
+                            <h6 class="h6">Products</h6>
+                            <?= $block->filterOutputHtml($projects->getProducts()) ?>
+                       </div>
+                    <?php endif ?>
+                    <div class="flex proj-info-actions">
+                        <a href="<?php echo $block->getUrl().'contact-us' ?>" title="Challenge our team" class="btn btn-primary proj-info-btn">Challenge our team</a>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    </div>
+</div>
+
+<div class="project-details-section section-space bg-light">
+    <div class="container">
+        <?php foreach ($collection as $projects) : ?>
+        <div class="row md:grid grid-cols-[1fr_1fr] xs:grid-cols-[1fr_1fr] sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_2fr] xxl:grid-cols-[1fr_2fr] sl:grid-cols-[1fr_2fr]">
+            <div class="project-sidebar">
+                <div id="projectList" x-data="projectNav()" class="flex gap md:flex-col proj-sidebar-wrapper">
+                    <?php if ($projects->getTimePeriod()) : ?>
+                        <h6 :class="active === 'timePeriod' ? 'active project-list_link' : 'project-list_link'">
+                            <a href="#timePeriod" @click="setActive('timePeriod')">Time Period</a>
+                        </h6>
+                    <?php endif; ?>
+
+                    <?php if ($projects->getChallenge()) : ?>
+                        <h6 :class="active === 'challenge' ? 'active project-list_link' : 'project-list_link'">
+                            <a href="#challenge" @click="setActive('challenge')">Challenge</a>
+                        </h6>
+                    <?php endif; ?>
+
+                    <?php if ($projects->getChallengeGallery()) : ?>
+                        <h6 :class="active === 'challengeGallery' ? 'active project-list_link' : 'project-list_link'">
+                            <a href="#challengeGallery" @click="setActive('challengeGallery')">Gallery</a>
+                        </h6>
+                    <?php endif; ?>
+
+                    <?php if ($projects->getSolution()) : ?>
+                        <h6 :class="active === 'solution' ? 'active project-list_link' : 'project-list_link'">
+                            <a href="#solution" @click="setActive('solution')">Solution</a>
+                        </h6>
+                    <?php endif; ?>
+
+                    <?php if ($projects->getGallery()) : ?>
+                        <h6 :class="active === 'gallery' ? 'active project-list_link' : 'project-list_link'">
+                            <a href="#gallery" @click="setActive('gallery')">Gallery</a>
+                        </h6>
+                    <?php endif; ?>
+
+                    <?php if ($projects->getOutCome()) : ?>
+                        <h6 :class="active === 'outcome' ? 'active project-list_link' : 'project-list_link'">
+                            <a href="#outcome" @click="setActive('outcome')">Outcome</a>
+                        </h6>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="project-list-col slider-wrapper">
+                <div data-bs-spy="scroll" data-bs-target="#projectList" data-bs-offset="0" data-bs-smooth-scroll="true" class="" tabindex="0">
+                    <?php if ($projects->getTimePeriod()) : ?>
+                        <div class="project-items">
+                            <h3 id="timePeriod" class="h3 project-title">Time Period</h3>
+                            <div class="cms-content">
+                                <?= $block->filterOutputHtml($projects->getTimePeriod()) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($projects->getChallenge()) : ?>
+                        <div class="project-items">
+                            <h3 id="challenge" class="h3 project-title">Challenge</h3>
+                            <div class="cms-content">
+                                <?= $block->filterOutputHtml($projects->getChallenge()) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($projects->getChallengeGallery()) : ?>
+                        <div class="project-items">
+                        <div class="gallery-slider-main"
+                            x-data="initProjectsCarousel()"
+                            x-defer="intersect"
+                            x-init="calcPageSize(); autoPlayInt();"
+                            x-ref="popularCategoryCarouselSection"
+                            @resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })"
+                            id="challengeGallery"
+                        >
+                            <!-- <h3 id="challengeGallery" class="h3 project-title">Gallery</h3> -->
+                                <div class="gallery-slider-container slider-wrapper">
+
+                                        <template x-if="itemCount > pageSize">
+                                            <nav class="flex items-center justify-between mt-8 lg:m-0">
+                                                <button @click="scrollPrevious"
+                                                        :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                                        aria-label="Previous"
+                                                        class="absolute prevslide">
+                                                        <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                                                </button>
+                                                <button @click="scrollNext"
+                                                        :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                                        aria-label="Next"
+                                                        class="absolute nextslide">
+                                                        <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                                                </button>
+                                            </nav>
+                                        </template>
+
+                                    <div class="gallery-wrapper relative flex -mx-[10px] overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                                       <?= $block->filterOutputHtml($projects->getChallengeGallery()) ?>
+                                    </div>
+                                </div>
+                        </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($projects->getSolution()) : ?>
+                        <div class="project-items">
+                            <h3 id="solution" class="h3 project-title">Solution</h3>
+                            <div class="cms-content">
+                                <?= $block->filterOutputHtml($projects->getSolution()) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($projects->getGallery()) : ?>
+                        <div class="project-items">
+                        <div class="gallery-slider-main"
+                            x-data="initProjectsCarousel()"
+                            x-defer="intersect"
+                            x-init="calcPageSize(); autoPlayInt();"
+                            x-ref="popularCategoryCarouselSection"
+                            @resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })"
+                            id="gallery"
+                        >
+                            <!-- <h3 id="gallery" class="h3 project-title">Gallery</h3> -->
+                                <div class="gallery-slider-container slider-wrapper">
+                                    
+                                        <template x-if="itemCount > pageSize">
+                                            <nav class="flex items-center justify-between mt-8 lg:m-0">
+                                                <button @click="scrollPrevious"
+                                                        :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                                                        aria-label="Previous"
+                                                        class="absolute prevslide">
+                                                        <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                                                </button>
+                                                <button @click="scrollNext"
+                                                        :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                                                        aria-label="Next"
+                                                        class="absolute nextslide">
+                                                        <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                                                </button>
+                                            </nav>
+                                        </template>
+                                    
+                                    <div class="gallery-wrapper relative flex -mx-[10px] overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                                       <?= $block->filterOutputHtml($projects->getGallery()) ?>
+                                    </div>
+                                </div>
+                        </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($projects->getOutCome()) : ?>
+                        <div class="project-items">
+                            <h3 id="outcome" class="h3 project-title">Outcome</h3>
+                            <div class="cms-content">
+                                <?= $block->filterOutputHtml($projects->getOutCome()) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('projectNav', () => ({
+        active: null,
+
+        init() {
+            this.updateOnScroll();
+
+            window.addEventListener('scroll', () => {
+                this.updateOnScroll();
+            });
+        },
+
+        updateOnScroll() {
+            const sections = ['timePeriod', 'challenge', 'challengeGallery', 'solution', 'gallery', 'outcome'];
+
+            for (let id of sections) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+
+                const rect = el.getBoundingClientRect();
+
+                if (rect.top <= 150 && rect.bottom > 150) {
+                    this.active = id;
+                    return;
+                }
+            }
+        },
+
+        setActive(id) {
+            this.active = id;
+        }
+    }))
+})
+</script>
+<script>
+    'use strict';
+    function initProjectsCarousel() {
+        return {
+            ...window.carouselHandler,
+            active: 0,
+            itemCount: 0,
+            pageSize: 2,
+            pageFillers: 0,
+            autoPlay: true,
+            sliderRef: 'popularCategoryCarouselSection',
+        }
+    }
+</script>

@@ -1,0 +1,237 @@
+<?php
+
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\Escaper;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+
+$configHelper = $this->helper(\Digital\Base\Helper\Data::class);
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$page = $objectManager->get(\Magento\Cms\Model\Page::class);
+$currentPage = $page->getIdentifier();
+?>
+<div class="container">
+    <div class="flex-js">
+        <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-12/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+            <div class="footer-logo">
+                <img width="220" height="50" loading="lazy" decoding="async" src="<?php echo $this->getViewFileUrl('images/footer-logo.svg'); ?>" alt="<?= __('Backsafe Australia'); ?>" title="<?= __('Backsafe Australia'); ?>" />
+            </div>
+            <div class="flex-ae">
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-8/12 lg:w-8/12 xl:w-12/12 xxl:w-12/12 sl:w-12/12">
+                    <?php echo $this->getChildHtml('footer.newsletter'); ?>
+                </div>
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-12/12 xxl:w-12/12 sl:w-12/12">
+                    <div class="footer-accordion footer-social flex-ac">
+                        <h5 class="footer-accordion-title">Follow us</h5>
+                        <div class="footer-social-links">
+                            <ul class="footer-social-wrapper flex gap-[5px]">
+                                <li><a title="Facebook" href="<?php echo $configHelper->getFacebookLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getFacebookIcon(); ?></a></li>
+                                <li><a title="LinkedIn" href="<?php echo $configHelper->getLinkedInLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getLinkedInIcon(); ?></a></li>
+                                <li><a title="Instagram" href="<?php echo $configHelper->getInstagramLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getInstagramIcon(); ?></a></li>
+                                <li><a title="Youtube" href="<?php echo $configHelper->getYoutuberLink(); ?>" target="_blank" rel="noopener"><?php echo $configHelper->getYoutubeIcon(); ?></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-12/12 xl:w-8/12 xxl:w-7/12 sl:w-7/12 footer-right">
+            <div class="gap-y-[0px] xs:gap-y-[0px] sm:gap-y-[0px] md:gap-y-[40px] lg:gap-y-[50px] xl:gap-y-[50px] xxl:gap-y-[50px] sl:gap-y-[73px] flex">
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                    <div class="footer-accordion" x-data="{ openTab: 0 }">
+                        <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Perth Showroom and Warehouse</h5>
+                        <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                            <?php echo $this->getChildHtml('footer.headquarters'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                    <div class="footer-accordion" x-data="{ openTab: 0 }">
+                        <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Call us</h5>
+                        <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                            <?php echo $this->getChildHtml('footer.call.us'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                    <div class="footer-accordion" x-data="{ openTab: 0 }">
+                        <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Email us</h5>
+                        <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                            <?php echo $this->getChildHtml('footer.email.us'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                    <div class="footer-accordion" x-data="{ openTab: 0 }">
+                        <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Products</h5>
+                        <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                            <?php echo $this->getChildHtml('footer.products.links'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                    <div class="footer-accordion" x-data="{ openTab: 0 }">
+                        <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Industries</h5>
+                        <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                            <?php echo $this->getChildHtml('footer.industries.links'); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-4/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                    <div class="footer-accordion" x-data="{ openTab: 0 }">
+                        <h5 class="footer-accordion-title" @click="openTab = openTab === 1 ? null : 1" x-bind:class="openTab === 1 ? 'active' : ''">Support</h5>
+                        <div class="footer-accordion-content" x-show="openTab === 1" x-bind:class="openTab === 1 ? 'active' : ''">
+                            <?php echo $this->getChildHtml('footer.support.links'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-js footer-copyright">
+        <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-12/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+            <div class="footer-signature">
+                <p><?= $block->getChildHtml('copyright') ?></p>
+            </div>
+        </div>
+        <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-12/12 xl:w-8/12 xxl:w-7/12 sl:w-7/12 footer-right">
+            <div class="w-12/12 xs:w-12/12 sm:w-12/12 md:w-12/12 lg:w-12/12 xl:w-12/12 xxl:w-12/12 sl:w-12/12">
+                <div class="footer-signature-links">
+                    <ul class="flex-ac gap-3 sm:gap-5 md:gap-[60px] footer-bottom">
+                        <?php if ($this->getRequest()->getFullActionName() == 'cms_index_index'): ?>
+                            <li><a title="Web Design" target="_blank" href="https://www.23digital.com.au/web-design">Web Design</a> by <a target="_blank" href="https://www.23digital.com.au" title="Digital Agencies">23 Digital</a></li>
+                        <?php endif; ?>
+                        <li> <a href="<?= $block->getBaseUrl() . 'privacy-policy' ?>" title="Privacy Policy" class="<?= ($currentPage == 'privacy-policy') ? 'active' : '' ?>">Privacy Policy</a></li>
+
+                        <li><a href="<?= $block->getBaseUrl() . 'terms-of-service' ?>" title="Terms of Service" class="<?= ($currentPage == 'terms-of-service') ? 'active' : '' ?>">Terms of Service</a></li>
+                        <li><a href="<?= $block->getBaseUrl() . 'pub/sitemap.xml' ?>" title="Sitemap">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function mobileFooterCollpase() {
+        return {
+            open: false,
+            isMobile: false,
+            init() {
+                this.open = this.$root.dataset.open;
+                this.checkIsMobileResolution();
+            },
+            checkIsMobileResolution() {
+                this.isMobile = getComputedStyle(this.$refs.toggleIcon).display !== 'none'
+            },
+            isOpen() {
+                return this.isMobile ? this.open : true;
+            },
+            toggle() {
+                return this.isMobile ? this.open = !this.open : true;
+            },
+            eventListeners: {
+                ['@resize.window.debounce']() {
+                    this.checkIsMobileResolution();
+                },
+                ['@visibilitychange.window.debounce']() {
+                    this.checkIsMobileResolution();
+                }
+            },
+            setToggleRoles: {
+                [':role']() {
+                    return this.isMobile && 'button';
+                },
+                [':tabindex']() {
+                    return this.isMobile && '0';
+                },
+                [':aria-expanded']() {
+                    return this.isMobile ? this.open : null;
+                },
+                [':aria-controls']() {
+                    return this.isMobile ? this.$el.dataset.id : null;
+                }
+            },
+            setCollapseRoles: {
+                [':aria-hidden']() {
+                    return this.isMobile ? !!this.open : null;
+                },
+                [':aria-labelledby']() {
+                    return this.isMobile ? this.$el.id : null;
+                }
+            }
+        }
+    }
+    window.addEventListener('alpine:init', () => Alpine.data('mobileFooterCollpase', mobileFooterCollpase), {
+        once: true
+    })
+
+    function initFooterLinks() {
+        return {
+            activeLink: '',
+            setActiveLink() {
+                const path = window.location.pathname;
+                const links = this.$el.querySelectorAll('a');
+
+                links.forEach(link => {
+                    const linkPath = new URL(link.href).pathname;
+                    if (path === linkPath) {
+                        this.activeLink = path.split('/').pop() || 'home';
+                    }
+                });
+            }
+        }
+    }
+
+    function initFooterProductsLinks() {
+        return {
+            activeLink: '',
+
+            // Method to set active link based on current URL
+            setActiveLink() {
+                const currentPath = window.location.pathname;
+                const links = this.$el.querySelectorAll('a');
+
+                links.forEach(link => {
+                    const linkPath = new URL(link.href).pathname;
+
+                    // Check if current URL matches the link URL
+                    if (currentPath === linkPath) {
+                        // Extract the page identifier from the path
+                        const pathParts = linkPath.split('/');
+                        const fileName = pathParts[pathParts.length - 1];
+
+                        // Remove .html extension if present
+                        if (fileName.endsWith('.html')) {
+                            this.activeLink = fileName.replace('.html', '');
+                        } else {
+                            this.activeLink = fileName;
+                        }
+                    }
+
+                    // Alternative: Check if current URL contains the link path
+                    // Useful for category pages where URLs might have additional segments
+                    if (currentPath.includes(linkPath) && linkPath !== '/') {
+                        const pathParts = linkPath.split('/');
+                        const fileName = pathParts[pathParts.length - 1];
+
+                        if (fileName.endsWith('.html')) {
+                            this.activeLink = fileName.replace('.html', '');
+                        } else {
+                            this.activeLink = fileName;
+                        }
+                    }
+                });
+            }
+        }
+    }
+</script>

@@ -1,0 +1,16 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="digital_testimonials">
+        <column xsi:type="int" name="testimonial_id" padding="10" unsigned="true" identity="true" nullable="false" comment="Testimonial Id" />
+         <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Testimonial Name"/>
+         <column xsi:type="text" name="content" nullable="false" comment="Description"/>
+         <column xsi:type="varchar" name="submitter_name" nullable="false" length="255" comment="Submitter Name"/>
+         <column xsi:type="varchar" name="submitter_role" nullable="false" length="255" comment="Submitter Role"/>
+         <column xsi:type="smallint" name="sortorder" unsigned="true" nullable="false" comment="Sortorder"/>
+        <column xsi:type="float" name="rating" unsigned="true" nullable="false" comment="Rating"/>
+        <column xsi:type="varchar" name="submitter_image" nullable="false" length="255" comment="Submitter Image"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="1" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+        <column name="testimonial_id"/>
+        </constraint>
+    </table>
+</schema>

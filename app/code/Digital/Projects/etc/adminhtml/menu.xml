@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digital_Projects::manager" title="Projects" module="Digital_Projects" resource="Digital_Projects::manager" parent="Digital_Base::parent" sortOrder="200"/>
+        <add id="Digital_Projects::projects" title="Manage Projects" module="Digital_Projects" action="projects/projects/index" resource="Digital_Projects::projects" parent="Digital_Projects::manager"/>
+        <add id="Digital_Projects::settings" title="Configuration" module="Digital_Projects" sortOrder="2" parent="Digital_Projects::manager" action="adminhtml/system_config/edit/section/projects_section" resource="Digital_Projects::settings"/>
+    </menu>
+</config>

@@ -1,0 +1,244 @@
+<?php
+
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Hyva\Theme\ViewModel\StoreConfig;
+use Magento\Checkout\Block\Cart\Sidebar as SidebarCart;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+/** @var StoreConfig $storeConfig */
+$storeConfig = $viewModels->require(StoreConfig::class);
+$showMiniCart = $storeConfig->getStoreConfig(SidebarCart::XML_PATH_CHECKOUT_SIDEBAR_DISPLAY);
+$getStorePhoneNumber = $storeConfig->getStoreConfig('general/store_information/phone');
+?>
+<script>
+    function initHeader() {
+        return {
+            searchOpen: false, // Start with search hidden on mobile
+            cart: {},
+            isCartOpen: false,
+            getData(data) {
+                if (data.cart) {
+                    this.cart = data.cart
+                }
+            },
+            isCartEmpty() {
+                return !this.cart.summary_count
+            },
+            cartLabel() {
+                var label = "Quote Cart: 0";
+                if (this.cart.summary_count) {
+                    label = "Quote Cart: " + this.cart.summary_count;
+                }
+                console.log(label);
+                return label;
+            },
+            toggleCart(event) {
+                if (event.detail && event.detail.isOpen !== undefined) {
+                    this.isCartOpen = event.detail.isOpen
+                    if (!this.isCartOpen && this.$refs && this.$refs.cartButton) {
+                        this.$refs.cartButton.focus()
+                    }
+                } else {
+                    <?php
+                    /*
+                     * The toggle-cart event was previously dispatched without parameter to open the drawer (not toggle).
+                     * Keeping this in here for backwards compatibility.
+                     */
+                    ?>
+                    this.isCartOpen = true
+                }
+            },
+            /**
+             * Toggle search visibility on mobile
+             * On desktop, search is always visible
+             */
+            toggleSearch() {
+                if (window.innerWidth < 768) {
+                    this.searchOpen = !this.searchOpen;
+                    
+                    if (this.searchOpen) {
+                        this.$nextTick(() => {
+                            // Focus on search input when opened
+                            const searchInput = document.querySelector('#search');
+                            if (searchInput) {
+                                searchInput.focus();
+                            }
+                        });
+                    }
+                }
+            },
+            /**
+             * Initialize search visibility based on screen size
+             * Desktop: Always visible
+             * Mobile: Hidden by default, toggle with icon
+             */
+            init() {
+                // Set initial state based on viewport width
+                this.searchOpen = window.innerWidth >= 768;
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768) {
+                        // Desktop: Always show search
+                        this.searchOpen = true;
+                    }
+                    // On mobile, maintain current toggle state
+                });
+
+                // Close search when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth < 768 && this.searchOpen) {
+                        const searchContent = document.getElementById('search-content');
+                        const searchIcon = document.getElementById('menu-search-icon');
+                        
+                        if (searchContent && searchIcon && 
+                            !searchContent.contains(e.target) && 
+                            !searchIcon.contains(e.target)) {
+                            this.searchOpen = false;
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    function initCompareHeader() {
+        return {
+            compareProducts: null,
+            itemCount: 0,
+            receiveCompareData(data) {
+                if (data['compare-products']) {
+                    this.compareProducts = data['compare-products'];
+                    this.itemCount = this.compareProducts.count;
+                }
+            }
+        }
+    }
+</script>
+<div id="header"
+    class="header relative z-30 w-full border-b shadow bg-container-lighter border-container-lighter"
+    x-data="initHeader()"
+    x-init="init()"
+    @private-content-loaded.window="getData(event.detail.data)">
+    <div class="header-top bg-secondary">
+        <div class="container">
+            <div class="top-wrapper">
+                <ul class="header-actions flex-ac">
+                    <li>
+                        <a href="tel:<?= $getStorePhoneNumber; ?>" title="<?= $getStorePhoneNumber; ?>">
+                            <span class="header-actions-icon">
+                                <?= $heroicons->callHtml("md:h-6 md:w-6", 20, 20, ["aria-hidden" => "true"]) ?>
+                            </span>
+                            <span class="header-actions-text"><?= $getStorePhoneNumber; ?></span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="header-actions flex-ac">
+                    <!--Customer Icon & Dropdown-->
+                    <li><?= $block->getChildHtml('customer') ?></li>
+                    <li>
+                        <?php
+                        $helper_prod_enquiry = $this->helper('Digital\Productenquiry\Helper\Data');
+                        $enquiry_count = $helper_prod_enquiry->getCountTotalEnquiryQty();
+                        if ($enquiry_count <= 0) {
+                            $enquiry_count = '0';
+                        }
+                        ?>
+                        <a class="header-cart" title="<?php echo __('Quote') ?>" href="<?php echo $this->getBaseUrl() . 'productenquiry'; ?>">
+                            <span class="header-actions-icon"><?= $heroicons->shoppingCartHtml("md:h-6 md:w-6", 20, 20, ["aria-hidden" => "true"]) ?></span>
+                            <span class="header-actions-text">
+                                <span><?php echo __('Quote Cart:') ?></span>
+                                <span class="minicart-count" id="top_mini_enquiry_count_desktop"><?php echo $enquiry_count; ?></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="md:hidden">
+                        <a href="tel:0249790000" title="02 4979 0000">
+                            <?= $heroicons->callHtml("md:h-6 md:w-6", 20, 20, ["aria-hidden" => "true"]) ?>
+                        </a>
+                    </li>
+                    <li class="navigation-li">
+                        <?= $block->getChildHtml('topmenu.mobile'); ?>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="container flex-ac-js">
+            <div class="header_b_wrap flex-ac-js">
+                <!--Logo-->
+                <?= $block->getChildHtml('logo'); ?>
+
+                <!--Main Navigation-->
+                <?= $block->getChildHtml('topmenu') ?>
+
+                <div class="flex items-center gap-2 md:gap-1 order-3">
+                    <!--Search Icon - Only visible on mobile (< 768px)-->
+                    <button
+                        id="menu-search-icon"
+                        class="rounded md:hidden p-1 hover:bg-primary/10 outline-offset-2"
+                        @click.prevent="toggleSearch()"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__('Toggle search form')) ?>"
+                        aria-haspopup="true"
+                        :aria-expanded="searchOpen"
+                        x-ref="searchButton">
+                        <?= $heroicons->searchHtml("md:h-6 md:w-6", 20, 20, ["aria-hidden" => "true"]) ?>
+                    </button>
+                    
+                    <!--Search Container - Hidden on mobile by default, always visible on desktop-->
+                    <div class="header-cta flex-ac"
+                        id="search-content"
+                        x-show="searchOpen"
+                        x-cloak
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-95"
+                        @keydown.escape="
+                            if (window.innerWidth < 768) {
+                                searchOpen = false;
+                                $refs.searchButton.focus();
+                            }
+                        ">
+                        <?= $block->getChildHtml('header-search'); ?>
+                    </div>
+                    
+                    <div class="get-quote hidden">
+                        <a href="<?= $this->getUrl() . 'contact-us' ?>" class="btn btn-primary">Get a Quote</a>
+                    </div>
+
+                    <!-- Additional Header Elements -->
+                    <?= $block->getChildHtml('additional') ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Cart Drawer-->
+    <?= $block->getChildHtml('cart-drawer'); ?>
+
+    <!--Authentication Pop-Up-->
+    <?= $block->getChildHtml('authentication-popup'); ?>
+</div>

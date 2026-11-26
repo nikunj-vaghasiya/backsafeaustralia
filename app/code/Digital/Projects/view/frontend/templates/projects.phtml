@@ -1,0 +1,86 @@
+<?php
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+
+/** @var ViewModelRegistry $viewModels */
+/** @var HeroiconsOutline $heroicons */
+/** @var \Digital\Projects\Block\Cms\Slider $block */
+/** @var \Digital\Projects\Model\Projects[] $projectsCollection */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+$projectsCollection = $block->getProjectsCollection();
+$helper = $block->getProjectsHelper();
+$baseHelper = $block->getBaseHelper();
+$pagetitle = $helper->getProjectsPageTitle();
+$currentServes = $block->getCurrentServes();
+$currentCategories = $block->getCurrentCategories();
+$currentProtein = $block->getCurrentProtein();
+$mediaUrl = $this->helper('\Magento\Cms\Helper\Wysiwyg\Images')->getBaseUrl();
+$allowedIp = '202.131.115.227';
+
+// if ($_SERVER['REMOTE_ADDR'] === $allowedIp) {
+//     // Allowed
+//     die('Access denied.');
+// } 
+?>
+
+<div class="container">
+    <div class="proj-detail-slider-container section-space project_list_wrapper">
+        <div class="slider-wrapper projects-swiper">
+            <div class="projects-items flex row">
+                <?php foreach ($projectsCollection as $projects) : ?>
+                    <div class="w-12/12 xs:w-12/12 sm:w-6/12 md:w-6/12 lg:w-4/12 xl:w-4/12 xxl:w-4/12 sl:w-4/12">
+                        <figure class="proj-showcase">
+                            <div class="relative">
+                                <a href="<?= $this->getUrl().'projects/'.$projects->getData('projects_url'); ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>" class="proj-info-img">
+                                    <picture>
+                                        <img src="<?= $mediaUrl.'digital/projects/'. $projects->getImageListing(); ?>" alt="<?= /* @noEscape */ $projects->getTitle() ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>">
+                                    </picture>
+                                </a>
+                                <div class="showcase-detail">
+                                    <?php if ($projects->getCategories()) : ?>
+                                        <h6 class="proj-category-title"><?= /* @noEscape */ $projects->getCategories() ?></h6>
+                                    <?php endif; ?>
+                                    <?php /* <div class="showcase-detail-header">
+                                        <h5 class="proj-showcase-title"><a href="<?= $this->getUrl().'projects/'.$projects->getData('projects_url'); ?>" title="<?= $projects->getTitle() ?>"><?= $projects->getTitle() ?></a></h5>
+                                        <?php if ($projects->getDuration() || $projects->getEngineers()) : ?>
+                                            <ul class="flex-ac gap proj-list-duration">
+                                                <?php if ($projects->getDuration()) : ?>
+                                                <li>
+                                                    <span>
+                                                        <?= $heroicons->watchIconHtml('', 20, 20, ['aria-hidden' => 'true']); ?>
+                                                    </span> <?= $projects->getDuration() ?>
+                                                </li>
+                                                <?php endif ?>
+                                                <?php if ($projects->getEngineers()) : ?>
+                                                <li>
+                                                    <span>
+                                                        <?= $heroicons->usersIconHtml('', 20, 20, ['aria-hidden' => 'true']); ?>
+                                                    </span> <?= $projects->getEngineers() ?>  
+                                                </li>
+                                                <?php endif ?>
+                                            </ul>
+                                        <?php endif ?>
+                                    </div> */ ?>
+                                </div>
+                            </div>
+                            <figcaption class="proj-showcase-content">
+                                <div class="showcase-detail-header">
+                                    <h5 class="proj-showcase-title"><a href="<?= $this->getUrl().'projects/'.$projects->getData('projects_url'); ?>" title="<?= /* @noEscape */ $projects->getTitle() ?>"><?= /* @noEscape */ $projects->getTitle() ?></a></h5>
+                                </div>
+                                <?php /* <div class="gap-3 md:gap-5 grid grid-cols-2 proj-info-list">
+                                    <?=  $projects->getShortDescription() ?>
+                                </div> */ ?>
+                                <div class="flex proj-showcase-actions">
+                                    <a href="<?= $this->getUrl().'projects/'.$projects->getData('projects_url'); ?>" title="View Case Study" class="btn btn-outline-primary proj-showcase-btn">View Case Study <span><?= $heroicons->rightArrowHtml('', 20, 20, ['aria-hidden' => 'true']); ?></span></a>
+                                </div>
+                            </figcaption>
+                        </figure>    
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php if ($block->getPagerHtml()) { ?>
+            <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml(); ?></div>
+        <?php } ?>
+    </div>
+</div>

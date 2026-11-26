@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+     <head>
+        <css src="css/cms-page.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <container name="projects" htmlTag="section" htmlClass="digital-projects">
+                <block class="Digital\Projects\Block\Projectsview" ifconfig="projects_section/general/enable" name="projects.block.view" template="Digital_Projects::view.phtml" />
+            </container>
+        </referenceContainer>
+        <referenceBlock name="page.main.title" remove="true" />
+    </body>
+</page>

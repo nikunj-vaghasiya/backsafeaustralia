@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <base>
+        	<api_credentials>
+        		<integration_option>myob-advanced</integration_option>
+        		<auth_method>basic_auth</auth_method>
+        		<username>type your username</username>
+        		<password>type your password</password>
+        	</api_credentials>
+        </base>
+    </default>
+</config>

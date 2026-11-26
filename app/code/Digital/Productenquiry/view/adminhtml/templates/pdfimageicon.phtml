@@ -1,0 +1,23 @@
+<script>
+     require([
+        'jquery',
+    ], function ($) {
+        $(document).ready(function () {
+            setTimeout(function(){  
+                var imgsrc='<?= $escaper->escapeUrl($block->getViewFileUrl('Digital_Productenquiry::images/pdf.png')); ?>';
+                jQuery("#productenquiry_main_image").hide();
+                jQuery('label[for=productenquiry_main_image]').remove();
+                jQuery(".field-image").prepend('<label class="label admin__field-label" data-ui-id="productenquiry-edit-tab-main-fieldset-element-file-image-label" for="Attachment">Attachment :</label>');
+                jQuery(".delete-image").hide();
+                //jQuery("#productenquiry_main_image_image").remove();
+                var value = jQuery('#productenquiry_main_image_image').attr("src");                
+                var extension = value.substr((value.lastIndexOf('.') +1));
+                if(extension == 'pdf')
+                {
+                    jQuery(".productenquiry-index-edit #productenquiry_main_image_image").attr("src",imgsrc);
+                    jQuery(".productenquiry-index-edit .field-image a").removeAttr("onclick").attr('target', '_blank');
+                }
+            }, 1000);
+        });
+     });
+ </script>

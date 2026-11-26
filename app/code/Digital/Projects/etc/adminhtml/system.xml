@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+<system>
+	<section id="projects_section" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+		<label>Projects</label>
+		<tab>digital</tab>
+		<!-- resource tag name which we have to defined in the acl.xml -->
+		<resource>Digital_Projects::settings</resource>
+		<group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Configuration</label>
+			<field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Enable</label>
+				<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+			</field>
+			<field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+	            <label>Title</label>
+	            <comment>Entered title visible on frontend section, if empty then title removed from frontend.</comment>
+	        </field>
+	        <field id="projects_limit" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+	            <label>Projects Limit</label>
+	            <comment>Enter The limit of projects to display per page.</comment>
+	            <validate>validate-no-empty</validate>
+	        </field>
+	        <field id="main_banner" translate="label" type="image" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Main Banner</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">wysiwyg/enquiry</upload_dir>
+                        <base_url type="media" scope_info="1">wysiwyg/enquiry</base_url>
+                        <comment>Image Dimension: W1920px * H350px</comment>
+                </field>
+		</group>
+		<group id="digital_projects" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Projects Options</label>
+			<field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+				<label>Add Projects to Sitemap</label>
+				<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+			</field>
+			<field id="include_listing" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+				<label>Include Projects Listing Page</label>
+				<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				<depends>
+					<field id="enabled">1</field>
+				</depends>
+			</field>
+			<field id="changefreq" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+				<label>Frequency</label>
+				<source_model>Magento\Sitemap\Model\Config\Source\Frequency</source_model>
+				<depends>
+					<field id="enabled">1</field>
+				</depends>
+			</field>
+			<field id="priority" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+				<label>Priority</label>
+				<backend_model>Magento\Sitemap\Model\Config\Backend\Priority</backend_model>
+				<comment>Valid values range from 0.0 to 1.0.</comment>
+				<depends>
+					<field id="enabled">1</field>
+				</depends>
+			</field>
+		</group>
+	</section>
+</system>
+</config>

@@ -1,0 +1,149 @@
+<?php
+
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsSolid;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\Escaper;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsSolid $heroiconsSolid */
+$heroiconsSolid = $viewModels->require(HeroiconsSolid::class);
+
+/** @var string[] $menu */
+$item = $block->getData('item');
+$level = $block->getData('level');
+$menuId = str_replace('-', '_', $item['id']);
+$catId = str_replace("category-node-", "", $item['id']);
+$classCount = 0;
+$textClass = "";
+$bg_color = "";
+if ($block->getData('classcount') && $level == 1) {
+    $classCount = $block->getData('classcount');
+    $textClass = "menu-bg-img-" . $classCount;
+    $get_cat_id = explode("category-node-", $item['id']);
+    $main_cat_id = $get_cat_id[1];
+    if ($main_cat_id == 115) {
+        $bg_color = "yellow";
+    } elseif ($main_cat_id == 116) {
+        $bg_color = "orange";
+    } elseif ($main_cat_id == 117) {
+        $bg_color = "red";
+    } elseif ($main_cat_id == 11) {
+        $bg_color = "blue";
+    } elseif ($main_cat_id == 10) {
+        $bg_color = "green";
+    } elseif ($main_cat_id == 7) {
+        $bg_color = "purple";
+    }
+}
+
+?>
+
+<?php if (!empty($item['childData'])): ?>
+    <li
+        class="level-<?= $level ?> <?= $textClass ?> <?= $bg_color ?>"
+        data-id="<?= /* @noEscape */ $menuId ?>"
+        x-data="initSubMenuDesktopItem"
+        @click.outside="close"
+        @keydown.escape="close"
+        @mouseenter="canHoverOpen"
+        @mouseleave="canHoverClose">
+        <button
+            type="button"
+            class="group w-full flex justify-between items-center gap-1 p-2 rounded-md hover:bg-slate-50
+                aria-expanded:text-blue-800 aria-expanded:bg-blue-50 data-[has-current]:font-medium"
+            x-ref="childmenuToggle"
+            @click="toggle"
+            aria-expanded="false"
+            :aria-expanded="open"
+            aria-controls="<?= $escaper->escapeHtml($item['id']) ?>-desktop-menu-panel">
+            <a href="<?= $escaper->escapeUrl($item['url']) ?>"
+                class="w-full flex justify-between items-center color-title"
+                title="<?= $block->escapeHtmlAttr($item['name']); ?>">
+                <?= $escaper->escapeHtml($item['name']) ?>
+                <?= $heroiconsSolid->chevronRightHtml(
+                    'text-slate-400 group-aria-expanded:text-inherit',
+                    24,
+                    24,
+                    ['aria-hidden' => 'true']
+                )
+                ?>
+            </a>
+        </button>
+        <ul
+            id="<?= $escaper->escapeHtml($item['id']) ?>-desktop-menu-panel"
+            class="absolute inset-0 border-l border-slate-100 bg-white flex flex-col gap-1 py-2.5 px-2 w-72 translate-x-72"
+            x-show="open"
+            x-ref="childmenuWrapper"
+            @keydown.escape.stop="close">
+            <?php /* <li>
+                <a
+                    href="<?= $escaper->escapeUrl($item['url']) ?>"
+                    class="flex p-2 rounded-md hover:bg-slate-50 aria-[current=page]:font-medium"
+                    x-ref="childmenuViewAll"
+                ><?= $escaper->escapeHtml(__('See all %1', $item['name'])) ?></a>
+            </li> */ ?>
+            <?php foreach ($item['childData'] as $subMenu): ?>
+                <?= $block->getLayout()->getBlock('topmenu_desktop_item')
+                    ->setItem($subMenu)
+                    ->setLevel($level + 1)
+                    ->toHtml() ?>
+            <?php endforeach; ?>
+
+            <?php /*
+                $_category1 = $block->getCategoryData($catId);
+                $first_img = $block->getImageUrl($_category1->getMenuSecondImg());
+                $second_img = $block->getImageUrl($_category1->getMenuThirdImg());
+                $first_img_link = $_category1->getMenuSecondImgLink();
+                $second_img_link = $_category1->getMenuThirdImgLink();
+                
+                if ($first_img || $second_img) { ?>
+                    <div class="submenu_wrapper_right">
+                        <div class="menu-images">
+                            <?php if ($first_img) { ?>
+                                <span class="menu-first-img">
+                                        <?php if ($first_img_link) { ?>
+                                           <a href="<?= $escaper->escapeUrl($first_img_link); ?>" title="<?= $escaper->escapeHtml($item['name']); ?>">
+                                        <?php } ?>
+                                            <img width="420" height="310" src="<?= $first_img;?>" alt="<?= $escaper->escapeHtml($item['name']); ?>">
+                                        <?php if ($first_img_link) { ?>
+                                           </a>
+                                        <?php } ?>
+                                </span>
+                            <?php } ?>
+                            <?php if ($second_img) { ?>
+                                <span class="menu-second-img">
+                                        <?php if ($second_img_link) { ?>
+                                           <a href="<?= $escaper->escapeUrl($second_img_link); ?>" title="<?= $escaper->escapeHtml($item['name']); ?>">
+                                        <?php } ?>
+                                            <img width="420" height="310" src="<?= $second_img;?>" 
+                                            alt="<?= $escaper->escapeHtml($item['name']); ?>">
+                                        <?php if ($second_img_link) { ?>    
+                                           </a>
+                                        <?php } ?>
+                                </span>
+                            <?php } ?>                                             
+                        </div>  
+                    </div>                                        
+            <?php } */ ?>
+        </ul>
+    </li>
+<?php else: ?>
+    <li class="level-<?= $level ?> <?= $textClass ?> <?= strtolower(str_replace(' ', '-', $item['name'])) ?>-menu">
+        <a
+            href="<?= $escaper->escapeUrl($item['url']) ?>"
+            class="level-<?= $level ?> flex p-2 rounded-md hover:bg-slate-50 aria-[current=page]:font-medium"><?= $escaper->escapeHtml($item['name']) ?></a>
+    </li>
+<?php endif; ?>

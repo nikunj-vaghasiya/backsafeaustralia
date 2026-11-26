@@ -1,0 +1,214 @@
+<?php
+
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\ProductStockItem;
+use Magento\Catalog\Block\Product\View;
+use Magento\Catalog\Model\Product;
+use Magento\Framework\Escaper;
+
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect
+
+/** @var View $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var Product $product */
+$product = $block->getProduct();
+
+/** @var ProductStockItem $stockItemViewModel */
+$stockItemViewModel = $viewModels->require(ProductStockItem::class);
+$minSalesQty = $stockItemViewModel->getMinSaleQty($product);
+$maxSalesQty = $stockItemViewModel->getMaxSaleQty($product);
+$defaultQty = $block->getProductDefaultQty() * 1;
+
+$step = $stockItemViewModel->getQtyIncrements($product)
+    ? $stockItemViewModel->getQtyIncrements($product)
+    : null;
+
+/**
+ * sets minimum and maximum values taking into account the values set in the admin,
+ * but taking into account the value of Qty Increments
+ */
+if ($step) {
+    $minSalesQty = ceil($minSalesQty / $step) * $step;
+    $maxSalesQty = floor($maxSalesQty / $step) * $step;
+    $defaultQty = ceil($defaultQty / $step) * $step;
+}
+
+$maxSalesQtyLength = ($maxSalesQty ? strlen((string) $maxSalesQty) : 4)
+    + (/* add one if decimal for separator */(int) $stockItemViewModel->isQtyDecimal($product));
+
+
+?>
+<?php if ($block->shouldRenderQuantity()): ?>
+    <script>
+        function initQtyField() {
+
+            function findPathParam(key) {
+                // get all path pairs after BASE_URL/front_name/action_path/action
+                const baseUrl = (BASE_URL.substring(0, 2) === '//' ? 'http:' : '') + BASE_URL;
+                const baseUrlParts = (new URL(baseUrl)).pathname.replace(/\/$/, '').split('/');
+                const pathParts = window.location.pathname.split('/').slice(baseUrlParts.length + 3);
+                for (let i = 0; i < pathParts.length; i += 2) {
+                    if (pathParts[i] === key && pathParts.length > i) {
+                        return pathParts[i + 1];
+                    }
+                }
+            }
+
+            return {
+                qty: <?=
+                        /** @noEscape */
+                        $defaultQty ?>,
+                itemId: (new URLSearchParams(window.location.search)).get('id') || findPathParam('id'),
+                productId: '<?= (int)$product->getId() ?>',
+                <?php /* populate the qty when editing a product from the cart */ ?>
+                onGetCartData: function onGetCartData(data, $dispatch) {
+                    const cart = data && data.data && data.data.cart;
+                    if (this.itemId && cart && cart.items) {
+                        const cartItem = cart.items.find((item) => {
+                            return item.item_id === this.itemId && item.product_id === this.productId;
+                        });
+                        if (cartItem && cartItem.qty) {
+                            this.qty = cartItem.qty;
+                            $dispatch('update-qty-' + this.productId, this.qty);
+                        }
+                    }
+                }
+            };
+        }
+    </script>
+    <div style="display:none;" id="validation-enquiry-box" class="prod_enq_validation_msg float-right error-message">
+        <div class="mage-error">Please specify the quantity of product(s).</div>
+    </div>
+    <div class="quantity-box" x-data="initQtyField()"
+        x-init="$dispatch('update-qty-<?= (int)$product->getId() ?>', qty)">
+        <?php if ($product->isSaleable()): ?>
+            <div x-data="{
+                qty: <?= $block->getProductDefaultQty() * 1 ?>,
+                min: <?= $minSalesQty ?? 0 ?>,
+                max: <?= $maxSalesQty ?? 9999 ?>,
+                step: <?= $step ?? 1 ?>,
+                increment() {
+                    if (this.qty + this.step <= this.max) this.qty += this.step;
+                    setTimeout(() => { $dispatch('update-qty-<?= (int)$product->getId() ?>', this.qty) }, 50);
+                },
+                decrement() {
+                    if (this.qty - this.step >= this.min) this.qty -= this.step;
+                    setTimeout(() => { $dispatch('update-qty-<?= (int)$product->getId() ?>', this.qty) }, 50);
+                }
+            }"
+                class="quantity-box flex items-center gap-2">
+
+                <button type="button" class="quantity-minus" @click="decrement"></button>
+                <input
+                    type="<?= $stockItemViewModel->isQtyDecimal($product) ? 'text' : 'number' ?>"
+                    x-model.number="qty"
+                    :min="min"
+                    :max="max"
+                    :step="step"
+                    name="qty"
+                    id="qty[<?= (int)$product->getId() ?>]"
+                    form="product_addtocart_form"
+                    class="form-input form-control enquirytxt quantity-input px-2 py-2 w-20 text-center invalid:ring-2 invalid:ring-red-500"
+                    @input.debounce=" $dispatch('update-qty-<?= (int)$product->getId() ?>', qty) "
+                    pattern="<?= $stockItemViewModel->isQtyDecimal($product)
+                                    ? "[0-9]+(\\.[0-9]{1,{$maxSalesQtyLength}})?"
+                                    : "[0-9]{0,{$maxSalesQtyLength}}" ?>"
+                    inputmode="<?= $stockItemViewModel->isQtyDecimal($product) ? 'decimal' : 'numeric' ?>"
+                    value="<?= $block->getProductDefaultQty() * 1 ?>"
+                    @input="if(qty > max) qty = max"
+                    data-id="<?= $product->getId(); ?>"
+                    data-parentid="<?= $product->getId(); ?>"
+                    data-name="<?= str_replace("&", "", $product->getName()); ?>"
+                    data-parenturl="<?= $product->getUrlModel()->getUrl($product); ?>"
+                    data-sku="<?= $product->getSku(); ?>" />
+
+                <button type="button" class="quantity-plus" @click="increment"></button>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('productEnquiry', () => ({
+            collectProducts() {
+                const products = [];
+                document.querySelectorAll('.product-info-main .quantity-box .enquirytxt').forEach(input => {
+                    const prodId = input.dataset.id;
+                    const prodQty = input.value;
+                    const parentId = input.dataset.parentid;
+                    const name = input.dataset.name?.split(",").join("");
+                    const parentUrl = input.dataset.parenturl;
+                    const sku = input.dataset.sku;
+
+                    if (prodQty > 0) {
+                        products.push(`${prodId}=>${parentId}=>${prodQty}=>${name}=>${parentUrl}=>${sku}`);
+                    }
+                });
+                return products;
+            },
+
+            async doPostRequest() {
+                const products = this.collectProducts();
+
+                const validationBox = document.getElementById('validation-enquiry-box');
+                if (products.length < 1) {
+                    validationBox.style.display = 'block';
+                    return;
+                }
+
+                validationBox.style.display = 'none';
+
+                const postUrl = "<?= $escaper->escapeUrl($block->getUrl('productenquiry/index/add')) ?>";
+                const formKey = hyva.getFormKey();
+                const uenc = btoa(window.location.href);
+
+                const data = new URLSearchParams({
+                    form_key: formKey,
+                    products: products.join(','),
+                    uenc: uenc,
+                });
+
+                try {
+                    const response = await fetch(postUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        },
+                        body: data,
+                        credentials: "include",
+                    });
+
+                    const responseText = await response.text();
+
+                    try {
+                        const jsonData = JSON.parse(responseText);
+                        
+
+                        if (jsonData !== 'error') {
+                            window.location.href = jsonData;
+                        } else if (response.ok) {
+                            return response.json();
+                        }
+                    } catch (jsonError) {
+                        console.error("Invalid JSON", jsonError);
+                    }
+
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        }));
+    });
+</script>

@@ -1,0 +1,544 @@
+<?php
+
+namespace Integration\Base\Helper;
+
+use Magento\Store\Model\ScopeInterface;
+
+class AbstractHelper extends \Magento\Framework\App\Helper\AbstractHelper
+{
+    const XML_BASE_DIR_PATH = 'base/general/base_dir';
+
+    const XML_API_CREDENTIAL_INTEGRATION_OPTION = 'base/api_credentials/integration_option';
+
+    const XML_API_CREDENTIAL_AUTH_METHOD = 'base/api_credentials/auth_method';
+
+    const XML_API_CREDENTIAL_USER_NAME = 'base/api_credentials/username';
+
+    const XML_API_CREDENTIAL_PASSWORD = 'base/api_credentials/password';
+
+    const XML_API_CREDENTIAL_EXO_API_KEY = 'base/api_credentials/api_key';
+
+    const XML_API_CREDENTIAL_EXO_API_TOKEN = 'base/api_credentials/token';
+
+    const XML_API_CREDENTIAL_MYBO_ADV_COMPANY = 'base/api_credentials/company';
+
+    const XML_API_CREDENTIAL_MYBO_ADV_BRANCH = 'base/api_credentials/branch';
+
+    const XML_API_CREDENTIAL_LOGIN_URL = 'base/api_credentials/login_url';
+
+    const XML_API_CREDENTIAL_LOGOUT_URL = 'base/api_credentials/logout_url';
+
+    const XML_API_CREDENTIAL_HUBSPOT = 'base/api_credentials/hubspot';
+
+    const XML_API_PAGINATION_PAGE_SIZE = 'api_product/general/page_size';
+
+    const XML_API_PAGINATION_PAGE_ENABLE = 'api_product/general/pagination_enable';
+
+    const XML_API_FILTER_OPTIONS = 'api_product/general/filter_options';
+
+    const XML_API_FILTER_DATE_FILTER = 'api_product/general/date_filter';
+
+    const XML_API_FILTER_SPECIFIC_DATE = 'api_product/general/specific_date';
+
+    const LOG_DIR_NAME = 'integration';
+
+    protected $_concatOperators = ['and', 'or'];
+
+    protected $_conditionalOperators = ['eq', 'ne', 'gt', 'ge', 'lt', 'le'];
+
+    /**
+     * Store manager
+     *
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $_storeManager;
+
+    /**
+     * Currently selected store ID if applicable
+     *
+     * @var int
+     */
+    protected $_storeId;
+
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfig;
+    protected $_dir;
+    protected $logger;
+
+    /**
+     * @param \Magento\Framework\App\Helper\Context $context
+     */
+    public function __construct(
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\Filesystem\DirectoryList $dir,
+        \Psr\Log\LoggerInterface $logger
+    ) {
+        $this->_storeManager = $storeManager;
+        $this->_dir = $dir;
+        $this->logger = $logger;
+        parent::__construct($context);
+    }
+
+    /**
+     * Get current date
+     * @return current date
+     */
+    /*public function getCurrentDate($format = 'Y-m-d')
+    {
+    return date($format);
+    }*/
+
+    public function getCurrentDate($format = 'Y-m-d')
+    {
+        $currentTimezone = date_default_timezone_get();
+        date_default_timezone_set('Australia/Melbourne');
+        $date = date($format, time());
+        date_default_timezone_set($currentTimezone);
+        return $date;
+    }
+
+    public function getPreviousDate($format = 'Y-m-d')
+    {
+        $currentTimezone = date_default_timezone_get();
+        date_default_timezone_set('Australia/Melbourne');
+        $date = date($format, strtotime('-20 days'));
+        date_default_timezone_set($currentTimezone);
+        return $date;
+    }
+
+    /**
+     * Set a specified store ID value
+     *
+     * @param int $store
+     * @return $this
+     */
+    public function setStoreId($store)
+    {
+        $this->_storeId = $store;
+        return $this;
+    }
+
+    /**
+     * Get store id by website id
+     *
+     * @param int $websiteId
+     * @return id
+     */
+    public function getStoreIdByWebsiteId(int $websiteId)
+    {
+        $storeId = $this->_storeManager->getWebsite($websiteId)->getDefaultStore()->getId();
+        return $storeId;
+    }
+
+    /**
+     * Get website id by store id
+     *
+     * @param int $storeId
+     * @return id
+     */
+    public function getWebsiteIdByStoreId(int $storeId)
+    {
+        $websiteId = $this->_storeManager->getStore($storeId)->getWebsiteId();
+        return $websiteId;
+    }
+
+    /**
+     * Keep specific entity enabled or disabled
+     *
+     * @param string $path
+     * @param int $storeId Store view ID
+     * @return bool
+     */
+    public function isEntityEnabled($path, $storeId = null)
+    {
+        if (!$storeId) {
+            $storeId = $this->_storeManager->getStore()->getId();
+        }
+
+        return $this->scopeConfig->isSetFlag(
+            $path,
+            ScopeInterface::SCOPE_STORE,
+            $storeId
+        );
+    }
+
+    /**
+     * Returns Config variable value from configuration
+     *
+     * @param string $path
+     * @param int $websiteId
+     * @return string
+     */
+    public function getConfigSettings($path, $websiteId = null)
+    {
+        if (!$websiteId) {
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        }
+
+        $endPointUrl = $this->scopeConfig->getValue(
+            $path,
+            ScopeInterface::SCOPE_WEBSITE,
+            $websiteId
+        );
+
+        return ($endPointUrl) ? trim($endPointUrl) : '';
+    }
+
+    /**
+     * Returns API integration option value from configuration
+     * @return string
+     */
+    public function getIntegrationOption()
+    {
+        return $this->scopeConfig->getValue(self::XML_API_CREDENTIAL_INTEGRATION_OPTION);
+    }
+
+    /**
+     * Returns API authentication method value from configuration
+     * @return string
+     */
+    public function getAuthenticationMethod()
+    {
+        $authMethod = $this->scopeConfig->getValue(self::XML_API_CREDENTIAL_AUTH_METHOD);
+        return ($authMethod) ? trim($authMethod) : \Integration\Base\Model\Config\Source\AuthenticationMethod::BASIC_AUTH;
+    }
+
+    /**
+     * Returns base directory path
+     * @return string
+     */
+    public function getBaseDirPath()
+    {
+        $basePath = $this->scopeConfig->getValue(self::XML_BASE_DIR_PATH);
+        return ($basePath) ? $basePath : '';
+    }
+
+    /**
+     * Returns API url value from configuration
+     *
+     * @param string $path
+     * @param int $websiteId
+     * @return string
+     */
+    public function getAPIEndpointUrl($path, $websiteId = null)
+    {
+        if (!$websiteId) {
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        }
+
+        $endPointUrl = $this->scopeConfig->getValue(
+            $path,
+            ScopeInterface::SCOPE_WEBSITE,
+            $websiteId
+        );
+
+        return ($endPointUrl) ? trim($endPointUrl) : '';
+    }
+
+    /**
+     * Returns Filter by date by entity
+     *
+     * @param string $path
+     * @param int $websiteId
+     * @return string
+     */
+    public function getFilterByDate($path, $websiteId = null)
+    {
+        if (!$websiteId) {
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        }
+        $filterByDateVal = $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_WEBSITE, $websiteId);
+
+        return ($filterByDateVal) ? trim($filterByDateVal) : '';
+    }
+
+    /**
+     * Returns sync date by entity i.e previous one year date or current date
+     *
+     * @param string $path
+     * @param int $websiteId
+     * @return string
+     */
+    public function getSyncLastYear($path, $websiteId = null, $format = 'Y-m-d')
+    {
+        if (!$websiteId) {
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        }
+        $syncDate = '';
+        $syncDateVal = $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_WEBSITE, $websiteId);
+
+        $currentTimezone = date_default_timezone_get();
+        date_default_timezone_set('Australia/Melbourne');
+        if ($syncDateVal && $syncDateVal == \Integration\Base\Model\Config\Source\OrderFilterOptions::LAST_ONE_YEAR) {
+            $syncDate = date($format, strtotime("-365 days"));
+        } elseif ($syncDateVal && $syncDateVal == \Integration\Base\Model\Config\Source\DateFilterOptions::CURRENT_DATE) {
+            $syncDate = date($format);
+        }
+        date_default_timezone_set($currentTimezone);
+        return ($syncDate) ? trim($syncDate) : '';
+    }
+
+    /**
+     * Returns sync date by entity i.e previous date or current date
+     *
+     * @param string $path
+     * @param int $websiteId
+     * @param string $format - date format - Y-m-d
+     * @return string
+     */
+    public function getSyncDate($path, $websiteId = null, $format = 'Y-m-d')
+    {
+        if (!$websiteId) {
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        }
+        $syncDate = '';
+        $syncDateVal = $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_WEBSITE, $websiteId);
+        $currentTimezone = date_default_timezone_get();
+        date_default_timezone_set('Australia/Melbourne');
+        if ($syncDateVal && $syncDateVal == \Integration\Base\Model\Config\Source\DateFilterOptions::PREVIOUS_DATE) {
+            $syncDate = date($format, strtotime("-1 days"));
+        } elseif ($syncDateVal && $syncDateVal == \Integration\Base\Model\Config\Source\DateFilterOptions::CURRENT_DATE) {
+            $syncDate = date($format);
+        }
+        date_default_timezone_set($currentTimezone);
+        return ($syncDate) ? trim($syncDate) : '';
+    }
+
+    /**
+     * Returns specific date by entity
+     *
+     * @param string $path
+     * @param int $websiteId
+     * @param string $format - date format - Y-m-d
+     * @return string
+     */
+    public function getSpecificDate($path, $websiteId = null, $format = 'Y-m-d')
+    {
+        if (!$websiteId) {
+            $websiteId = $this->_storeManager->getStore()->getWebsiteId();
+        }
+        $specificDate = '';
+        $specificDate = $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_WEBSITE, $websiteId);
+        if ($this->getIntegrationOption() == \Integration\Base\Model\Config\Source\IntegrationType::SAGE) {
+            $specificDate = date($format, strtotime($specificDate));
+        }
+        return ($specificDate) ? trim($specificDate) : '';
+    }
+
+    /**
+     * Returns request filter date by entity
+     *
+     * @param bool $entityEnable
+     * @param string $filterDatePath
+     * @param string $syncDatePath
+     * @param string $specificDatePath
+     * @param int $websiteId
+     * @return string|bool
+     */
+    public function getRequestFilterDate($entityEnable, $filterDatePath, $syncDatePath, $specificDatePath, $websiteId = null)
+    {
+        $filterByDate = false;
+        if ($entityEnable) {
+            $filterByDateVal = $this->getFilterByDate($filterDatePath, $websiteId);
+            if ($filterByDateVal && $filterByDateVal == \Integration\Base\Model\Config\Source\OrderFilterOptions::LAST_ONE_YEAR) {
+                $filterByDate = $this->getSyncLastYear($syncDatePath, $websiteId);
+            } elseif ($filterByDateVal && $filterByDateVal == \Integration\Base\Model\Config\Source\FilterOptions::CURRENT_PREVIOUS_DATE) {
+                $filterByDate = $this->getSyncDate($syncDatePath, $websiteId);
+            } elseif ($filterByDateVal && $filterByDateVal == \Integration\Base\Model\Config\Source\FilterOptions::SPECIFIC_DATE) {
+                $filterByDate = $this->getSpecificDate($specificDatePath, $websiteId);
+            }
+        }
+        return $filterByDate;
+    }
+
+    /**
+     * Returns final api url
+     *
+     * @param string $url
+     * @param array $params
+     * @return string
+     */
+    public function buildAPIUrl($url, $params = [])
+    {
+        return $this->_buildAPIUrl($url, $params);
+    }
+
+    /**
+     * Returns final api url
+     *
+     * @param string $url
+     * @param array $params
+     * @return string
+     */
+    protected function _buildAPIUrl($url, $params = [])
+    {
+        $query = [];
+
+        if (is_array($params)) {
+            /* Direct condition */
+            if (isset($params['_direct']) && is_array($params['_direct']) && count($params['_direct']) > 0) {
+                switch ($this->getIntegrationOption()) {
+                    case \Integration\Base\Model\Config\Source\IntegrationType::SAGE:
+                    case \Integration\Base\Model\Config\Source\IntegrationType::MYOB_ADVANCED:
+                    default:
+                        if (isset($params['_direct']['pair'])
+                            && is_array($params['_direct']['pair'])
+                            && count($params['_direct']['pair']) > 0
+                        ) {
+                            foreach ($params['_direct']['pair'] as $k => $v) {
+                                $url .= '/' . $k . '/' . $v;
+                            }
+                        } else {
+                            foreach ($params['_direct'] as $k => $v) {
+                                $url .= '/' . $v;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            /* Expand parameters */
+            if (isset($params['_expand']) && is_array($params['_expand']) && count($params['_expand']) > 0) {
+                switch ($this->getIntegrationOption()) {
+                    case \Integration\Base\Model\Config\Source\IntegrationType::MYOB_ADVANCED:
+                        $query[] = '$Expand=' . implode(',', $params['_expand']);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            /* Filter condition */
+            if (isset($params['_filter']) && is_array($params['_filter']) && count($params['_filter']) > 0) {
+                switch ($this->getIntegrationOption()) {
+                    case \Integration\Base\Model\Config\Source\IntegrationType::MYOB_ADVANCED:
+                        $filter = [];
+                        foreach ($params['_filter'] as $operator => $condition) {
+                            if (in_array($operator, $this->_concatOperators)) {
+                                if (is_array($condition) && count($condition) > 0) {
+                                    $c = [];
+                                    foreach ($condition as $condOperator => $values) {
+                                        if (in_array($condOperator, $this->_conditionalOperators)
+                                            && is_array($values) && count($values) > 0
+                                        ) {
+                                            foreach ($values as $k => $v) {
+                                                $c[] = $k . '+' . $condOperator . '+' . $v;
+                                            }
+                                        }
+                                    }
+
+                                    if (is_array($c) && count($c) > 1) {
+                                        $filter[] = implode('+' . $operator . '+', $c);
+                                    } else {
+                                        foreach ($c as $v) {
+                                            if (is_array($filter) && count($filter) == 0) {
+                                                $filter[] = $v;
+                                            } else {
+                                                $filter[] = '+' . $operator . '+' . $v;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (is_array($filter) && count($filter)) {
+                            $query[] = '$filter=' . implode('', $filter);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        if (count($query)) {
+            $url .= '?' . implode('&', $query);
+        }
+        return $url;
+    }
+
+    public function createLogFiles($message, $logType = 'info', $path = '', $logFileName = 'missed-logfile-name.log', $website = 1)
+    {
+        $filePath = $this->_dir->getPath('var') . '/' . self::LOG_DIR_NAME . '/' . $website . '/' . $this->getCurrentDate('Ymd') . '/';
+
+        if ($path != '') {
+            $filePath .= $path;
+        }
+
+        if (!file_exists($filePath)) {
+            mkdir($filePath, 0777, true);
+        }
+
+        if ($logFileName != '') {
+            $filePath .= $logFileName;
+        }
+
+        $writer = new \Zend_Log_Writer_Stream($filePath);
+        $logger = new \Zend_Log();
+        $logger->addWriter($writer);
+        call_user_func([$logger, $logType], $message);
+    }
+
+    public function _getDateDifference($startDate, $currentDate, $logPath, $websiteId)
+    {
+        try {
+            if ($startDate && $currentDate) {
+                $startTimeStr = strtotime($startDate);
+                $currentTimeStr = strtotime($currentDate);
+                $maxTime = max($startTimeStr, $currentTimeStr);
+                $minTime = min($startTimeStr, $currentTimeStr);
+
+                return (int) (($maxTime - $minTime) / 60);
+            }
+            return false;
+        } catch (\Exception $e) {
+            $this->createLogFiles(
+                'Perform Cron batch error  => ' . $e->getMessage(),
+                'CRIT',
+                $logPath,
+                'error.log',
+                $websiteId
+            );
+        }
+    }
+
+    public function getHubspotToken()
+    {
+        $getHubspotToken = $this->scopeConfig->getValue(self::XML_API_CREDENTIAL_HUBSPOT);
+        return ($getHubspotToken) ? trim($getHubspotToken) : '';
+    }
+
+    public function getPageSize()
+    {
+        $getPageSize = $this->scopeConfig->getValue(self::XML_API_PAGINATION_PAGE_SIZE);
+        return ($getPageSize) ? trim($getPageSize) : '';
+    }
+
+    public function getPaginationPageEnable()
+    {
+        $getPaginationPageEnable = $this->scopeConfig->getValue(self::XML_API_PAGINATION_PAGE_ENABLE);
+        return ($getPaginationPageEnable) ? trim($getPaginationPageEnable) : '';
+    }
+
+    public function getFilterOptions()
+    {
+        $FilterOptions = $this->scopeConfig->getValue(self::XML_API_FILTER_OPTIONS);
+        return ($FilterOptions) ? trim($FilterOptions) : '';
+    }
+
+    public function getFilterDate()
+    {
+        $getFilterDate = $this->scopeConfig->getValue(self::XML_API_FILTER_DATE_FILTER);
+        return ($getFilterDate) ? trim($getFilterDate) : '';
+    }
+
+    public function getFilterSpecificDate()
+    {
+        $getFilterSpecificDate = $this->scopeConfig->getValue(self::XML_API_FILTER_SPECIFIC_DATE);
+        return ($getFilterSpecificDate) ? trim($getFilterSpecificDate) : '';
+    }
+}

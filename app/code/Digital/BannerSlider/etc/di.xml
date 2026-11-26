@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+   <preference for="Digital\BannerSlider\Api\Data\BannerInterface" type="Digital\BannerSlider\Model\Banner"/>
+   <preference for="Digital\BannerSlider\Api\BannerRepositoryInterface" type="Digital\BannerSlider\Model\BannerRepository"/>
+   <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+      <arguments>
+         <argument name="collections" xsi:type="array">
+            <item name="digital_banner_listing_data_source" xsi:type="string">Digital\BannerSlider\Model\ResourceModel\Banner\Grid\Collection</item>
+            <item name="digital_banner_grid_data_source" xsi:type="string">Digital\BannerSlider\Model\ResourceModel\Banner\Grid\Collection</item>
+         </argument>
+      </arguments>
+   </type>
+   <type name="Digital\BannerSlider\Model\ResourceModel\Banner\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digital_banner</argument>
+            <argument name="eventPrefix" xsi:type="string">digital_banner_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">banner_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digital\BannerSlider\Model\ResourceModel\Banner</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,43 @@
+<?php
+$_downloadcatalogue = $block->getCollection();
+$helper = $this->helper(Dcs\Downloadcatalogue\Helper\Data::class);
+$mediaUrl = $helper->getMediaUrl();
+?>
+
+<?php if ($_downloadcatalogue->getSize()) { ?>
+
+    <?php foreach ($_downloadcatalogue as $downloadcatalogueItem): ?>
+        <?php if ($downloadcatalogueItem->getImage()) { ?>
+
+            <?php
+            $url = '#';
+            $button_title = 'View';
+            if ($downloadcatalogueItem->getButtonUrl())  //// Button URL
+            {
+                $url = $downloadcatalogueItem->getButtonUrl();
+            } else //// PDF
+            {
+                $url = $block->escapeUrl($mediaUrl . $downloadcatalogueItem->getCatalogueFile());
+            }
+
+            ?>
+            <figure class="product">
+
+                <a class="product-img" href="<?= $url; ?>" target="_blank">
+                    <?php if ($downloadcatalogueItem->getImage()) { ?>
+                        <img title="<?= $block->escapeHtmlAttr($downloadcatalogueItem->getName()); ?>" src="<?= $block->escapeUrl($mediaUrl . $downloadcatalogueItem->getImage()); ?>" alt="<?= $block->escapeHtmlAttr($downloadcatalogueItem->getName()); ?>">
+                    <?php } ?>
+                </a>
+
+                <figcaption class="product-content">
+                    <h5 class="product-title"><a title="<?= $block->escapeHtmlAttr($downloadcatalogueItem->getName()); ?>" href="<?= $url; ?>" target="_blank"><?= $block->escapeHtmlAttr($downloadcatalogueItem->getName()); ?></a></h5>
+                    <?php /* <p class="product-text"><?= /* @noEscape * / $downloadcatalogueItem->getShortDescription(); ?></p> */ ?>
+                    <div class="flex-center product-actions"><a class="btn btn-primary product-atc-btn" title="<?= $button_title; ?>" href="<?= $url; ?>" target="_blank"><?= $button_title; ?></a></div>
+                </figcaption>
+
+            </figure>
+        <?php } ?>
+    <?php endforeach; ?>
+
+
+<?php } ?>

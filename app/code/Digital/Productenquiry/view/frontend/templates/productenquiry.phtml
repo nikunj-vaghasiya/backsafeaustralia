@@ -1,0 +1,574 @@
+<?php $enquiryQuoteProducts = $block->getEnquiryQuoteProducts();
+        //$misc_helper = $this->helper(\Digital\Miscellaneous\Helper\Data::class);
+        //$customerSession = $misc_helper->getCustomerSession();
+?>
+<form action="<?= $escaper->escapeUrl($block->getUrl('productenquiry/index/save')) ?>"
+          method="post"
+          id="productenquiry-form"
+          data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>"
+          data-mage-init='{"validation":{}}'
+          class="form productenquiry-cart"
+          enctype="multipart/form-data" >
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="wrapper">
+        <?php if ($block->isExistEnquiryQuote()): ?>
+        <div class="top-title-box">
+            <div class="quote_title_text">
+                <?= $escaper->escapeHtml(__('Please enter your details below to complete your quote request. If you are a registered user, please Sign In to view your price.')) ?>
+            </div>
+            
+        <div class="quote-buttons-section">
+            <div class="quote-continue-shop-button">
+                <a href="<?= $escaper->escapeurl($block->getUrl('shop-by-product.html')) ?>" 
+                    title="<?=  $escaper->escapeHtml(__('Continue Shopping')); ?>" 
+                    class="btn btn-grey continue-shop-quote-btn">
+                    <?= $escaper->escapeHtml(__('Continue Shopping')); ?>
+                </a>
+            </div>
+
+            <?php /*if (!$customerSession->isLoggedIn()) { ?>
+            <div class="quote-login-button">
+                <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/login/')) ?>" 
+                    title="<?= $escaper->escapeHtml(__('Sign In')); ?>" 
+                    class="btn btn-grey"><?= $escaper->escapeHtml(__('Sign In')); ?>
+                </a>
+            </div>
+            <?php }*/ ?>
+        </div>
+        </div>
+        <?php endif; ?>
+   
+        <div class="quote-box-wrap">
+    <?php if ($block->isExistEnquiryQuote()): ?>
+             <div class="quote-box quote-box-left">
+                <div class="quote-box-title">
+                    <h3><?= $escaper->escapeHtml(__('Customers Information Test')) ?></h3>
+                </div>
+                <div class="quote-box-cont">
+                    <div class="form_section">
+                           <fieldset class="fieldset">
+                            <div class="form-wrapper">
+                                <div class="form-wrapper-inner">
+                                        <div class="form-wrap">
+                                        <div class="field box-two required">
+                                        <div class="control">
+                                            <input type="email" name="email" id="email" 
+                                            value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('email') ?: $block->getEmailaddress()) ?>" 
+                                            title="<?= $escaper->escapeHtmlAttr(__('Email Address')) ?>" 
+                                            class="input-text" data-validate="{required:true, 'validate-email':true}" 
+                                            maxlength="100" 
+                                            placeholder="<?= $escaper->escapeHtml(__('Email Address*')) ?>">
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div>
+                                     <div class="field box-two required">
+                                            <div class="control">
+                                                <input type="text" name="first_name" 
+                                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('first_name') ?: $block->getFirstname()) ?>" 
+                                                title="<?= $escaper->escapeHtmlAttr(__('Full Name')) ?>" 
+                                                class="input-text" id="first_name" 
+                                                data-validate="{required:true}" maxlength="100" 
+                                                placeholder="<?=  $escaper->escapeHtml(__('First Name*')) ?>">
+                                                <span class="animation-span"><i></i></span>
+                                            </div>
+                                     </div>
+
+                                     <div class="field box-two required">
+                                            <div class="control">
+                                                <input type="text" name="last_name" 
+                                                value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('last_name') ?: $block->getLastname()) ?>" 
+                                                title="<?= $escaper->escapeHtmlAttr(__('Last Name')) ?>" 
+                                                class="input-text" id="last_name" 
+                                                data-validate="{required:true}" 
+                                                maxlength="100" 
+                                                placeholder="<?= $escaper->escapeHtml(__('Last Name*')) ?>">
+                                                <span class="animation-span"><i></i></span>
+                                            </div>
+                                     </div>
+
+                                    <div class="field box-two required">
+                                        <div class="control">
+                                            <input type="text" name="company" 
+                                            value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('company') ?: $block->getCompayName()) ?>" 
+                                            title="<?= $escaper->escapeHtmlAttr(__('Company Name')) ?>" 
+                                            class="input-text" id="company" maxlength="250" 
+                                            placeholder="<?= $escaper->escapeHtml(__('Company Name')) ?>">
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="field box-two required">
+                                        <div class="control">
+                                            <input type="text" name="phone" 
+                                            id="phone" value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('phone')) ?>" title="<?= $escaper->escapeHtmlAttr(__('Phone')) ?>" 
+                                            class="input-text" data-validate="{required:true}" 
+                                            maxlength="20" placeholder="<?= $escaper->escapeHtml(__('Phone*')) ?>">
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div> 
+
+                                    <div class="field box-two required">
+                                        <div class="control">
+                                            <input type="text" name="street" 
+                                            value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('street')) ?>" title="<?= $escaper->escapeHtmlAttr(__('Delivery Street Address')) ?>" class="input-text" 
+                                            id="street" maxlength="250" 
+                                            placeholder="<?=  $escaper->escapeHtml(__('Delivery Street Address')) ?>">
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="field box-two required">
+                                        <div class="control">
+                                            <input type="text" name="city" 
+                                            value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('city')) ?>" title="<?= $escaper->escapeHtmlAttr(__('Delivery Suburb')) ?>" 
+                                            class="input-text" id="city" 
+                                            maxlength="250" 
+                                            placeholder="<?=  $escaper->escapeHtml(__('Delivery Suburb')) ?>">
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="field box-two required">
+                                        <div class="control">
+                                            <select id="state" name="state" 
+                                            title="<?= $escaper->escapeHtmlAttr(__('State')) ?>" 
+                                            class="input-select">
+                                                    <option value="">
+                                                        <?= $escaper->escapeHtmlAttr(__('Please Select Delivery State')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('ACT')) ?>"><?= $escaper->escapeHtmlAttr(__('ACT')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('NSW')) ?>"><?= $escaper->escapeHtmlAttr(__('NSW')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('VIC')) ?>"><?= $escaper->escapeHtmlAttr(__('VIC')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('QLD')) ?>"><?= $escaper->escapeHtmlAttr(__('QLD')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('SA')) ?>"><?= $escaper->escapeHtmlAttr(__('SA')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('TAS')) ?>"><?= $escaper->escapeHtmlAttr(__('TAS')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('WA')) ?>">
+                                                        <?= $escaper->escapeHtmlAttr(__('WA')) ?>
+                                                    </option>
+                                                    <option value="<?= $escaper->escapeHtmlAttr(__('NT')) ?>">
+                                                        <?= $escaper->escapeHtmlAttr(__('NT')) ?>
+                                                    </option>
+                                                </select>
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="field box-two required">
+                                        <div class="control">
+                                            <input type="text" 
+                                            name="postcode" 
+                                            value="<?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('postcode')) ?>" title="<?= $escaper->escapeHtmlAttr(__('Delivery Postcode')) ?>" class="input-text" 
+                                            id="postcode" maxlength="10" 
+                                            placeholder="<?= $escaper->escapeHtml(__('Delivery Postcode')) ?>">
+                                            <span class="animation-span"><i></i></span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                         </div>
+                        </div>
+                        </fieldset>
+                     </div>
+                 </div>
+            </div>
+    <?php endif; ?>
+   
+    <?php if ($block->isExistEnquiryQuote()): ?>
+             
+            <div class="quote-box quote-box-right">
+                <div class="quote-box-title">
+                    <h3><?= $escaper->escapeHtml(__('ITEMS')) ?></h3>
+                </div>
+                <div class="quote-box-cont">
+                    <div class="quote-pro-table">
+                    <div class="cart table-wrapper">
+                      <table id="shopping-cart-table"
+                                   class="cart items data table">
+                                <caption role="heading" aria-level="2" class="table-caption">
+                                    <?=  $escaper->escapeHtml(__('Quote Items')) ?>
+                                </caption>
+                                
+                                <tbody>
+                                    <?php if (count($enquiryQuoteProducts)): ?>
+                                        <?php
+                                        foreach ($enquiryQuoteProducts as $product): ?>
+                                            <?php
+                                            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                            $product_load = $objectManager->create(\Magento\Catalog\Model\Product::class)->load($product['product_id']);
+                                        //$product_load = $objectManager->create('Magento\Catalog\Model\Product')->load(14);
+
+                                            $_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+
+                                            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                                            $resource = $objectManager->get(\Magento\Framework\App\ResourceConnection::class);
+                                            $connection = $resource->getConnection();
+                                            $sql = "SELECT parent_id FROM `catalog_product_relation` where `child_id` =".$product['product_id'];
+                                            $result = $connection->fetchAll($sql);
+
+                                            $productSmall_image =  $product_load->getData('small_image');
+                                            $product_image='';
+                                            if ($productSmall_image == null || $productSmall_image == 'no_selection') {
+                                                $parentProduct = $objectManager->create(\Magento\Catalog\Model\Product::class)->load($product['parentid']);
+                                                $product_image = $_imageHelper->init($parentProduct, 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('90', '90')->getUrl();
+                                            } else {
+                                                $product_image = $_imageHelper->init($product_load, 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('90', '90')->getUrl();
+                                            }
+
+                                            ?>
+                                        <tr>
+                                            <td data-th="Product" class="col Product">
+                                                <div class="product-item-details-inner">
+                                                    <div class="product-item-image">
+                                                        <?php if ($product_image) { ?>
+                                                            <img width="90" 
+                                                            height="90" 
+                                                            class="img-responsive lazy" 
+                                                            src="<?= /* @noEscape */ $product_image; ?>" 
+                                                            alt="<?= $escaper->escapeHtml(__($product['name'])); ?>">
+                                                        <?php } else {
+                                                                //$_helper = $this->Helper(\Digital\Miscellaneous\Helper\Data::class);
+
+                                                            $no_productImage = 'http://backsafe-australia.com/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/1/6/16810208_5.jpg';
+                                                            ?>
+                                                            <img width="90" 
+                                                            height="90" 
+                                                            class="img-responsive lazy" 
+                                                            src="<?= /* @noEscape */ $no_productImage; ?>" 
+                                                            alt="<?= $escaper->escapeHtml(__($product['name'])); ?>">
+                                                        <?php } ?>    
+                                                    </div>
+                                                    <div class="product-item-details">
+                                                        <strong class="product-item-name">
+                                                                <?php /*<a href="<?=   __($product['parenturl']); ?>"> */ ?>
+                                                                    <?php $productname= $product['name'];
+                                                            /*if (strlen($productname) > 25) {
+                                                            $stringCut = substr($productname, 0, 25);
+                                                            $productname = substr($stringCut, 0, 25).'...';
+                                                            }*/
+                                                                    echo $productname;
+                                                                    ?>
+                                                                <?php /*</a> */ ?>
+                                                        </strong>
+                                                    </div>
+                                                </div>    
+                                            </td>
+
+                                            <td class="col qty" data-th="Qty">
+                                                <div class="field qty qty-box qty-increment">
+                                                    <input type="text" name="qty"
+                                           id="qty"
+                                           min="0"
+                                           value="<?= $escaper->escapeHtml(__($product['qty'])); ?>"
+                                           title="<?= $escaper->escapeHtml(__($product['qty'])); ?>"
+                                           class="input-text qty qty-box-text"
+                                           />
+                                        
+                                            <?php /*
+                                            <a class="increment_qty" href="javascript:void(0)" onclick="addtoQuotePage(jQuery(this),'+');" data-enquiryid="<?=   __($product['product_id'].$product['parentid']); ?>">
+                                            <span class="middle_icon_color pull-left"> <i class="increAmnt"> +</i> </span>
+                                            </a>
+
+                                            <a class="decrement_qty" href="javascript:void(0)" onclick="javascript:addtoQuotePage(jQuery(this),'-');" class="decreases"
+                                        data-enquiryid="<?=   __($product['product_id'].$product['parentid']); ?>">
+                                            <span class="middle_icon_color pull-left"> <i class="decreAmnt">-</i> </span>
+                                            </a>
+                                            */ ?>
+
+                                                </div>
+                                            </td>
+                                            <td class="col action" colspan="100">
+                                                <a href="javascript:void(0)" 
+                                                title="Remove item" 
+                                                class="actiondelete button-gray" 
+                                                data-enquiryid="<?= $escaper->escapeHtml(__($product['product_id'].$product['parentid'])); ?>">
+                                                    <svg x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 18">
+                                                        <g>
+                                                            <path fill="#FFFFFF" d="M8.939,0C4.01,0,0,4.018,0,8.956c0,4.938,4.01,8.956,8.939,8.956c4.928,0,8.939-4.019,8.939-8.956
+                                                                C17.878,4.018,13.867,0,8.939,0z M8.939,16.377c-4.084,0-7.407-3.33-7.407-7.421c0-4.092,3.322-7.421,7.407-7.421
+                                                                c4.083,0,7.406,3.329,7.406,7.421C16.345,13.047,13.022,16.377,8.939,16.377z"></path>
+                                                            <path fill="#FFFFFF" d="M12.398,5.491c-0.301-0.3-0.785-0.3-1.084,0l-2.375,2.38l-2.375-2.38c-0.299-0.3-0.784-0.3-1.083,0
+                                                                c-0.299,0.299-0.299,0.786,0,1.085l2.375,2.38l-2.375,2.38c-0.299,0.3-0.299,0.785,0,1.086c0.15,0.15,0.347,0.225,0.542,0.225
+                                                                c0.196,0,0.393-0.074,0.542-0.225l2.375-2.381l2.375,2.381c0.149,0.15,0.346,0.225,0.542,0.225c0.195,0,0.392-0.074,0.542-0.225
+                                                                c0.298-0.301,0.298-0.786,0-1.086l-2.376-2.38l2.376-2.38C12.696,6.277,12.696,5.791,12.398,5.491z"></path>
+                                                        </g>
+                                                        </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                    </div>
+                    </div>
+                    <div class="submit-box">
+                        <div class="field required comment">
+                            <div class="control">
+                                <textarea maxlength="500" name="comment" id="comment" title="<?=  $escaper->escapeHtml(__("Are there any additional things you'd like to note or add to your request")) ?>" class="input-text" placeholder="<?=  $escaper->escapeHtml(__("Are there any additional things you'd like to note or add to your request")) ?>"><?= $escaper->escapeHtmlAttr($this->helper(\Digital\Productenquiry\Helper\Data::class)->getPostValue('comment')); ?></textarea>
+                                <span class="animation-span"><i></i></span>
+                            </div>
+                        </div>
+
+                                    <?php /*<div class="field box-two required">
+                                        <div class="control choice">
+                                            <input type="checkbox" name="newsletter" title="<?= $block->escapeHtmlAttr(__('Sign Up for our Newsletter')) ?>" value="1" id="newsletter" class="checkbox">
+                                            <label for="newsletter" class="label"><span><?= $block->escapeHtml(__('Sign Up for our Newsletter')) ?></span></label>
+                                        </div>
+                                    </div> */ ?>
+
+                                    <?php /* <div class="field box-two required">
+                                        <div class="control choice">
+                                            <input type="checkbox" name="apply_account" title="<?= $block->escapeHtmlAttr(__('Send me details to apply for an account')) ?>" value="1" id="apply_account" class="checkbox">
+                                            <label for="apply_account" class="label"><span><?= $block->escapeHtml(__('Send me details to apply for an account')) ?></span></label>
+                                        </div>
+                                    </div> */ ?>
+
+                                    <?= $block->getChildHtml('form.additional.info.productenquiry'); ?>        
+                                         <div class="field form-footer">
+                                             <div class="field required submit">
+                                                 <div class="actions-toolbar">
+                                                     <div class="primary">
+                                                         <button type="submit" 
+                                                         class="action submit submit_product_enquiry btn-black btn small-btn btn-lblue" 
+                                                         title="<?= $escaper->escapeHtmlAttr(__('Submit')) ?>">
+                                                         <span><?= $escaper->escapeHtml(__('Submit')) ?></span>
+                                                         <span class="button-hover"><i>&nbsp;</i></span>
+                                                         </button>
+                                                     </div>
+                                                </div>    
+                                            </div>
+                                      </div>
+                    </div>
+                </div>
+            </div>
+    <?php else: ?>
+    </div>
+    </div>
+    <script>
+    require(['jquery'], function($){ 
+     jQuery('html,body').addClass("no-item-class");
+ });
+</script>
+    <div class="cart-empty">
+        <div class="cart-icon">
+        <div class="cart-icon-inner">
+            <div class="icon">
+                <svg x="0px" y="0px" width="172px" height="186px" viewBox="0 0 172 186">
+                    <g>
+                        <g>
+                            <path fill="#EAEAEA" d="M130.852,37.368c0-4.035-1.574-7.834-4.429-10.688l-14.251-14.251C109.357,9.614,105.362,8,101.386,8
+                                h-0.866v30.234h30.333L130.852,37.368L130.852,37.368z"/>
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path fill="#EAEAEA" d="M92.025,111.984c0.965-2.928,2.648-5.653,4.843-7.863l34.118-33.98V48.313H95.578
+                                c-2.785,0-4.875-2.254-4.875-5.039V8H15.117C6.781,8,0,14.781,0,23.117v141.766C0,173.219,6.781,180,15.117,180h100.617
+                                c8.336,0,15.252-6.781,15.252-15.117v-37.608l-5.537,5.403c-2.244,2.225-4.872,3.843-7.834,4.832l-16.023,5.35l-2.44,0.133
+                                c-4.035,0-7.854-1.964-10.226-5.251c-2.353-3.272-2.992-7.515-1.713-11.348L92.025,111.984z M25.195,98.703h50.227
+                                c2.785,0,5.039,2.254,5.039,5.039s-2.254,5.039-5.039,5.039H25.195c-2.785,0-5.039-2.254-5.039-5.039S22.41,98.703,25.195,98.703z
+                                 M20.156,83.586c0-2.785,2.254-5.039,5.039-5.039h50.227c2.785,0,5.039,2.254,5.039,5.039s-2.254,5.039-5.039,5.039H25.195
+                                C22.41,88.625,20.156,86.371,20.156,83.586z M20.156,123.898c0-2.785,2.254-5.039,5.039-5.039h50.227
+                                c2.785,0,5.039,2.254,5.039,5.039s-2.254,5.039-5.039,5.039H25.195C22.41,128.938,20.156,126.684,20.156,123.898z M95.578,149.094
+                                c2.785,0,5.039,2.254,5.039,5.039s-2.253,5.039-5.039,5.039H65.344c-2.785,0-5.039-2.254-5.039-5.039s2.254-5.039,5.039-5.039
+                                H95.578z M25.195,68.469c-2.785,0-5.039-2.254-5.039-5.039s2.254-5.039,5.039-5.039h70.383c2.785,0,5.039,2.254,5.039,5.039
+                                s-2.254,5.039-5.039,5.039H25.195z"/>
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path fill="#EAEAEA" d="M101.154,116.443l-4.384,13.152c-0.657,1.971,1.218,3.844,3.188,3.187l13.145-4.39L101.154,116.443z"/>
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path fill="#EAEAEA" d="M140.291,74.955l-33.188,33.187l14.313,14.313c7.501-7.502,22.096-22.099,33.186-33.188L140.291,74.955z"
+                                />
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <path fill="#EAEAEA" d="M169.039,60.501c-1.771-1.781-4.38-2.8-7.146-2.8c-2.767,0-5.374,1.019-7.155,2.805l-7.322,7.322
+                                l14.311,14.311c4.008-4.009,6.779-6.78,7.322-7.323C172.985,70.874,172.984,64.453,169.039,60.501z"/>
+                        </g>
+                    </g>
+                    <g>
+                        <g>
+                            <g>
+                                <path fill="#EAEAEA" d="M169.049,74.816C169.049,74.816,169.049,74.816,169.049,74.816c0.014-0.013,0.02-0.019,0.029-0.029
+                                    C169.068,74.798,169.063,74.804,169.049,74.816z"/>
+                                <path fill="#EAEAEA" d="M169.078,74.787c0.017-0.016,0.035-0.035,0.045-0.045C169.113,74.752,169.095,74.771,169.078,74.787z"/>
+                                <path fill="#EAEAEA" d="M169.123,74.742C169.156,74.71,169.156,74.709,169.123,74.742L169.123,74.742z"/>
+                            </g>
+                        </g>
+                    </g>
+                    </svg>
+            </div>
+            <div class="empty-qty">
+                <span>0</span>
+                <span>Items</span>
+                <span class="line-box">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+        <h1 class="page-title"><?= $escaper->escapeHtml(__('Request Quote')) ?></h1>
+        <p class="small-title"><?= $escaper->escapeHtml(__('You have no items in your cart. Please add your required items to the cart and then return to this page by clicking on the cart to complete your quote request.')) ?></p>
+        <p class="xsmall-title">
+            <a href="<?= $escaper->escapeUrl($block->getBaseUrl().'shop-by-product.html'); ?>">
+                <?= $escaper->escapeHtml(__('Click here')); ?>
+            </a><?= $escaper->escapeHtml(__(' to continue shopping.')); ?>
+        </p>
+    </div>
+    <?php endif; ?>
+</form>
+<?php /* enquiry js code start from here */ ?>
+<script>
+    require([ 'jquery','domReady!'],function($){
+        var count_qty = 0;
+        jQuery('.qty-box-text').each(function() {
+            count_qty += parseFloat(jQuery(this).val());
+        });
+        if(count_qty <= 1)
+        {
+            jQuery(".decreases").first().css( "pointer-events", "none" );
+        }
+      jQuery(document).delegate('form', 'submit', function(event) {
+        var form = jQuery(this);
+        var formId = form.attr('id');                   
+        if(jQuery(form).valid()){
+            window.submitButtonHtml = jQuery('#'+formId).find( "button[type=submit]" ).html();
+            window.submitButton = jQuery('#'+formId).find( "button[type=submit]" );
+            window.submitButton.html('<span>Please wait...</span>');
+            window.submitButton.attr("disabled", "disabled");
+            setTimeout(function(){ 
+                window.submitButton.html(submitButtonHtml);
+                window.submitButton.removeAttr("disabled");
+            }, 10000);
+        }
+    });
+    $('.actiondelete').click(function(){
+        $('.actiondelete').attr("disabled", "disabled");
+        $('.actiondelete').css('pointer-events', 'none'); 
+          var Products = [];
+        var enquiryid  = $(this).data('enquiryid');
+        if(enquiryid > 0)
+        {
+            Products.push(enquiryid);
+        }
+        if(Products.length)
+        {
+            var productenquiryUrl = "<?= $escaper->escapeUrl($block->getUrl().'productenquiry/index/deletes')?>";
+            var data = 'products='+ Products;
+              jQuery.ajax({
+                url: productenquiryUrl,
+                type: "POST",        
+                data: data,     
+                cache: false,
+                dataType: 'json',
+                success: function (urldata) {
+                    if(urldata != "error")
+                    {
+                        window.location = urldata;
+                        $('.actiondelete').css('pointer-events', 'auto'); 
+                    } 
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                     alert(textStatus);
+                }
+            });
+        }
+    });
+    $('.increases').click(function(){
+       jQuery('#product_enq_loader').show();
+          var Products = [];
+        var enquiryid  = $(this).data('enquiryid');
+        if(enquiryid > 0)
+        {
+            Products.push(enquiryid);
+        }
+        if(Products.length)
+        {
+            var productenquiryUrl = "<?= $escaper->escapeUrl($block->getUrl().'productenquiry/index/increases')?>";
+            var data = 'products='+ Products;
+              jQuery.ajax({
+                url: productenquiryUrl,
+                type: "POST",        
+                data: data,     
+                cache: false,
+                dataType: 'json',
+                success: function (urldata) {
+                     if(urldata != "error")
+                     {
+                        window.location = urldata;
+                     } 
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                     alert(textStatus);
+                }
+            });
+        } 
+    });
+    $('.decreases').click(function(){
+        jQuery('#product_enq_loader').show();
+          var Products = [];
+        var enquiryid  = $(this).data('enquiryid');
+        if(enquiryid > 0)
+        {
+            Products.push(enquiryid);
+        }
+        if(Products.length)
+        {
+            var productenquiryUrl = "<?= $escaper->escapeUrl($block->getUrl().'productenquiry/index/decreases')?>";
+            var data = 'products='+ Products;
+              jQuery.ajax({
+                url: productenquiryUrl,
+                type: "POST",
+                data: data,  
+                cache: false,
+                dataType: 'json',
+                success: function (urldata) {
+                     if(urldata != "error")
+                     {
+                        window.location = urldata;
+                     } 
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                     alert(textStatus);
+                }
+            });
+        } 
+    });
+}); 
+</script>
+
+<script>
+require(['jquery','mage/mage'],function($){
+    jQuery(document).ready(function(){
+            jQuery(document).delegate('form', 'submit', function(event) {
+            var form = jQuery(this);
+            var formId = form.attr('id');
+          if(jQuery(form).valid())
+          {
+            window.submitButtonHtml = jQuery('#'+formId).find( "button[type=submit]" ).html();
+            window.submitButton = jQuery('#'+formId).find( "button[type=submit]" );
+            window.submitButton.html('<span>Please wait...</span>');
+            window.submitButton.attr("disabled", "disabled");
+            setTimeout(function(){ 
+              window.submitButton.html(submitButtonHtml);
+              window.submitButton.removeAttr("disabled");
+            }, 10000);
+          }
+      });
+    });
+});
+</script>
+<?php /* enquiry js code end here */ ?>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Digital_Base::css/swiper-bundle.min.css"/>
+        <link src="Digital_Base::js/swiper-bundle.min.js"/>
+    </head>
+    <body>
+        <referenceContainer name="page.top">
+            <container name="header-bread-title-image" label="header-bread-title-image" as="header-bread-title-image" htmlTag="div" htmlClass="banner-inner-section-main" before="breadcrumbs">
+                 <block class="Digital\Cmsbanner\Block\BannerSlider"
+                   name="digital.cmsbanner.slider"
+                   template="Digital_Cmsbanner::banner_slider.phtml"
+                   before="-"/>
+            </container>
+        </referenceContainer>
+       <move element="page.main.title" destination="header-bread-title-image" before="-"/>
+    </body>
+</page>

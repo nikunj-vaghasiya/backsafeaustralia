@@ -1,0 +1,295 @@
+<?php
+
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Hyva\Theme\ViewModel\HeroiconsSolid;
+use Hyva\Theme\ViewModel\BlockJsDependencies;
+use Hyva\Theme\ViewModel\ProductCompare;
+use Hyva\Theme\ViewModel\ProductListItem;
+use Hyva\Theme\ViewModel\ProductPage;
+use Hyva\Theme\ViewModel\Wishlist;
+use Magento\Catalog\Block\Product\AbstractProduct;
+use Magento\Catalog\Helper\Output as CatalogOutputHelper;
+use Magento\Catalog\ViewModel\Product\OptionsData as ProductOptionsData;
+use Magento\Framework\Escaper;
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper
+// phpcs:disable Generic.Files.LineLength.TooLong
+// phpcs:disable Generic.WhiteSpace.ScopeIndent
+
+/** @var AbstractProduct $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var ProductPage $productViewModel */
+$productViewModel = $viewModels->require(ProductPage::class);
+
+/** @var ProductListItem $productListItemViewModel */
+$productListItemViewModel = $viewModels->require(ProductListItem::class);
+
+/** @var CatalogOutputHelper $catalogOutputHelper */
+$catalogOutputHelper = $this->helper(CatalogOutputHelper::class);
+
+/** @var ProductCompare $compareViewModel */
+$compareViewModel = $viewModels->require(ProductCompare::class);
+/** @var Wishlist $wishlistViewModel */
+$wishlistViewModel = $viewModels->require(Wishlist::class);
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+/** @var HeroiconsSolid $heroiconsSolid */
+$heroiconsSolid = $viewModels->require(HeroiconsSolid::class);
+
+$productOptionsViewmodel = $viewModels->require(ProductOptionsData::class);
+
+/** @var Magento\Catalog\Model\Product $product */
+if (! ($product = $block->getData('product'))) {
+    return;
+}
+$imageDisplayArea = $block->getData('image_display_area');
+$templateType = $block->getData('template_type');
+$viewMode = $block->getData('view_mode');
+$showDescription = $block->getData('show_description');
+$showAddToWishlist = $wishlistViewModel->isEnabled();
+$showAddToCompare = $compareViewModel->showInProductList();
+$viewIsGrid = $viewMode === 'grid';
+$productType = $product->getTypeId();
+$isProductGroupedOrBundle = $productType === 'bundle' || $productType === "grouped";
+$productId = $product->getId();
+$options   = $productOptionsViewmodel->getOptionsData($product);
+
+$hideDetails       = $block->getData('hide_details') ?: false;
+$hideRatingSummary = $block->getData('hide_rating_summary') ?: false;
+
+$imageCustomAttributes = $product->getData('image_custom_attributes')
+    ?? $block->getData('image_custom_attributes')
+    ?? [];
+$productName = $catalogOutputHelper->productAttribute($product, $product->getName(), 'name');
+
+// Ensure the required JS is rendered on the page
+$viewModels->require(BlockJsDependencies::class)->setBlockTemplateDependency($block, 'Magento_Catalog::product/list/js/price-box.phtml');
+
+?>
+
+<?php if ($product->isSaleable()): ?>
+    <div style="display:none;" id="validation-enquiry-box" class="prod_enq_validation_msg float-right error-message">
+    <div class="mage-error"><?php echo $block->escapeHtml(__('Please specify the quantity of product(s).')) ?></div>
+</div>
+    <form method="post"
+        action="<?= $escaper->escapeUrl($productViewModel->getAddToCartUrl($product, ['useUencPlaceholder' => true])) ?>"
+        class="item product product-item product_addtocart_form grow flex flex-col w-full <?= $viewIsGrid ? '' : 'md:flex-row' ?>"
+        <?php if ($product->getOptions()): ?>
+        enctype="multipart/form-data"
+        <?php endif; ?>
+        <?php foreach ($block->getData('product_data_attributes') ?? [] as $attribute => $include): ?>
+        <?php if ($include): ?>
+        <?php /** Append data-* attributes based on layout XML arguments */ ?>
+        <?= $escaper->escapeHtml(sprintf('data-%s', $attribute)); ?>="<?= $escaper->escapeHtmlAttr($product->getData($attribute)); ?>"
+        <?php endif; ?>
+        <?php endforeach; ?>>
+        <?=
+        /** @noEscape */
+        $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="product" value="<?= (int)$productId ?>" />
+        <?php foreach ($options as $optionItem): ?>
+            <input type="hidden"
+                name="<?= $escaper->escapeHtml($optionItem['name']) ?>"
+                value="<?= $escaper->escapeHtml($optionItem['value']) ?>">
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="item product product-item card card-interactive flex flex-col w-full <?= $viewIsGrid ? '' : 'md:flex-row' ?>"
+            <?php foreach ($block->getData('product_data_attributes')  ?? [] as $attribute => $include): ?>
+            <?php if ($include): ?>
+            <?php /** Append data-* attributes based on layout XML arguments */ ?>
+            <?= $escaper->escapeHtml(sprintf('data-%s', $attribute)); ?>="<?= $escaper->escapeHtmlAttr($product->getData($attribute)); ?>"
+            <?php endif; ?>
+            <?php endforeach; ?>>
+        <?php endif; ?>
+        <?php /* Product Image */ ?>
+        <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>"
+            title="<?= $escaper->escapeHtmlAttr($product->getName()) ?>"
+            class="photo product-img product-item-photo mb-3 block <?= $viewIsGrid ? '' : '' ?>"
+            tabindex="-1">
+            <?= $block->getImage($product, $imageDisplayArea)
+                ->setTemplate('Magento_Catalog::product/list/image.phtml')
+                ->setData('custom_attributes', $imageCustomAttributes)
+                ->setProductId($productId)
+                ->toHtml(); ?>
+        </a>
+        <div class="product-info product-content <?= $viewIsGrid ? '' : '' ?>">
+            <!--<div class="product-title-sm hidden product-sku <?= $viewIsGrid ? '' : '' ?>">
+                <?= $escaper->escapeHtmlAttr($product->getSku()) ?>
+            </div>-->
+            <?php if ($product->getData('is_new')): ?>
+                <span class="new-product-label inline-block mb-1 px-2 py-1 text-M font-semibold  bg-green-600 rounded">
+                    New
+                </span>
+                <?php else: ?>
+                <span class="new-product-label inline-block mb-1 px-2 py-1 text-M font-semibold  bg-green-600 rounded no-product-label">
+                </span>
+            <?php endif; ?>
+            <p class="product-text <?= $viewIsGrid ? '' : 'h5' ?>">
+                <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>" title="<?= $escaper->escapeHtmlAttr($product->getName()) ?>"><?= $escaper->escapeHtmlAttr($product->getName()) ?></a>
+            </p>
+
+            <?php if (!$hideRatingSummary): ?>
+                <div class="mx-auto <?= $viewIsGrid ? '' : 'md:mx-0 md:w-auto' ?>">
+                    <?= $block->getReviewsSummaryHtml($product, 'short') ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($product->isAvailable() && !$hideDetails): ?>
+                <?= $block->getProductDetailsHtml($product) ?>
+            <?php endif; ?>
+
+            <?php if ($showDescription): ?>
+                <div class="mt-2 product-text mb-1 items-center justify-center text-center <?= $viewIsGrid ? '' : 'md:text-left' ?>">
+                    <?= /* @noEscape */ $productViewModel->getShortDescriptionForProduct($product) ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="productbtnmain <?= $viewIsGrid ? '' : '' ?>">
+                <?php if ($product->isSaleable()): ?>
+                    <?php if ($isProductGroupedOrBundle): ?>
+                        <div class="flex-center product-actions">
+                            <a href="<?= $escaper->escapeUrl($product->getProductUrl()) ?>" title="Select Options" class="btn btn-outline-primary product-atc-btn">Select Options</a>
+                        </div>
+                    <?php else: ?>
+                        <div class="flex-center product-actions">
+                            <input
+                                type="hidden"
+                                name="qty"
+                                form="product_addtocart_form"
+                                value="1"
+                                class="form-input form-control enquirytxt quantity-input"                                
+                                data-id="<?= $product->getId(); ?>"
+                                data-parentid="<?= $product->getId(); ?>"
+                                data-name="<?= str_replace("&", "", $product->getName()); ?>"
+                                data-parenturl="<?= $product->getUrlModel()->getUrl($product); ?>"
+                                data-sku="<?= $product->getSku(); ?>" />
+                            <a href="javascript:void(0)" x-data="productEnquiryHome" @click="GetQuoteHome($event)" title="Get a Quote" class="btn btn-outline-primary product-atc-btn">Get a Quote</a>
+                        </div>
+                    <?php endif; ?>
+
+                <?php else: ?>
+                    <div class="w-auto justify-center <?= $viewIsGrid ? 'mr-auto' : 'mr-auto md:mr-0' ?>">
+                        <?= $block->getChildBlock('stockstatus')->setData('product', $product)->toHtml() ?>
+                    </div>
+                <?php endif; ?>
+                <div class="flex flex-wrap gap-2">
+                    <?php if ($showAddToWishlist): ?>
+                        <?= $block->getChildBlock('wishlist')->setData('product', $product)->toHtml() ?>
+                    <?php endif; ?>
+                    <?php if ($showAddToCompare): ?>
+                        <button x-data="initCompareOnProductList()"
+                            x-defer="intersect"
+                            @click.prevent="addToCompare(<?= (int)$productId ?>)"
+                            aria-label="<?= $escaper->escapeHtmlAttr(__('Add to Compare') . ' ' . $productName) ?>"
+                            type="button"
+                            class="rounded-full w-9 h-9 bg-gray-200 p-0 border-0 inline-flex shrink-0 items-center justify-center text-gray-500 hover:text-yellow-500"
+                            data-addto="compare">
+                            <?= $heroicons->scaleHtml('', 20, 20, ['aria-hidden' => 'true']) ?>
+                        </button>
+                    <?php endif; ?>
+                    <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                        <?= $addToBlock->setProduct($product)->getChildHtml() ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <?php if ($product->isSaleable()): ?>
+    </form>
+<?php else: ?>
+    </div>
+<?php endif; ?>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('productEnquiryHome', () => ({
+            async GetQuoteHome(event) {
+                // Find the closest product form/container
+                const productForm = event.target.closest('.product_addtocart_form') || event.target.closest('.product-item');
+                
+                // Find the quantity input within this specific product
+                const quantityInput = productForm.querySelector('.enquirytxt');
+                
+                if (!quantityInput) {
+                    console.error('Quantity input not found for this product');
+                    return;
+                }
+
+                const prodId = quantityInput.dataset.id;
+                const prodQty = quantityInput.value;
+                const parentId = quantityInput.dataset.parentid;
+                const name = quantityInput.dataset.name?.split(",").join("");
+                const parentUrl = quantityInput.dataset.parenturl;
+                const sku = quantityInput.dataset.sku;
+
+                const validationBox = document.getElementById('validation-enquiry-box');
+                
+                if (prodQty <= 0) {
+                    if (validationBox) {
+                        validationBox.style.display = 'block';
+                    }
+                    return;
+                }
+
+                if (validationBox) {
+                    validationBox.style.display = 'none';
+                }
+
+                const postUrl = "<?= $escaper->escapeUrl($block->getUrl('productenquiry/index/add')) ?>";
+                const formKey = hyva.getFormKey();
+                const uenc = btoa(window.location.href);
+
+                // Create product string for only the clicked product
+                const productData = `${prodId}=>${parentId}=>${prodQty}=>${name}=>${parentUrl}=>${sku}`;
+
+                const data = new URLSearchParams({
+                    form_key: formKey,
+                    products: productData, // Only single product
+                    uenc: uenc,
+                });
+
+                try {
+                    const response = await fetch(postUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        },
+                        body: data,
+                        credentials: "include",
+                    });
+
+                    const responseText = await response.text();
+
+                    try {
+                        const jsonData = JSON.parse(responseText);
+                        
+                        if (jsonData !== 'error') {
+                            window.location.href = jsonData;
+                        } else if (response.ok) {
+                            return response.json();
+                        }
+                    } catch (jsonError) {
+                        console.error("Invalid JSON", jsonError);
+                    }
+
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        }));
+    });
+</script>

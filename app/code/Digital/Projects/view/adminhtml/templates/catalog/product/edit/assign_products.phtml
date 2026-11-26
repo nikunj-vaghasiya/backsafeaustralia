@@ -1,0 +1,31 @@
+<?php
+$blockGrid = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+<?= $block->getGridHtml(); ?>
+<input type="hidden" name="category_products" id="in_category_products"
+data-form-part="digital_projects_form" value=""/>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Digital_Projects/products/assign-products": {
+                "selectedProducts": <?= /* @noEscape */  $block->getProductsJson(); ?>,
+                "gridJsObjectName": <?= /* @noEscape */  '"' . $gridJsObjectName . '"' ?: '{}'; ?>
+            }
+        }
+    }
+</script>
+<!-- @todo remove when "UI components" will support such initialization -->
+<script>
+    require('mage/apply/main').apply();
+</script>
+
+<script type="text/javascript">
+        require(['jquery'], function () {
+            jQuery(document).ready(function () {
+                    setTimeout(function() {
+                        jQuery('#productsGrid_table .data-grid-actions-cell > input').trigger('click');
+                    }, 2000);
+                });
+        });
+</script>

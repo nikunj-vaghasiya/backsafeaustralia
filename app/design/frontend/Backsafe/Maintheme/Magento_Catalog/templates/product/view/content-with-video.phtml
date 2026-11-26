@@ -1,0 +1,12 @@
+<?php
+
+/** @var \Magento\Catalog\Model\Product|null $product */
+$product = $block->getProduct() ?? $block->getData('product');
+/** @var \Magento\Framework\View\Element\Template $block */
+$helper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Digital\Base\Helper\Data::class);
+?>
+<div class="container">
+    <div class="flex row why-product-container">
+    	   <?= $helper->getFilteredWysiwygContent($product->getData('how_to_operate')) ?>
+    </div>
+</div>

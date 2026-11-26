@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="digital_projects" resource="default" engine="innodb" comment="Projects Table">
+
+        <column xsi:type="smallint" name="projects_id" unsigned="false" nullable="false" identity="true" comment="Projects ID"/>
+
+        <column xsi:type="smallint" name="status" nullable="false" comment="Status"/>        
+
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+
+        <column xsi:type="varchar" name="sub_title" nullable="true" length="255" comment="Sub Title"/>     
+
+        <column xsi:type="varchar" name="projects_url" nullable="true" length="255" comment="Projects URL"/>
+
+        <column xsi:type="varchar" name="image_listing" nullable="true" length="255" comment="Image in Listing"/>
+
+        <column xsi:type="varchar" name="image_desktop" nullable="true" length="255" comment="Image in Desktop"/>
+
+        <column xsi:type="text" name="short_description" nullable="true" comment="Short Desc."/>
+
+        <column xsi:type="text" name="products" nullable="true" comment="Products"/>
+
+        <column xsi:type="varchar" name="duration" nullable="true" length="255" comment="Duration"/>
+
+        <column xsi:type="varchar" name="engineers" nullable="true" length="255" comment="Engineers"/>
+
+        <column xsi:type="varchar" name="categories" nullable="true" length="255" comment="Categories"/>
+
+        <column xsi:type="int" name="sort_order" nullable="true" comment="Sort Order"/>
+
+        <column xsi:type="smallint" name="show_on_homepage" nullable="true" comment="show_on_homepage"/>
+
+        <column xsi:type="text" name="time_period" nullable="true" comment="Time Period"/>
+
+        <column xsi:type="text" name="challenge" nullable="true" comment="Challenge"/>
+
+        <column xsi:type="text" name="challenge_gallery" nullable="true" comment="Challenge Gallery"/>
+
+        <column xsi:type="text" name="solution" nullable="true" comment="Solution"/>
+
+        <column xsi:type="text" name="gallery" nullable="true" comment="Gallery"/>
+
+        <column xsi:type="text" name="out_come" nullable="true" comment="Out Come"/>
+
+        <column xsi:type="timestamp" name="created_at" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At"/>
+
+        <column xsi:type="timestamp" name="updated_at" nullable="true" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+
+        <column xsi:type="varchar" name="meta_title" nullable="true" length="255" comment="Meta Title"/>
+        <column xsi:type="text" name="meta_description" nullable="true" comment="Meta Description"/>
+        <column xsi:type="text" name="meta_keywords" nullable="true" comment="Meta Keywords"/>
+
+
+
+        <index referenceId="DIGITAL_PROJECTS_NAME" indexType="fulltext">
+
+            <column name="title"/>
+
+        </index>
+
+
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+
+            <column name="projects_id"/>
+
+        </constraint>
+
+    </table>
+
+    <table name="digital_projects_store" resource="default" engine="innodb" comment="Projects To Store Linkage Table">
+
+        <column xsi:type="smallint" name="projects_id" padding="6" unsigned="false" nullable="false" identity="false"
+
+                comment="Projects Entity ID"/>
+
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
+
+                comment="Store ID"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+
+            <column name="projects_id"/>
+
+            <column name="store_id"/>
+
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="DIGITAL_PROJECTS_STORE_PROJECTS_ID_DIGITAL_PROJECTS_PROJECTS_ID" table="digital_projects_store" column="projects_id" referenceTable="digital_projects" referenceColumn="projects_id" onDelete="CASCADE"/>
+
+
+
+        <constraint xsi:type="foreign" referenceId="DIGITAL_PROJECTS_STORE_STORE_ID_STORE_STORE_ID" table="digital_projects_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+
+
+
+        <index referenceId="DIGITAL_PROJECTS_STORE_STORE_ID" indexType="btree">
+
+            <column name="store_id"/>
+
+        </index>
+
+    </table>
+
+
+
+
+
+    <table name="digital_projects_products" resource="default" engine="innodb" comment="Projects To Product Linkage Table">
+
+        <column xsi:type="smallint" name="projects_id" padding="6" unsigned="false" nullable="false" identity="false"
+
+                comment="Projects Entity ID"/>
+
+        <column xsi:type="smallint" name="product_id" padding="5" unsigned="true" nullable="false" identity="false"
+
+                comment="Product ID"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+
+            <column name="projects_id"/>
+
+            <column name="product_id"/>
+
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="DIGITAL_PROJECTS_PRODUCT_PROJECTS_ID_DIGITAL_PROJECTS_PROJECTS_ID" table="digital_projects_products" column="projects_id" referenceTable="digital_projects" referenceColumn="projects_id" onDelete="CASCADE"/>
+
+
+
+        <index referenceId="DIGITAL_PROJECTS_PRODUCT_ID" indexType="btree">
+
+            <column name="product_id"/>
+
+        </index>
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</schema>

@@ -1,0 +1,33 @@
+<?php
+$product = $block->getProduct();
+$productName = $product ? $product->getName() : '';
+$productSku  = $product ? $product->getSku()  : '';
+?>
+<section class="contact-form-section section-space" id="product-enquiry-form">
+  <div class="container-sm">
+    <div class="section-content text-center">
+      <h2 class="h2">Product Enquiry Check</h2>
+      <p class="subtitle">We'll respond within 2 hours with a detailed quote and consultation.</p>
+    </div>
+    <div class="text-center">
+      <script charset="utf-8" type="text/javascript" src="//js-ap1.hsforms.net/forms/embed/v2.js"></script>
+      <script>
+        window.enquiryProductName = "<?= $block->escapeJs($productName) ?>";
+        window.enquiryProductSku  = "<?= $block->escapeJs($productSku) ?>";
+        hbspt.forms.create({
+          portalId: "7713081",
+          formId: "3cf797bc-ce5c-435e-bd62-9787503890fb",
+          region: "ap1",
+          onFormReady: function ($form) {
+            var el = $form.querySelector('input[name="product_sku"]');
+            if (el) {
+              el.value = window.enquiryProductSku
+                ? window.enquiryProductSku
+                : window.enquiryProductName;
+            }
+          }
+        });
+      </script>
+    </div>
+  </div>
+</section>

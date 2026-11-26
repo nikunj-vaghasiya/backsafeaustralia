@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="digital.ourteam.list">
+            <block class="Magento\Cms\Block\Block" name="our_team_top_content">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">our_team_top_content</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Digital\Ourteam\Block\Ourteam"
+                   name="digital.ourteam.list"
+                    ifconfig="ourteam_section/general/enable"
+                   template="Digital_Ourteam::about-ourteam.phtml"
+                   cacheable="true">
+                <arguments>
+                    <argument name="heading" xsi:type="string" translate="true">Our Team</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Home</item>
+                    <item name="label" xsi:type="string" translate="true">Home</item>
+                    <item name="link" xsi:type="string">{{baseUrl}}</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">our_team</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Our Team</item>
+                    <item name="label" xsi:type="string" translate="true">Our Team</item>
+                </argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="page.top">
+            <container name="category.top.section"
+                       label="category.top.section"
+                       as="category.top.section"
+                       htmlTag="div"
+                       htmlClass="category-top-section"
+                       before="-">
+                <container name="category.top.section.breadcrumbs"
+                           label="category.top.section.breadcrumbs"
+                           as="category.top.section.breadcrumbs"
+                           htmlTag="div"
+                           htmlClass="category-breadcrumbs-wrapper"
+                           after="-"/>
+            </container>
+        </referenceBlock>
+
+        <move element="breadcrumbs" destination="category.top.section.breadcrumbs" before="-"/>
+        <move element="page.main.title" destination="category.top.section.breadcrumbs" after="breadcrumbs"/>
+        <!-- <referenceBlock name="page.main.title" remove="true"/> -->
+    </body>
+</page>

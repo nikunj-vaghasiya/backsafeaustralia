@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="integration" translate="label" sortOrder="10000002" class="integration-tab">
+            <label>API Integration</label>
+        </tab>
+        <section id="base" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General</label>
+            <tab>integration</tab>
+            <resource>Integration_Base::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="base_dir" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Base Directory Path</label>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+            <group id="website" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Website Mode</label>
+                <field id="type" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Select Website Mode</label>
+                    <source_model>Integration\Base\Model\Config\Source\WebsiteOptions</source_model>
+                </field>
+                <field id="website_selection" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Select Website</label>
+                    <source_model>Integration\Base\Model\Config\Source\Website\Selection</source_model>
+                    <depends>
+                        <field id="type">multiple</field>
+                    </depends>                    
+                </field>
+            </group>
+            <group id="api_credentials" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>API Credentials</label>
+                <field id="integration_option" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Integration Type</label>
+                    <source_model>Integration\Base\Model\Config\Source\IntegrationType</source_model>
+                </field>
+                <field id="auth_method" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>API Authentication</label>
+                    <source_model>Integration\Base\Model\Config\Source\AuthenticationMethod</source_model>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>API Username</label>
+                </field>
+                <field id="password" translate="label" type="password" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>API Password</label>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>MYOB EXO API Key</label>
+                    <depends>
+                        <field id="integration_option">myob-exo</field>
+                    </depends>
+                </field>
+                <field id="token" translate="label" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>MYOB EXO API Token</label>
+                    <depends>
+                        <field id="integration_option">myob-exo</field>
+                    </depends>
+                </field>
+                <field id="company" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>MYOB Advanced API Company</label>
+                    <depends>
+                        <field id="integration_option">myob-advanced</field>
+                    </depends>
+                </field>
+                <field id="branch" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>MYOB Advanced API Branch</label>
+                    <depends>
+                        <field id="integration_option">myob-advanced</field>
+                    </depends>
+                </field>
+                <field id="login_url" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Login URL</label>
+                    <depends>
+                        <field id="integration_option">myob-advanced</field>
+                    </depends>
+                </field>
+                <field id="logout_url" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Logout URL</label>
+                    <depends>
+                        <field id="integration_option">myob-advanced</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="api_url" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>API End Point URLs</label>
+                <field id="customer" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer</label>
+                </field>
+                <field id="product" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product</label>
+                </field>
+                <field id="order" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Create Order</label>
+                </field>
+                <field id="order_history" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order History</label>
+                </field>                
+                <field id="invoice_history" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Invoice History</label>
+                </field>
+            </group>
+            <group id="api_optional_url" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>API Additional End Point URLs</label>
+                <field id="customer_address" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Address</label>
+                </field>
+                <field id="shipment_history" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Shipment History</label>
+                </field>
+                <!-- SAGE Specific -->
+                <!-- <field id="customer_registration" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Registration</label>
+                </field>
+                <field id="customer_save_changes" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Save Changes</label>
+                </field>
+                <field id="customer_base_pricing" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Based Pricing</label>
+                </field>
+                <field id="order_payment" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Create Order Payment</label>
+                </field>
+                <field id="invoice_payment" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Create Invoice Payment</label>
+                </field> -->       
+                <!-- SAGE Specific -->
+            </group>
+        </section>        
+        <section id="sales_email">
+            <group id="order">
+                <field id="enabled">
+                    <comment><![CDATA[NOTE: Please Do not enable this Because it is customized to send order email with SAGE order number, If it is set Yes then order email won't be able to carry SAGE order number.]]></comment>
+                </field>            
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,226 @@
+<?php
+
+namespace Integration\Base\Model\HTTP;
+
+class Client
+{
+	/**
+     * @param \Integration\Base\Model\HTTP\Client\Curl $curl
+     */
+	public function __construct(
+		\Integration\Base\Model\HTTP\Client\Curl $curl,
+        \Integration\Base\Helper\AbstractHelper $baseHelper
+	) {
+    	$this->_curl = $curl;
+        $this->_baseHelper = $baseHelper;
+    }
+
+    public function apiGetRequest($uri)
+    {
+        $response = ['status' => '', 'count' => 0, 'object' => []];
+
+        try{
+            if(!filter_var($uri,FILTER_VALIDATE_URL)) {
+                throw new \Exception('Request url is not valid.');
+            }
+
+            $this->getCurlClient()->addHeader("Accept","application/json");
+
+            $this->getCurlClient()->setOptions([
+                CURLOPT_RETURNTRANSFER => true
+            ]);
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $this->getCurlClient()->setCookies(['CompanyID' => $this->_baseHelper->getMyobAdvApiCompany()]);
+
+                $this->getCurlClient()->post(
+                    $this->_baseHelper->getLoginEndpointUrl(),
+                    [
+                        'name'      => $this->_baseHelper->getUsername(),
+                        'password'  => $this->_baseHelper->getPassword(),
+                        'company'   => $this->_baseHelper->getMyobAdvApiCompany(),
+                        'branch'    => $this->_baseHelper->getMyobAdvApiBranch()
+                    ]
+                );
+            } else  {
+                $this->getCurlClient()->setCredentials(
+                    $this->_baseHelper->getUsername(),
+                    $this->_baseHelper->getPassword()
+                );
+            }
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $authCookies = $this->getCurlClient()->getCookies();
+                $this->getCurlClient()->setCookies($authCookies);
+            }
+
+            $this->getCurlClient()->get($uri);
+
+            $object = json_decode($this->getCurlClient()->getBody(), true);
+
+            if(is_array($object) && !empty($object) && !isset($object[0]) && $this->getCurlClient()->getStatus() === 200) {
+                $new[] = $object;
+                $object = $new;
+            }
+
+            $response = [
+                'status' => $this->getCurlClient()->getStatus(),
+                'count' => (count($object) > 0) ? count($object) : 0,
+                'object' => $object
+            ];
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $authCookies = $this->getCurlClient()->getCookies();
+                $this->getCurlClient()->setCookies($authCookies);
+                $this->getCurlClient()->post($this->_baseHelper->getLogoutEndpointUrl(),[]);
+            }
+        } catch(\Exception $e) {
+            $response = ['status' => 500, 'count' => 0, 'object' => ['message' => $e->getMessage()]];
+        }
+
+        return $response;
+    }
+
+    public function apiPostRequest($uri,$postParams)
+    {
+        $response = ['status' => '', 'count' => 0, 'object' => []];
+
+        try{
+            if(!filter_var($uri,FILTER_VALIDATE_URL)) {
+                throw new \Exception('Request url is not valid.');
+            }
+
+            $this->getCurlClient()->addHeader("Accept","application/json");
+
+            $this->getCurlClient()->setOptions([
+                CURLOPT_RETURNTRANSFER => true
+            ]);
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $this->getCurlClient()->setCookies(['CompanyID' => $this->_baseHelper->getMyobAdvApiCompany()]);
+
+                $this->getCurlClient()->post(
+                    $this->_baseHelper->getLoginEndpointUrl(),
+                    [
+                        'name'      => $this->_baseHelper->getUsername(),
+                        'password'  => $this->_baseHelper->getPassword(),
+                        'company'   => $this->_baseHelper->getMyobAdvApiCompany(),
+                        'branch'    => $this->_baseHelper->getMyobAdvApiBranch()
+                    ]
+                );
+            } else  {
+                $this->getCurlClient()->setCredentials(
+                    $this->_baseHelper->getUsername(),
+                    $this->_baseHelper->getPassword()
+                );
+            }
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $authCookies = $this->getCurlClient()->getCookies();
+                $this->getCurlClient()->setCookies($authCookies);
+            }
+
+            $this->getCurlClient()->post($uri,$postParams);
+
+            $object = json_decode($this->getCurlClient()->getBody(), true);
+
+            if(is_array($object) && !empty($object) && !isset($object[0]) && $this->getCurlClient()->getStatus() === 200) {
+                $new[] = $object;
+                $object = $new;
+            }
+
+            $response = [
+                'status' => $this->getCurlClient()->getStatus(),
+                'count' => (count($object) > 0) ? count($object) : 0,
+                'object' => $object
+            ];
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $authCookies = $this->getCurlClient()->getCookies();
+                $this->getCurlClient()->setCookies($authCookies);
+                $this->getCurlClient()->post($this->_baseHelper->getLogoutEndpointUrl(),[]);
+            }
+        } catch(\Exception $e) {
+            $response = ['status' => 500, 'count' => 0, 'object' => ['message' => $e->getMessage()]];
+        }
+
+        return $response;
+    }
+
+    public function apiPutRequest($uri,$putParams)
+    {
+        $response = ['status' => '', 'count' => 0, 'object' => []];
+
+        try{
+            if(!filter_var($uri,FILTER_VALIDATE_URL)) {
+                throw new \Exception('Request url is not valid.');
+            }
+
+            /*$this->getCurlClient()->addHeader("Accept","application/json");*/
+
+            $this->getCurlClient()->setOptions([
+                CURLOPT_RETURNTRANSFER => true
+            ]);
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $this->getCurlClient()->setCookies(['CompanyID' => $this->_baseHelper->getMyobAdvApiCompany()]);
+
+                $this->getCurlClient()->post(
+                    $this->_baseHelper->getLoginEndpointUrl(),
+                    [
+                        'name'      => $this->_baseHelper->getUsername(),
+                        'password'  => $this->_baseHelper->getPassword(),
+                        'company'   => $this->_baseHelper->getMyobAdvApiCompany(),
+                        'branch'    => $this->_baseHelper->getMyobAdvApiBranch()
+                    ]
+                );
+            } else  {
+                $this->getCurlClient()->setCredentials(
+                    $this->_baseHelper->getUsername(),
+                    $this->_baseHelper->getPassword()
+                );
+            }
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $authCookies = $this->getCurlClient()->getCookies();
+                $this->getCurlClient()->setCookies($authCookies);
+            }
+
+            $this->getCurlClient()->put($uri,$putParams);
+
+            $object = json_decode($this->getCurlClient()->getBody(), true);
+
+            if(is_array($object) && !empty($object) && !isset($object[0]) && $this->getCurlClient()->getStatus() === 200) {
+                $new[] = $object;
+                $object = $new;
+            }
+
+            $response = [
+                'status' => $this->getCurlClient()->getStatus(),
+                'count' => (count($object) > 0) ? count($object) : 0,
+                'object' => $object
+            ];
+
+            if($this->_baseHelper->getAuthenticationMethod() == \Integration\Base\Model\Config\Source\AuthenticationMethod::LOGIN_AUTH) {
+                $authCookies = $this->getCurlClient()->getCookies();
+                $this->getCurlClient()->setCookies($authCookies);
+                $this->getCurlClient()->post($this->_baseHelper->getLogoutEndpointUrl(),[]);
+            }
+        } catch(\Exception $e) {
+            $response = ['status' => 500, 'count' => 0, 'object' => ['message' => $e->getMessage()]];
+        }
+
+        return $response;
+    }
+
+    protected function getCurlClient()
+    {
+        return $this->_curl;
+    }
+
+    /* TO DO Validate credential function */
+    public function validateCredentials()
+    {
+        /* TO DO Validate credential function */
+    }
+}

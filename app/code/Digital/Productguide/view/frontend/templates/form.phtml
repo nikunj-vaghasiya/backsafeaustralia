@@ -1,0 +1,319 @@
+<?php
+use Hyva\Theme\ViewModel\ReCaptcha;
+   /** @var \Magento\Contact\Block\ContactForm $block */
+   /** @var \Magento\Contact\ViewModel\UserDataProvider $viewModel */
+   
+   $viewModel = $block->getViewModel();
+   /*@codingStandardsIgnoreStart*/
+   $helper = $this->helper(\Digital\Productguide\Helper\Data::class);
+   /*@codingStandardsIgnoreEnd*/
+if ($helper->isEnabled()): ?>
+   <div class="container">
+      <div class="gap-x-[60px] gap-y-[var(--content-space)] place-items-center grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-2 sl:grid-cols-2">
+         <?php /* <div class="welcome-img-col">
+             <div class="section-img">
+                 <?= $this->getLayout()->createBlock(\Magento\Cms\Block\Block::class)->setBlockId('product_guide_page_image')->toHtml(); ?>
+             </div>
+         </div> */ ?>
+
+         
+
+         <div class="contact-form-col">            
+            <?php /* <?= $this->getLayout()->createBlock(\Magento\Cms\Block\Block::class)->setBlockId('product_guide_page_first_content')->toHtml(); ?> */ ?>
+                  <h2 class="h2">Get Your FREE Catalogue Now</h2>
+            <form class="form product-guide"
+               action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+               id="productguide-form"
+               method="post"
+               x-data="initProductguideForm()"
+               @submit.prevent="submitForm()">
+               <input type="hidden" name="form_key" value="<?= $block->getFormKey(); ?>" />
+               <div class="flex y-gap -mx-[var(--half-gap)]">
+                  <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                     <div class="input-group">
+                        <input name="firstname"
+                           id="firstname"
+                           title="<?= $block->escapeHtmlAttr(__('First Name'));?>"
+                           value=""
+                           class="form-control"
+                           placeholder="<?= $block->escapeHtmlAttr(__('First Name *'));?>"
+                           type="text"
+                           data-validate="required"
+                           maxlength="50"/>
+                           <div class="error-message"></div>
+                     </div>
+                  </div>
+                  <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                     <div class="input-group">
+                        <input name="lastname"
+                           id="lastname"
+                           title="<?= $block->escapeHtmlAttr(__('Last Name'));?>"
+                           value=""
+                           class="form-control"
+                           placeholder="<?= $block->escapeHtmlAttr(__('Last Name *'));?>"
+                           type="text"
+                           data-validate="required"
+                           maxlength="50"/>
+                           <div class="error-message"></div>
+                     </div>
+                  </div>
+                  <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                     <div class="input-group">
+                        <input name="company"
+                           id="company"
+                           title="<?= $block->escapeHtmlAttr(__('Company Name')) ?>"
+                           placeholder="<?= $block->escapeHtmlAttr(__('Company Name *')) ?>"
+                           class="form-control"
+                           type="text"
+                           data-validate="required"
+                           maxlength="100" />
+                           <div class="error-message"></div>
+                     </div>
+                  </div>
+                  <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                     <div class="input-group">
+                        <input name="email"
+                           id="email"
+                           title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                           placeholder="<?= $block->escapeHtmlAttr(__('Email *')) ?>"
+                           value=""
+                           class="form-control"
+                           type="email"
+                           data-validate="required" @input="validateField($event.target)"
+                           @blur="validateField($event.target)"
+                           maxlength="75"/>
+                           <div class="error-message"></div>
+                     </div>
+                  </div>
+                  
+                  <!-- CHECKBOX SECTION WITH CONDITIONAL FIELDS -->
+                  <div class="w-full px-[var(--half-gap)]">
+                     <div class="input-group flex-ac">
+                        <input 
+                           type="checkbox" 
+                           id="received-catalogue" 
+                           name="receive_catalogue"
+                           @change="toggleAddressFields($event)"
+                           x-model="showAddress" />
+                        <label class="form-label-check" for="received-catalogue">
+                           Receive Printed Catalogue By Mail
+                        </label>
+                     </div>
+                  </div>
+                  
+                  <!-- HIDDEN INPUT TO TRACK CHECKBOX STATE -->
+                  <input type="hidden" id="received-catalogue-value" name="catalogue_checkbox" :value="showAddress ? 1 : 0" />
+                  
+                  <!-- ADDRESS FIELDS - SHOWN/HIDDEN BASED ON CHECKBOX -->
+                  <template x-if="showAddress">
+                     <div class="w-full flex y-gap">
+                        <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                           <div class="input-group">
+                              <input name="street"
+                                 id="street"
+                                 title="<?= $block->escapeHtmlAttr(__('Street Address')) ?>"
+                                 placeholder="<?= $block->escapeHtmlAttr(__('Street Address *')) ?>"
+                                 class="form-control"
+                                 type="text"
+                                 data-validate="conditional"
+                                 @input="validateField($event.target)"
+                                 @blur="validateField($event.target)"
+                                 maxlength="50" />
+                              <div class="error-message"></div>
+                           </div>
+                        </div>
+                        <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                           <div class="input-group">
+                              <input name="city"
+                                 id="city"
+                                 title="<?= $block->escapeHtmlAttr(__('City')) ?>"
+                                 placeholder="<?= $block->escapeHtmlAttr(__('City *')) ?>"
+                                 class="form-control"
+                                 type="text"
+                                 data-validate="conditional"
+                                 @input="validateField($event.target)"
+                                 @blur="validateField($event.target)"
+                                 maxlength="50" />
+                              <div class="error-message"></div>
+                           </div>
+                        </div>
+                        <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                           <div class="input-group">
+                              <input name="state"
+                                 id="state"
+                                 title="<?= $block->escapeHtmlAttr(__('State/Region')) ?>"
+                                 placeholder="<?= $block->escapeHtmlAttr(__('State/Region *')) ?>"
+                                 class="form-control"
+                                 type="text"
+                                 data-validate="conditional"
+                                 @input="validateField($event.target)"
+                                 @blur="validateField($event.target)"
+                                 maxlength="50" />
+                              <div class="error-message"></div>
+                           </div>
+                        </div>
+                        <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                           <div class="input-group">
+                              <input name="postcode"
+                                 id="postcode"
+                                 title="<?= $block->escapeHtmlAttr(__('Postal Code')) ?>"
+                                 placeholder="<?= $block->escapeHtmlAttr(__('Postal Code *')) ?>"
+                                 class="form-control"
+                                 type="text"
+                                 data-validate="conditional"
+                                 @input="validateField($event.target)"
+                                 @blur="validateField($event.target)"
+                                 maxlength="10" />
+                              <div class="error-message"></div>
+                           </div>
+                        </div>
+                        <div class="w-1/1 xs:w-1/1 sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 xxl:w-1/2 sl:w-1/2 px-[var(--half-gap)]">
+                           <div class="input-group">
+                              <input name="phone"
+                                 id="phone"
+                                 title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                                 placeholder="<?= $block->escapeHtmlAttr(__('Phone Number *')) ?>"
+                                 class="form-control"
+                                 type="tel"
+                                 data-validate="conditional"
+                                 @input="validateField($event.target)"
+                                 @blur="validateField($event.target)"
+                                 minlength="10"
+                                 maxlength="25" />
+                              <div class="error-message"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </template>
+                  
+                  <div class="w-full px-[var(--half-gap)]">
+                       <?= $block->getBlockHtml('recaptcha_input_field_recaptcha') ?> 
+                       <div id="recaptcha-error-message" class="error-message"></div>
+                  </div>
+                  <div class="w-full px-[var(--half-gap)]">
+                     <input type="hidden" name="hideit" id="hideit" value="" />
+                     <button type="submit"
+                        title="<?= $block->escapeHtmlAttr(__('Submit')) ?>"
+                        class="btn btn-primary">
+                     <?= $block->escapeHtml(__('Submit')) ?>
+                     <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.512 4.32164L6.93449 0.744141L5.75616 1.92247L8.50033 4.66664H0.166992V6.33331H8.50033L5.75616 9.07747L6.93449 10.2558L10.512 6.67831C10.8244 6.36576 11 5.94191 11 5.49997C11 5.05803 10.8244 4.63419 10.512 4.32164Z" fill="currentColor"></path></svg></span>
+                     </button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+<script>
+  function initProductguideForm() {
+    return {
+      showAddress: false,
+      errors: {},
+
+      toggleAddressFields(event) {
+        this.showAddress = event.target.checked;
+        // Clear address field errors when toggling
+        if (!this.showAddress) {
+          this.clearConditionalFieldErrors();
+        }
+      },
+
+      validateField(field) {
+        const name = field.name;
+        const value = field.value.trim();
+        const errorDiv = field.nextElementSibling;
+
+        if (!errorDiv || !errorDiv.classList.contains('error-message')) return;
+
+        errorDiv.textContent = '';
+
+        // Handle conditional fields (only validate if checkbox is checked)
+        if (field.dataset.validate?.includes('conditional')) {
+          if (!this.showAddress) {
+            delete this.errors[name];
+            return;
+          }
+          
+          if (!value) {
+            const msg = 'This is a required field.';
+            this.errors[name] = msg;
+            errorDiv.textContent = msg;
+            return;
+          }
+        }
+
+        // Handle required fields
+        if (field.dataset.validate?.includes('required') && !value) {
+          const msg = 'This is a required field.';
+          this.errors[name] = msg;
+          errorDiv.textContent = msg;
+          return;
+        }
+
+        // Validate email
+        if (field.type === 'email' && value && !this.validateEmail(value)) {
+          const msg = 'Please enter a valid email address (Ex: johndoe@domain.com).';
+          this.errors[name] = msg;
+          errorDiv.textContent = msg;
+          return;
+        }
+
+        delete this.errors[name];
+      },
+
+      clearConditionalFieldErrors() {
+        const conditionalFields = document.querySelectorAll('[data-validate*="conditional"]');
+        conditionalFields.forEach(field => {
+          const errorDiv = field.nextElementSibling;
+          if (errorDiv && errorDiv.classList.contains('error-message')) {
+            errorDiv.textContent = '';
+          }
+          delete this.errors[field.name];
+        });
+      },
+
+      validateRecaptcha() {
+        const recaptchaResponse = grecaptcha.getResponse();
+        const recaptchaErrorDiv = document.getElementById('recaptcha-error-message');
+
+        if (!recaptchaResponse) {
+          this.errors['recaptcha'] = 'Please verify that you are not a robot.';
+          if (recaptchaErrorDiv) {
+            recaptchaErrorDiv.textContent = this.errors['recaptcha'];
+          }
+          return false;
+        } else {
+          delete this.errors['recaptcha'];
+          if (recaptchaErrorDiv) {
+            recaptchaErrorDiv.textContent = '';
+          }
+          return true;
+        }
+      },
+
+      validateForm() {
+        const form = document.getElementById('productguide-form');
+        const fields = form.querySelectorAll('[data-validate]');
+        this.errors = {};
+
+        fields.forEach(field => this.validateField(field));
+
+        this.validateRecaptcha();
+
+        return Object.keys(this.errors).length === 0;
+      },
+
+      submitForm() {
+        if (this.validateForm()) {
+          document.getElementById('productguide-form').submit();
+        }
+      },
+
+      validateEmail(email) {
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return re.test(email);
+      }
+    };
+  }
+</script>
+<?php endif;?>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Dormant Processes</title>
+    </head>
+    <body>
+    	<referenceContainer name="page.main.actions" remove="true" />
+        <referenceContainer name="content">
+            <block class="Integration\Cron\Block\Adminhtml\Statistics" name="cron_statistics_grid"/>
+        </referenceContainer>
+        <referenceContainer name="admin.cron.statistics.grid"></referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+		<section id="productenquiry" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">           
+           <label>Request Quote Settings</label>
+            <tab>digital</tab>
+     		<resource>Digital_Productenquiry::productenquiry</resource>
+            <group id="view" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Request Quote Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Request Quote</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                 </field>
+             	 <field id="recipient_email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                     <label>Send Emails To</label>
+					 <validate>validate-email</validate>
+                 </field>
+			 	 <field id="email_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                      <label>Customer Email Template</label> 
+					  <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                 </field>
+                 <field id="admin_email" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                      <label>Admin Email Template</label> 
+					  <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                 </field>                 
+             </group>   
+		</section>     
+        <section id="rentthistoday" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">           
+           <label>Rent This Today Settings</label>
+            <tab>digital</tab>
+     		<resource>Digital_Productenquiry::productenquiry</resource>
+            <group id="rent_this_today_view" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Rent This Today Settings</label>
+                
+             	 <field id="rent_this_today_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                     <label>Rent This Today Form Url</label>
+                     <comment>please enter the Hubsport form url link this ex.https://share.hsforms.com/1pNLp7Gm7SbOb2KOx5zS9Ng4lbg9</comment>
+                 </field>        
+             </group>   
+		</section> 
+        </system>
+    </config>

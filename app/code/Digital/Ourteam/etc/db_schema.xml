@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="digital_ourteam" resource="default" engine="innodb" comment="Our Team">
+
+        <column xsi:type="int"
+                name="team_id"
+                unsigned="true"
+                nullable="false"
+                identity="true"
+                comment="Our Team Id"/>
+
+        <column xsi:type="varchar"
+                name="name"
+                nullable="true"
+                length="255"
+                comment="Name"/>
+
+        <column xsi:type="varchar"
+                name="designation"
+                nullable="true"
+                length="255"
+                comment="Designation"/>
+
+        <column xsi:type="text"
+                name="image"
+                nullable="true"
+                comment="Image"/>
+
+        <column xsi:type="text"
+                name="description"
+                nullable="false"
+                comment="Description"/>
+
+        <column xsi:type="varchar"
+                name="status"
+                nullable="true"
+                length="255"
+                comment="Status"/>
+
+        <column xsi:type="int"
+                name="sort_order"
+                unsigned="true"
+                nullable="true"
+                comment="Sort Order"/>
+
+        <column xsi:type="timestamp"
+                name="created_at"
+                nullable="false"
+                on_update="false"
+                comment="Created At"/>
+
+        <column xsi:type="timestamp"
+                name="updated_at"
+                nullable="false"
+                on_update="true"
+                comment="Updated At"/>
+
+        <constraint xsi:type="primary"
+                    referenceId="PRIMARY">
+            <column name="team_id"/>
+        </constraint>
+
+    </table>
+
+</schema>

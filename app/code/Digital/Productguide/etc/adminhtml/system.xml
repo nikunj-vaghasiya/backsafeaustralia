@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+		<tab id="digital" translate="label" sortOrder="9" class="digital-tab">
+            <label>23 Digital Settings</label>
+         </tab>
+		<section id="productguide" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Productguide</label>
+            <tab>digital</tab>
+			<resource>Digital_Productguide::productguide</resource>
+            <group id="view" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Productguide Setting</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Productguide</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="contact_sender_identity" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+    		 	<field id="email_template" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Email Template</label>
+    				<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="admin_email" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Email Template</label>
+    				<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="recipient_email" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Emails To</label>
+                    <comment>Add multiple Email address comma separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+                <field id="main_banner" translate="label" type="image" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Main Banner</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                        <upload_dir config="system/filesystem/media" scope_info="1">wysiwyg/enquiry</upload_dir>
+                        <base_url type="media" scope_info="1">wysiwyg/enquiry</base_url>
+                        <comment>Image Dimension: W1920px * H350px</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

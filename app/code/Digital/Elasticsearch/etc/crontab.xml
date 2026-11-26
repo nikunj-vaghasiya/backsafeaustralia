@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cron/etc/crontab.xsd">
+    <group id="default">
+        <job name="digital_elasticsearch_health_check"
+             instance="Digital\Elasticsearch\Cron\EsHealthCheck"
+             method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+    </group>
+</config>

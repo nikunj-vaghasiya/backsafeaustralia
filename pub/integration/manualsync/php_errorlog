@@ -1,0 +1,84 @@
+[16-May-2025 12:09:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:71
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(71): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 71
+[16-May-2025 12:29:52 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:71
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(71): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 71
+[16-May-2025 12:30:30 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:71
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(71): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 71
+[16-May-2025 12:35:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:73
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(73): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 73
+[16-May-2025 12:37:37 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:73
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(73): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 73
+[16-May-2025 12:39:25 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:73
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(73): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 73
+[19-May-2025 13:16:52 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:71
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(71): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 71
+[21-May-2025 10:09:18 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:71
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(71): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 71
+[21-May-2025 10:50:12 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php:71
+Stack trace:
+#0 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php(71): count(NULL)
+#1 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Product/Model/Dump/Process.php(133): Integration\Base\Model\HTTP\Client->apiGetRequest('https://nansupp...')
+#2 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(104): Integration\Product\Model\Dump\Process->runProcess()
+#3 /home/customer/www/nanupgrade.nansupplies.com.au/public_html/pub/integration/manualsync/run.php(22): runProcess('4', '1')
+#4 {main}
+  thrown in /home/customer/www/nanupgrade.nansupplies.com.au/public_html/app/code/Integration/Base/Model/HTTP/Client.php on line 71
+[17-Mar-2026 09:52:44 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/accounts/thinkingbigbusin/public_html/backsafe//app/bootstrap.php' (include_path='.:/usr/local/php83/pear') in /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/object_class.php:16
+Stack trace:
+#0 /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/manualsync/manualsync_base_class.php(14): include()
+#1 /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/manualsync/run.php(2): include('/home/customer/...')
+#2 {main}
+  thrown in /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/object_class.php on line 16
+[17-Mar-2026 10:04:06 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'home/customer/www/backsafeaustralia.com.au/public_html//app/bootstrap.php' (include_path='.:/usr/local/php83/pear') in /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/object_class.php:16
+Stack trace:
+#0 /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/manualsync/manualsync_base_class.php(14): include()
+#1 /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/manualsync/run.php(2): include('/home/customer/...')
+#2 {main}
+  thrown in /home/customer/www/backsafeaustralia.com.au/public_html/pub/integration/object_class.php on line 16

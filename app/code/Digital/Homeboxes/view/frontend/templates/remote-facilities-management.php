@@ -1,0 +1,130 @@
+<?php
+
+/**
+ * Remote Facilities Management - Subcategory Grid
+ *
+ * Renders active subcategories of category ID 168 in a Hyva-compatible
+ * flip-card grid. Uses Digital\Homeboxes\Helper\Data for data access.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Digital\Homeboxes\Helper\Data           $helper
+ */
+
+/** @var \Digital\Homeboxes\Helper\Data $helper */
+$helper     = $block->getData('helper')
+    ?? $this->helper(\Digital\Homeboxes\Helper\Data::class);
+
+$parentId   = 168; // Target parent category ID
+$buttonText = $helper->getButtonText() ?: __('View Range');
+
+// Thumbnail dimensions — adjust as needed
+$thumbWidth  = 400;
+$thumbHeight = 300;
+
+try {
+    $subcategories = $helper->getSubCategoriesByCategoryId($parentId);
+} catch (\Exception $e) {
+    $subcategories = [];
+}
+
+if (!$subcategories || !count($subcategories)) {
+    return; // Nothing to render — silent fail
+}
+?>
+
+<section class="safety-sol-section section-space industry_sub_main">
+    <div class="container">
+        <div class="gap grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-3 sl:grid-cols-3 text-center">
+
+            <?php foreach ($subcategories as $category): ?>
+                <?php
+                $categoryName = $block->escapeHtml($category->getName());
+                $categoryUrl  = $category->getUrl();
+
+                // Get thumbnail — falls back to full-size image if no thumbnail attr
+                $thumbUrl = $helper->getCategoryThumbnailResized($category, $thumbWidth, $thumbHeight);
+                // If resize fails (e.g. GD not available), fall back to raw URL
+                if (!$thumbUrl) {
+                    $thumbUrl = $helper->getCategoryThumbnailUrl($category);
+                }
+                // Final fallback — placeholder
+                $thumbUrl = $thumbUrl ?: $block->getViewFileUrl('Magento_Catalog::images/product/placeholder/image.jpg');
+                ?>
+
+                <figure class="safety-sol">
+                    <div class="flip-box-inner">
+                        <div class="flip-box-front">
+                            <a href="<?= $block->escapeUrl($categoryUrl) ?>" class="safety-sol-img" title="<?= $categoryName ?>">
+                                <picture>
+                                    <source srcset="<?= $block->escapeUrl($thumbUrl) ?>" media="(min-width: 1024px)">
+                                    <img src="<?= $block->escapeUrl($thumbUrl) ?>"
+                                        srcset="<?= $block->escapeUrl($thumbUrl) ?>"
+                                        alt="<?= $categoryName ?>"
+                                        loading="lazy">
+                                </picture>
+                            </a>
+                            <figcaption class="safety-sol-content">
+                                <h2 class="safety-sol-title">
+                                    <a href="<?= $block->escapeUrl($categoryUrl) ?>"
+                                        title="<?= $categoryName ?>">
+                                        <?= $categoryName ?>
+                                    </a>
+                                </h2>
+                                <div class="flex-center safety-sol-actions">
+                                    <a class="btn btn-primary product-atc-btn"
+                                        href="<?= $block->escapeUrl($categoryUrl) ?>"
+                                        title="View Range">
+                                        View Range <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M10.512 4.32164L6.93449 0.744141L5.75616 1.92247L8.50033 4.66664H0.166992V6.33331H8.50033L5.75616 9.07747L6.93449 10.2558L10.512 6.67831C10.8244 6.36576 11 5.94191 11 5.49997C11 5.05803 10.8244 4.63419 10.512 4.32164Z"
+                                                    fill="currentColor"></path>
+                                            </svg></span>
+                                    </a>
+                                </div>
+                            </figcaption>
+                            <!--<span class="card-shadow card-shadow-yellow"></span>-->
+                            <span class="card-shadow card-shadow-gray"></span>
+                        </div>
+                        <div class="flip-box-back">
+                            <a href="<?= $block->escapeUrl($categoryUrl) ?>"
+                                class="safety-sol-img" title="Workplace Safety">
+                                <picture>
+                                    <source srcset="<?= $block->escapeUrl($thumbUrl) ?>" media="(min-width: 1024px)">
+                                    <img src="<?= $block->escapeUrl($thumbUrl) ?>"
+                                        srcset="<?= $block->escapeUrl($thumbUrl) ?>"
+                                        alt="<?= $categoryName ?>"
+                                        loading="lazy">
+                                </picture>
+                            </a>
+                            <figcaption class="safety-sol-content">
+                                <h2 class="safety-sol-title">
+                                    <a href="<?= $block->escapeUrl($categoryUrl) ?>"
+                                        title="<?= $categoryName ?>">
+                                        <?= $categoryName ?>
+                                    </a>
+                                </h2>
+                                <div class="flex-center safety-sol-actions">
+                                    <a class="btn btn-primary product-atc-btn"
+                                        href="<?= $block->escapeUrl($categoryUrl) ?>"
+                                        title="View Range">
+                                        View Range <span><svg width="11" height="11" viewBox="0 0 11 11" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M10.512 4.32164L6.93449 0.744141L5.75616 1.92247L8.50033 4.66664H0.166992V6.33331H8.50033L5.75616 9.07747L6.93449 10.2558L10.512 6.67831C10.8244 6.36576 11 5.94191 11 5.49997C11 5.05803 10.8244 4.63419 10.512 4.32164Z"
+                                                    fill="currentColor"></path>
+                                            </svg></span>
+                                    </a>
+                                </div>
+                            </figcaption>
+                            <!--<span class="card-shadow card-shadow-yellow"></span>-->
+                            <span class="card-shadow card-shadow-gray"></span>
+                        </div>
+                    </div>
+                </figure>
+
+            <?php endforeach; ?>
+
+        </div>
+    </div>
+</section>

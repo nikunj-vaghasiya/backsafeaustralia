@@ -1,0 +1,116 @@
+<?php
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+?>
+
+<section class="home-brand-section section-space-sm bg-light border-b20"
+    x-data="initBrandsCarousel()"
+    x-defer="intersect"
+    x-init="calcPageSize(); autoPlayInt();"
+    x-ref="popularCategoryCarouselSection"
+    @resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })">
+    <div class="container">
+        <div class="relative brand-slider-container slider-wrapper">
+            <div class="relative flex row overflow-x-auto scroll-smooth transition-all js_slides snap" @scroll.debounce="calcActive">
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/fortescue-metals-group-logo.jpeg') ?>" alt="Fortescur" title="Fortescur">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/logo-miniral-resources.png') ?>" alt="Miniral Resources" title="Miniral Resources">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/sodexo-logo.png') ?>" alt="Sodexo" title="Sodexo">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/compass-group-logo.png') ?>" alt="Compass Group" title="Compass Group">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/logo-civeo.png') ?>" alt="Civeo" title="Civeo">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/iss-logo.png') ?>" alt="Iss" title="Iss">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/logo-rio-tinto.png') ?>" alt="Rio Tinto" title="Rio Tinto">
+                    </figure>
+                </div>
+                <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/logo-bhp.png') ?>" alt="BHP" title="BHP">
+                    </figure>
+                </div>
+                 <div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/ventia-logo.png') ?>" alt="Ventia" title="Ventia">
+                    </figure>
+                </div>
+                <!--<div class="flex shrink-0 w-6/12 xs:w-6/12 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 xxl:w-1/5 sl:w-1/5 flex-center hidden">
+                    <figure class="logo-item flex-center">
+                        <img src="<?= $this->getViewFileUrl('images/logo-alcoa.png') ?>" alt="Alcoa" title="Alcoa">
+                    </figure>
+                </div>-->
+               
+            </div>
+            <div class="slider_arrow absolute">
+                <template x-if="itemCount > pageSize">
+                    <nav class="flex items-center justify-between mt-8 lg:m-0">
+                        <button @click="scrollPrevious"
+                            :class="{ 'opacity-25 pointer-events-none': active === 0 }"
+                            aria-label="Previous"
+                            class="absolute prevslide">
+                            <?= $heroicons->chevronLeftHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+
+                        <button @click="scrollNext"
+                            :class="{ 'opacity-25 pointer-events-none': active >= itemCount - pageSize }"
+                            aria-label="Next"
+                            class="absolute nextslide">
+                            <?= $heroicons->chevronRightHtml("w-9 h-9", 25, 25, ['aria-hidden' => 'true']) ?>
+                        </button>
+                    </nav>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    'use strict';
+
+    function initBrandsCarousel() {
+        return {
+            ...window.carouselHandler,
+            active: 0,
+            itemCount: 0,
+            pageSize: 3,
+            pageFillers: 0,
+            autoPlay: true,
+            sliderRef: 'popularCategoryCarouselSection',
+        }
+    }
+</script>

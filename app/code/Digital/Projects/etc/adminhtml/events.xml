@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_digital_projects_save_entity_before">
+        <observer name="processingImageUpload" instance="Digital\Projects\Observer\ProcessingImageUpload"/>
+    </event>
+    <event name="digital_projects_delete_commit_after">
+        <observer name="deleteImageUpload" instance="Digital\Projects\Observer\CheckImageUploaded"/>
+    </event>
+    <event name="digital_projects_save_commit_after">
+        <observer name="checkingRedundantImageUpload" instance="Digital\Projects\Observer\CheckImageUploaded"/>
+    </event>
+</config>

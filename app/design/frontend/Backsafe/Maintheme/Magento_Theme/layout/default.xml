@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Hyvä Themes - https://hyva.io
+ * Copyright © Hyvä Themes 2020-present. All rights reserved.
+ * This product is licensed per Magento install
+ * See https://hyva.io/license
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <remove src='Mageplaza_Blog::css/hyvaBlog.css'/>
+        <css src="css/fonts.css"/>
+    </head>
+    <body>
+        <referenceContainer name="footer" htmlClass="footer content bg-secondary">
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="hubspot.chat.delay"
+                   template="Magento_Theme::hubspot-chat.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="sticky.header.script" template="Magento_Theme::js/sticky-header.phtml"/>
+            <block name="scroll.to.top" template="Magento_Theme::scroll-to-top.phtml">
+                <arguments>
+                    <argument name="position" xsi:type="string">start</argument>
+                    <argument name="visible_offset" xsi:type="number">200</argument>
+                    <argument name="visible_only_to_top" xsi:type="boolean">false</argument>
+                    <argument name="hide_on_inactivity" xsi:type="number">0</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" name="global-slider-script" template="Magento_Theme::js/global-slider-script.phtml" />
+            <block name="alpine-plugin-htmldialog" template="Magento_Theme::page/js/plugins/htmldialog.phtml"/>
+            <block name="alpine-plugin-snap-slider" template="Magento_Theme::page/js/plugins/snap-slider.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="topmenu_desktop">
+            <arguments>
+                <argument name="open_top_level_menu_on_hover" xsi:type="boolean">true</argument> <!-- Also open on hover (true/false)-->
+                <argument name="max_level" xsi:type="number">4</argument> <!-- Max Menu depth to show -->
+                <argument name="top_menu_cta_item" xsi:type="string" translate="true">Sale</argument> <!-- top Menu Item to Highlight -->
+            </arguments>
+            <block
+                name="topmenu_desktop_item"
+                template="Magento_Theme::html/header/menu/desktop-item.phtml"
+            />
+        </referenceBlock>
+        <referenceBlock name="topmenu_mobile">
+            <block name="topmenu_mobile_item" template="Magento_Theme::html/header/menu/mobile-item.phtml"/>
+            <arguments>
+                <argument name="max_level" xsi:type="number">2</argument> <!-- Max Menu depth to show -->
+                <argument name="show_search" xsi:type="boolean">false</argument> <!-- Show Search (true/false) -->
+                <argument name="show_socials" xsi:type="boolean">false</argument> <!-- Show Social Icons (true/false) -->
+                <argument name="show_settings_nav" xsi:type="boolean">false</argument> <!-- Show Settings Nav (true/false) -->
+
+                <argument name="additional_menu_items" xsi:type="array">
+                    <item name="industries" xsi:type="array">
+                        <item name="url" xsi:type="string">industries</item>
+                        <item name="name" xsi:type="string" translate="true">Industries</item>
+                        <item name="id" xsi:type="string">industries</item>
+                        <item name="childData" xsi:type="array">
+                            <item name="facilities-management" xsi:type="array">
+                                <item name="url" xsi:type="string">remote-facilities-management-solutions</item>
+                                <item name="name" xsi:type="string" translate="true">Facilities Management</item>
+                                <item name="id" xsi:type="string">industries-facilities-management</item>
+                            </item>
+                            <item name="mining" xsi:type="array">
+                                <item name="url" xsi:type="string">mining-solutions</item>
+                                <item name="name" xsi:type="string" translate="true">Mining</item>
+                                <item name="id" xsi:type="string">mining-solutions</item>
+                            </item>
+                            <item name="warehousing" xsi:type="array">
+                                <item name="url" xsi:type="string">warehousing</item>
+                                <item name="name" xsi:type="string" translate="true">Warehousing</item>
+                                <item name="id" xsi:type="string">industries-warehousing</item>
+                            </item>
+                            <item name="healthcare" xsi:type="array">
+                                <item name="url" xsi:type="string">healthcare</item>
+                                <item name="name" xsi:type="string" translate="true">Healthcare</item>
+                                <item name="id" xsi:type="string">industries-healthcare</item>
+                            </item>
+                            <item name="defence" xsi:type="array">
+                                <item name="url" xsi:type="string">defence</item>
+                                <item name="name" xsi:type="string" translate="true">Defence</item>
+                                <item name="id" xsi:type="string">industries-defence</item>
+                            </item>
+                            <item name="government" xsi:type="array">
+                                <item name="url" xsi:type="string">government</item>
+                                <item name="name" xsi:type="string" translate="true">Government</item>
+                                <item name="id" xsi:type="string">industries-government</item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="resources" xsi:type="array">
+                        <item name="url" xsi:type="string">resources</item>
+                        <item name="name" xsi:type="string" translate="true">Resources</item>
+                        <item name="id" xsi:type="string">resources</item>
+                        <item name="childData" xsi:type="array">
+                            <item name="catalogue-downloads" xsi:type="array">
+                                <item name="url" xsi:type="string">resources/catalogue-downloads</item>
+                                <item name="name" xsi:type="string" translate="true">Catalogue Downloads</item>
+                                <item name="id" xsi:type="string">catalogue-downloads</item>
+                            </item>
+                            <item name="catalogue-videos" xsi:type="array">
+                                <item name="url" xsi:type="string">resources/videos</item>
+                                <item name="name" xsi:type="string" translate="true">Videos</item>
+                                <item name="id" xsi:type="string">videos</item>
+                            </item>
+                            <item name="for-hire" xsi:type="array">
+                                <item name="url" xsi:type="string">for-hire</item>
+                                <item name="name" xsi:type="string" translate="true">For Hire</item>
+                                <item name="id" xsi:type="string">resources-for-hire</item>
+                            </item>
+                            <item name="news" xsi:type="array">
+                                <item name="url" xsi:type="string">news</item>
+                                <item name="name" xsi:type="string" translate="true">News</item>
+                                <item name="id" xsi:type="string">resources-news</item>
+                            </item>
+                            <item name="projects" xsi:type="array">
+                                <item name="url" xsi:type="string">projects</item>
+                                <item name="name" xsi:type="string" translate="true">Projects</item>
+                                <item name="id" xsi:type="string">resources-projects</item>
+                            </item>
+                            <item name="warranty" xsi:type="array">
+                                <item name="url" xsi:type="string">warranty</item>
+                                <item name="name" xsi:type="string" translate="true">Warranty</item>
+                                <item name="id" xsi:type="string">resources-warranty</item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="about-us" xsi:type="array">
+                        <item name="url" xsi:type="string">about-us</item>
+                        <item name="name" xsi:type="string" translate="true">About Us</item>
+                        <item name="id" xsi:type="string">about-us</item>
+                        <item name="childData" xsi:type="array">
+                            <item name="our-team" xsi:type="array">
+                                <item name="url" xsi:type="string">our-team</item>
+                                <item name="name" xsi:type="string" translate="true">Our Team</item>
+                                <item name="id" xsi:type="string">about-us-our-team</item>
+                            </item>
+                        </item>
+                    </item>
+                    <item name="contact-us" xsi:type="array">
+                        <item name="url" xsi:type="string">contact-us</item>
+                        <item name="name" xsi:type="string" translate="true">Contact</item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <move element="topmenu_mobile" destination="header-content" after="-"/>
+        <referenceBlock name="footer-content">
+            <block class="Magento\Newsletter\Block\Subscribe" name="footer.newsletter" as="footer.newsletter" template="Magento_Newsletter::subscribe.phtml" ifconfig="newsletter/general/active">
+                <arguments>
+                    <argument name="button_lock_manager" xsi:type="object">Magento\Framework\View\Element\ButtonLockManager</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="footer.headquarters">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_headquarters</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="footer.call.us">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_call_us</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="footer.email.us">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_email_us</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="footer.products.links">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_products_links</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="footer.industries.links">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_industries_links</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="footer.support.links">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer_support_links</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+            
+        <referenceBlock name="footer-static-links" remove="true" />
+        <referenceBlock name="form.subscribe" remove="true"/>
+    </body>
+</page>
