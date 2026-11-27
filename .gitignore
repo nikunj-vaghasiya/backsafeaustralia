@@ -68,6 +68,7 @@ atlassian*
 /generated/*
 !/generated/.htaccess
 .DS_Store
+/pub/php_errorlog
 
 
 
